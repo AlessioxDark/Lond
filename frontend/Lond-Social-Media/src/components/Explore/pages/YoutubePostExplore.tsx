@@ -12,7 +12,10 @@ import {
 import { useState } from 'react';
 import videoEx from '../../../assets/videoEx.mp4';
 import PostHeader from '../../post/utils/PostHeader';
+import ReactionsBar from '../../post/utils/Reactions/ReactionsBar';
+import ReactIconExplore from '../utils/ReactIconExplore';
 import SocialIconExplore from '../utils/SocialIconExplore';
+import SocialIconsExploreFullRow from '../utils/SocialIconsExploreFullRow';
 import VideoPlayerExplore from '../utils/VideoPlayerExplore';
 interface YoutubePostExploreProps {
 	name: string;
@@ -40,23 +43,24 @@ export default function YoutubePostExplore({
 	isViral,
 	isVerified,
 }: YoutubePostExploreProps) {
-	const [isHovered, setIsHovered] = useState(false);
-
-	// Funzione per formattare i numeri (1200 -> 1.2K)
-	const formatNumber = (num: number) => {
-		if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`;
-		if (num >= 1000) return `${(num / 1000).toFixed(1)}K`;
-		return num.toString();
-	};
-
+	const [isLiked, setIsLiked] = useState(false);
+	const [isSaved, setIsSaved] = useState(false);
+	const [isComments, setIsComments] = useState(false);
+	const [isShared, setIsShared] = useState(false);
+	const [userReaction, setUserReaction] = useState('');
+	const [reactions, setReactions] = useState([
+		{ emoji: '🔥', count: 23, label: 'Fantastico' },
+		{ emoji: '💪', count: 15, label: 'Forte' },
+		{ emoji: '👏', count: 8, label: 'Applausi' },
+		{ emoji: '😍', count: 6, label: 'Amore' },
+		{ emoji: '🚀', count: 4, label: 'Incredibile' },
+		{ emoji: '💯', count: 3, label: 'Perfetto' },
+		{ emoji: '⚡', count: 2, label: 'Energico' },
+		{ emoji: '🎯', count: 1, label: 'Centrato' },
+	]);
 	return (
 		<motion.div
-			className="relative overflow-hidden rounded-3xl transition-all duration-300 cursor-pointer backdrop-blur-sm hover:shadow-xl shadow-lg  hover:shadow-slate-900/25  bg-slate-800/90
-
-                 
-                 "
-			onMouseEnter={() => setIsHovered(true)}
-			onMouseLeave={() => setIsHovered(false)}
+			className="relative overflow-hidden rounded-3xl transition-all duration-300 cursor-pointer backdrop-blur-sm hover:shadow-xl shadow-lg  hover:shadow-slate-900/25   bg-slate-800/90"
 			whileHover={{ y: -2 }}
 			layout
 		>
@@ -86,31 +90,59 @@ export default function YoutubePostExplore({
 				<p className="text-slate-300 text-xs line-clamp-2 mb-3 leading-relaxed">
 					{desc}
 				</p>
-
-				{/* Stats compatte */}
-				<div className="flex items-center justify-between text-xs">
-					<div className="flex items-center gap-3 text-slate-400">
-						<SocialIconExplore Icon={Heart} count={0} />
-						<SocialIconExplore Icon={MessageCircle} count={0} />
-						<SocialIconExplore Icon={Bookmark} count={0} />
-
-						<SocialIconExplore Icon={Share} count={0} />
-						{/* <div className="flex items-center gap-1">
-							<Heart size={15} />
-							<span>{formatNumber(likes)}</span>
-						</div>
-						<div className="flex items-center gap-1">
-							<MessageCircle size={15} />
-							<span>{formatNumber(comments)}</span>
-						</div>
-						<div className="flex items-center gap-1">
-							<Share size={15} />
-							<span>{formatNumber(comments * 0.3)}</span>
-						</div> */}
-					</div>
-
-					{/* YouTube logo */}
+				<div className="mb-3">
+					<ReactionsBar reactions={reactions} />
 				</div>
+				{/* Stats compatte */}
+				{/* <div className="flex items-center justify-between text-xs">
+					<div className="flex items-center gap-3 text-slate-400">
+						<SocialIconExplore
+							isActive={isLiked}
+							onClick={() => {
+								setIsLiked(!isLiked);
+							}}
+							Icon={Heart}
+							count={0}
+						/>
+						<SocialIconExplore
+							isActive={isComments}
+							onClick={() => {
+								setIsComments(!isComments);
+							}}
+							Icon={MessageCircle}
+							count={0}
+						/>
+						<SocialIconExplore
+							isActive={isSaved}
+							onClick={() => {
+								setIsSaved(!isSaved);
+							}}
+							Icon={Bookmark}
+							count={0}
+						/>
+						<ReactIconExplore
+							reactions={reactions}
+							setReactions={setReactions}
+							userReaction={userReaction}
+							setUserReaction={setUserReaction}
+						/>
+						<SocialIconExplore Icon={Share} count={0} />
+					</div>
+				</div> */}
+				<SocialIconsExploreFullRow
+					isComments={isComments}
+					setIsComments={setIsComments}
+					isSaved={isSaved}
+					setIsSaved={setIsSaved}
+					isLiked={isLiked}
+					setIsLiked={setIsLiked}
+					reactions={reactions}
+					setReactions={setReactions}
+					userReaction={userReaction}
+					setUserReaction={setUserReaction}
+					isShared={isShared}
+					setIsShared={setIsShared}
+				/>
 			</div>
 
 			{/* Hover overlay con azioni rapide */}

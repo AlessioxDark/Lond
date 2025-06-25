@@ -210,10 +210,10 @@ const PostComponents = {
 		/>
 	),
 	Instagram: ({ post }) => (
-		<InstagramPost
+		<InstagramPostExplore
 			pfp={pfp}
 			comments={0}
-			images={[post1]}
+			images={[post1, post1, post1]}
 			title="Dybala"
 			isViral={true}
 			isVerified={false}
@@ -246,7 +246,7 @@ const PostComponents = {
 		/>
 	),
 	Londies: ({ post }) => (
-		<LondiesPost
+		<LondiesPostExplore
 			comments={0}
 			title="Dyabala"
 			pfp={pfp}

@@ -1,32 +1,87 @@
+import { motion } from 'framer-motion';
+import { Bookmark, Heart, MessageCircle, Share } from 'lucide-react';
+import { useState } from 'react';
 import pfp from '../../../assets/pfp.png';
 import PostHeader from '../../post/utils/PostHeader';
+import ReactionsBar from '../../post/utils/Reactions/ReactionsBar';
+import LondiesPlayerExplore from '../utils/LondiesPlayerExplore';
+import ReactIconExplore from '../utils/ReactIconExplore';
+import SocialIconExplore from '../utils/SocialIconExplore';
+import SocialIconsExploreFullRow from '../utils/SocialIconsExploreFullRow';
 interface LondiesPostProps {
 	post: any;
 }
-const LondiesPostExplore = ({ post }: LondiesPostProps) => {
+const LondiesPostExplore = ({
+	pfp,
+	comments,
+	images,
+	title,
+	isViral,
+	isVerified,
+	repost,
+	name,
+	likes,
+	saved,
+	desc,
+	handle,
+	createdAt,
+}: any) => {
+	const [isLiked, setIsLiked] = useState(false);
+	const [isComments, setIsComments] = useState(false);
+	const [isShared, setIsShared] = useState(false);
+
+	const [isSaved, setIsSaved] = useState(false);
+	const [userReaction, setUserReaction] = useState('');
+
+	const [reactions, setReactions] = useState([
+		{ emoji: '🔥', count: 23, label: 'Fantastico' },
+		{ emoji: '💪', count: 15, label: 'Forte' },
+		{ emoji: '👏', count: 8, label: 'Applausi' },
+		{ emoji: '😍', count: 6, label: 'Amore' },
+		{ emoji: '🚀', count: 4, label: 'Incredibile' },
+		{ emoji: '💯', count: 3, label: 'Perfetto' },
+		{ emoji: '⚡', count: 2, label: 'Energico' },
+		{ emoji: '🎯', count: 1, label: 'Centrato' },
+	]);
 	return (
-		<div className="bg-slate-800/40 rounded-2xl p-4 border border-slate-700/30 backdrop-blur-sm">
+		<motion.div
+			className="relative overflow-hidden rounded-3xl transition-all duration-300 cursor-pointer backdrop-blur-sm hover:shadow-xl shadow-lg  hover:shadow-slate-900/25   bg-slate-800/90 p-4"
+			whileHover={{ y: -2 }}
+		>
 			<PostHeader
+				size="sm"
 				createdAt={new Date()}
-				name="Alessio Quaranta"
+				name={name}
 				pfp={pfp}
-				isVerified={false}
-				handle="alessio40"
-				isViral={false}
+				isVerified={isVerified}
+				handle={handle}
+				isViral={isViral}
 			/>
-			<div className="aspect-[4/3] bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl mb-3 relative overflow-hidden">
-				<div className="absolute inset-0 bg-black/20" />
-				{post.duration && (
-					<div className="absolute bottom-2 right-2 bg-black/70 px-2 py-1 rounded text-xs text-white">
-						{post.duration}
-					</div>
-				)}
+			<div className=" mb-3">
+				<LondiesPlayerExplore isLiked={isLiked} setIsLiked={setIsLiked} />
 			</div>
-			<h4 className="text-slate-100 font-medium text-sm mb-1">{post.title}</h4>
-			<p className="text-slate-400 text-xs">
-				{(post.views / 1000000).toFixed(1)}M views
-			</p>
-		</div>
+			<div className="mb-3">
+				<ReactionsBar reactions={reactions} />
+			</div>
+			<div className="mb-3">
+				<h4 className="text-slate-100 font-medium text-sm mb-1">{title}</h4>
+				<p className="text-xs text-slate-200">{desc}</p>
+			</div>
+			<SocialIconsExploreFullRow
+				isComments={isComments}
+				setIsComments={setIsComments}
+				isSaved={isSaved}
+				setIsSaved={setIsSaved}
+				isLiked={isLiked}
+				setIsLiked={setIsLiked}
+				reactions={reactions}
+				setReactions={setReactions}
+				userReaction={userReaction}
+				setUserReaction={setUserReaction}
+				isShared={isShared}
+				setIsShared={setIsShared}
+			/>
+		</motion.div>
 	);
 };
 

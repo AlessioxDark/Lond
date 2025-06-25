@@ -8,9 +8,61 @@ interface Reaction {
 	emoji: string;
 	count: number;
 	label: string;
+	size?: 'sm' | 'md' | 'lg' | 'xl';
 }
 
 const ReactionsBar = React.memo(({ reactions, userReaction }: any) => {
+	const sizeConfig = {
+		sm: {
+			container: 'gap-2 mb-3',
+			avatar: 'w-8 h-8',
+			nameText: 'text-sm font-semibold',
+			handleText: 'text-xs',
+			verifiedIcon: 14,
+			trendingIcon: 10,
+			viralPadding: 'px-1.5 py-0.5',
+			viralText: 'text-xs',
+			moreIcon: 16,
+			buttonPadding: 'p-1.5',
+		},
+		md: {
+			container: 'gap-3 mb-4',
+			avatar: 'w-11 h-11',
+			nameText: 'text-base font-bold',
+			handleText: 'text-sm',
+			verifiedIcon: 16,
+			trendingIcon: 12,
+			viralPadding: 'px-2 py-0.5',
+			viralText: 'text-xs',
+			moreIcon: 18,
+			buttonPadding: 'p-2',
+		},
+		lg: {
+			container: 'gap-4 mb-5',
+			avatar: 'w-14 h-14',
+			nameText: 'text-lg font-bold',
+			handleText: 'text-base',
+			verifiedIcon: 18,
+			trendingIcon: 14,
+			viralPadding: 'px-3 py-1',
+			viralText: 'text-sm',
+			moreIcon: 20,
+			buttonPadding: 'p-2.5',
+		},
+		xl: {
+			container: 'gap-5 mb-6',
+			avatar: 'w-16 h-16',
+			nameText: 'text-xl font-bold',
+			handleText: 'text-lg',
+			verifiedIcon: 20,
+			trendingIcon: 16,
+			viralPadding: 'px-4 py-1.5',
+			viralText: 'text-sm',
+			moreIcon: 22,
+			buttonPadding: 'p-3',
+		},
+	};
+
 	const [isOpen, setIsOpen] = useState(false);
 	const totalReactions = useMemo(
 		() => reactions.reduce((sum: number, r: Reaction) => sum + r.count, 0),

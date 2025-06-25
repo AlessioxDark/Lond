@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Bookmark, Heart, Repeat2, Share } from 'lucide-react';
+import { Bookmark, Heart, MessageCircle, Repeat2, Share } from 'lucide-react';
 import { useState } from 'react';
 import {
 	cardVariants,
@@ -9,6 +9,9 @@ import PostHeader from '../../post/utils/PostHeader';
 import ReactIcon from '../../post/utils/Reactions/ReactIcon';
 import ReactionsBar from '../../post/utils/Reactions/ReactionsBar';
 import SocialIcon from '../../post/utils/SocialIcon';
+import ReactIconExplore from '../utils/ReactIconExplore';
+import SocialIconExplore from '../utils/SocialIconExplore';
+import SocialIconsExploreFullRow from '../utils/SocialIconsExploreFullRow';
 
 // Enhanced interfaces
 interface TwitterPostExploreProps {
@@ -50,6 +53,7 @@ export default function TwitterPostExplore({
 	const [isLiked, setIsLiked] = useState(false);
 	const [isRetweeted, setIsRetweeted] = useState(false);
 	const [isSaved, setIsSaved] = useState(false);
+	const [isShared, setIsShared] = useState(false);
 	const [userReaction, setUserReaction] = useState('');
 
 	const [reactions, setReactions] = useState<Reaction[]>([
@@ -73,6 +77,7 @@ export default function TwitterPostExplore({
 			aria-labelledby={`post-${id}-author`}
 			animate="animate"
 			initial="initial"
+			whileHover={{ y: -2 }}
 		>
 			{/* Enhanced Header */}
 			<motion.div className="relative z-10">
@@ -89,7 +94,7 @@ export default function TwitterPostExplore({
 
 			{/* Enhanced Content with media type indicator */}
 			<motion.div className={`mb-2 relative z-10 opacity-100`}>
-				<p className="text-slate-100 text-sm leading-relaxed font-normal whitespace-pre-wrap tracking-wide">
+				<p className="text-slate-100 text-[0.80rem] leading-relaxed font-normal whitespace-pre-wrap tracking-wide">
 					{text}
 				</p>
 			</motion.div>
@@ -102,69 +107,21 @@ export default function TwitterPostExplore({
 			</motion.div>
 
 			{/* Enhanced Actions Bar */}
-			<motion.div className="flex items-center justify-between border-t border-slate-600/30 pt-2 relative z-10">
-				<div className="flex items-center gap-2">
-					{/* Enhanced Social Icons with hover effects */}
-					<motion.div whileTap={{ scale: 0.95 }}>
-						<SocialIcon
-							icon={Heart}
-							isActive={isLiked}
-							onClick={() => {
-								setIsLiked(!isLiked);
-							}}
-							count={likes}
-							label="Mi piace"
-						/>
-					</motion.div>
-
-					<motion.div whileTap={{ scale: 0.95 }}>
-						<SocialIcon
-							icon={Repeat2}
-							isActive={isRetweeted}
-							onClick={() => {
-								setIsRetweeted(!isRetweeted);
-							}}
-							count={retweets}
-							label="Retweet"
-						/>
-					</motion.div>
-
-					<motion.div whileTap={{ scale: 0.95 }}>
-						<SocialIcon
-							icon={Bookmark}
-							isActive={isSaved}
-							onClick={() => setIsSaved((prev) => !prev)}
-							count={saved}
-							label="Salva"
-						/>
-					</motion.div>
-
-					{/* Enhanced React Icon */}
-					<ReactIcon
-						userReaction={userReaction}
-						setReactions={setReactions}
-						setUserReaction={setUserReaction}
-						reactions={reactions}
-					/>
-				</div>
-
-				{/* Enhanced Share Button */}
-				<motion.button
-					onClick={(e) => {
-						e.stopPropagation();
-						navigator.share?.({
-							title: `Post di ${name}`,
-							text: text,
-							url: window.location.href,
-						});
-					}}
-					className="group p-3 rounded-full"
-					aria-label="Condividi post"
-					whileTap={{ scale: 0.95 }}
-				>
-					<Share size={16} className="text-slate-400 " />
-				</motion.button>
-			</motion.div>
+			<SocialIconsExploreFullRow
+				isRetweeted={isRetweeted}
+				setIsRetweeted={setIsRetweeted}
+				isSaved={isSaved}
+				setIsSaved={setIsSaved}
+				isTwitter={true}
+				isLiked={isLiked}
+				setIsLiked={setIsLiked}
+				reactions={reactions}
+				setReactions={setReactions}
+				userReaction={userReaction}
+				setUserReaction={setUserReaction}
+				isShared={isShared}
+				setIsShared={setIsShared}
+			/>
 		</motion.article>
 	);
 }

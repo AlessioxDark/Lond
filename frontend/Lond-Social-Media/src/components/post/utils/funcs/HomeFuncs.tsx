@@ -89,4 +89,6 @@ export const cardVariants = {
 };
 
 export const postContainerStyles =
-	' relative group overflow-hidden rounded-3xl transition-all duration-500 cursor-pointer backdrop-blur-sm  p-6 hover:shadow-xl shadow-lg  hover:shadow-slate-900/25  bg-slate-800/90';
+	' relative group overflow-hidden rounded-3xl transition-all duration-500 cursor-pointer backdrop-blur-sm  p-6 hover:shadow-xl shadow-lg  hover:shadow-slate-900/25  bg-slate-800/90 ';
+
+// border-2 border-slate-500
