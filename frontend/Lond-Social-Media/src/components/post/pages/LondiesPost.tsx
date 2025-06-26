@@ -89,23 +89,16 @@ const LondiesPost = ({
 							/>
 
 							<SocialIcon
-								icon={Share}
-								isActive={isReposted}
-								onClick={() => setIsReposted(!isReposted)}
-								count={repost}
+								icon={MessageCircle}
+								isActive={isComments}
+								onClick={() => setIsComments(!isComments)}
+								count={comments}
 							/>
-
 							<SocialIcon
 								icon={Bookmark}
 								isActive={isSaved}
 								onClick={() => setIsSaved(!isSaved)}
 								count={saved}
-							/>
-							<SocialIcon
-								icon={MessageCircle}
-								isActive={isComments}
-								onClick={() => setIsComments(!isComments)}
-								count={comments}
 							/>
 
 							<ReactIcon
@@ -113,6 +106,12 @@ const LondiesPost = ({
 								setReactions={setReactions}
 								setUserReaction={setUserReaction}
 								reactions={reactions}
+							/>
+							<SocialIcon
+								icon={Share}
+								isActive={isReposted}
+								onClick={() => setIsReposted(!isReposted)}
+								count={repost}
 							/>
 						</div>
 						<div className="">

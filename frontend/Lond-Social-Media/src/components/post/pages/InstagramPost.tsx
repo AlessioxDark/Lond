@@ -183,10 +183,10 @@ export default function InstagramPost({
 							/>
 
 							<SocialIcon
-								icon={Share}
-								isActive={isReposted}
-								onClick={() => setIsReposted(!isReposted)}
-								count={repost}
+								icon={MessageCircle}
+								isActive={isComments}
+								onClick={() => setIsComments(!isComments)}
+								count={comments}
 							/>
 
 							<SocialIcon
@@ -195,18 +195,18 @@ export default function InstagramPost({
 								onClick={() => setIsSaved(!isSaved)}
 								count={saved}
 							/>
-							<SocialIcon
-								icon={MessageCircle}
-								isActive={isComments}
-								onClick={() => setIsComments(!isComments)}
-								count={comments}
-							/>
 
 							<ReactIcon
 								userReaction={userReaction}
 								setReactions={setReactions}
 								setUserReaction={setUserReaction}
 								reactions={reactions}
+							/>
+							<SocialIcon
+								icon={Share}
+								isActive={isReposted}
+								onClick={() => setIsReposted(!isReposted)}
+								count={repost}
 							/>
 						</div>
 						{/* Reactions Bar */}

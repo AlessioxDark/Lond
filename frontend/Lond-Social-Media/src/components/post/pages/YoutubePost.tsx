@@ -60,7 +60,7 @@ export default function YoutubePost({
 
 	return (
 		<motion.div
-			className={`${postContainerStyles}`}
+			className={`${postContainerStyles} `}
 			role="article"
 			aria-labelledby={`post-author`}
 			variants={cardVariants}
@@ -102,10 +102,10 @@ export default function YoutubePost({
 						count={likes}
 					/>
 					<SocialIcon
-						icon={Share}
-						isActive={isReposted}
-						onClick={() => setIsReposted(!isReposted)}
-						count={repost}
+						icon={MessageCircle}
+						isActive={isComments}
+						onClick={() => setIsComments(!isComments)}
+						count={comments}
 					/>
 					<SocialIcon
 						icon={Bookmark}
@@ -113,18 +113,18 @@ export default function YoutubePost({
 						onClick={() => setIsSaved(!isSaved)}
 						count={saved}
 					/>
-					<SocialIcon
-						icon={MessageCircle}
-						isActive={isComments}
-						onClick={() => setIsComments(!isComments)}
-						count={comments}
-					/>
 
 					<ReactIcon
 						userReaction={userReaction}
 						setReactions={setReactions}
 						setUserReaction={setUserReaction}
 						reactions={reactions}
+					/>
+					<SocialIcon
+						icon={Share}
+						isActive={isReposted}
+						onClick={() => setIsReposted(!isReposted)}
+						count={repost}
 					/>
 				</div>
 

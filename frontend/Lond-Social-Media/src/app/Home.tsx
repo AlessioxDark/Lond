@@ -76,10 +76,30 @@ export default function Home() {
 	useEffect(() => {
 		console.log(storyIndex);
 	}, [storyIndex]);
+	const containerVariants = {
+		hidden: { opacity: 0 },
+		visible: {
+			opacity: 1,
+			transition: { staggerChildren: 0.1 },
+		},
+	};
+	const itemVariants = {
+		hidden: { y: 20, opacity: 0 },
+		visible: {
+			y: 0,
+			opacity: 1,
+			transition: { duration: 0.6, ease: 'easeOut' },
+		},
+	};
 	return (
 		<div className="w-[85%] flex flex-col items-center">
-			<div className="w-[65%] flex flex-col justify-center items-center ">
-				<div className="relative w-full">
+			<motion.div
+				className="w-[65%] flex flex-col justify-center items-center "
+				initial="hidden"
+				animate="visible"
+				variants={containerVariants}
+			>
+				<motion.div className="relative w-full" variants={itemVariants}>
 					<motion.button
 						onClick={() => {
 							setStoryIndex((prevIndex) =>
@@ -124,8 +144,11 @@ border-2 border-slate-600 flex items-center justify-center transition-all durati
 					>
 						<ChevronLeft size={24} />
 					</motion.button>
-				</div>
-				<div className="flex h-full w-full flex-col mt-8 items-center gap-4">
+				</motion.div>
+				<motion.div
+					className="flex h-full w-full flex-col mt-8 items-center gap-4"
+					variants={itemVariants}
+				>
 					<TwitterPost
 						id={'abc'}
 						pfp={pfp}
@@ -184,8 +207,8 @@ border-2 border-slate-600 flex items-center justify-center transition-all durati
 						handle={'@alessio40'}
 						createdAt={new Date()}
 					/>
-				</div>
-			</div>
+				</motion.div>
+			</motion.div>
 		</div>
 	);
 }
