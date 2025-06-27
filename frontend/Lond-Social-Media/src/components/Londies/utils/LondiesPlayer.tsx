@@ -2,11 +2,18 @@ import styled from '@emotion/styled';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
+import { Bookmark, Heart, MessageCircle, Share } from 'lucide-react';
 import { CgSpinner } from 'react-icons/cg';
 import { FaPlay } from 'react-icons/fa';
 import { FaVolumeHigh, FaVolumeLow, FaVolumeXmark } from 'react-icons/fa6';
 import { VscDebugRestart } from 'react-icons/vsc';
 import { handleVideoClick } from '../../post/utils/funcs/HomeFuncs';
+import SocialIcon from '../../post/utils/SocialIcon';
+import LondiesPlayerDescription from './LondiesPlayerDescription';
+import LondiesPlayerPlayButton from './LondiesPlayerPlayButton';
+import LondiesPlayerSoundInfo from './LondiesPlayerSoundInfo';
+import LondiesPlayerUserInfo from './LondiesPlayerUserInfo';
+import LondiesSocialIcon from './LondiesSocialIcon';
 const Video = styled.video`
 	flex-shrink: 1;
 	height: 100%;
@@ -17,34 +24,51 @@ const Video = styled.video`
 	position: relative;
 `;
 interface LondiesPlayerProps {
-	isLiked: boolean;
-	setIsLiked: Function;
+	currentVideoIndex: number;
+	index: number;
 	src: string;
+	name: string;
+	pfp: string;
+	desc: string;
 }
-const LondiesPlayer = ({ isLiked, setIsLiked, src }: LondiesPlayerProps) => {
+const LondiesPlayer = ({
+	index,
+	currentVideoIndex,
+	src,
+	pfp,
+	desc,
+	name,
+}: LondiesPlayerProps) => {
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [isWaiting, setIsWaiting] = useState(false);
+	const [isShared, setIsShared] = useState(false);
+	const [isLiked, setIsLiked] = useState(false);
+	const [isComments, setIsComments] = useState(false);
+	const [isSaved, setIsSaved] = useState(false);
 	const [time, setTime] = useState({ min: '00', sec: '00', h: '00' });
-	const [volumeIcon, setVolumeIcon] = useState<React.ReactNode>(
-		<FaVolumeHigh
-			className=" text-lg group/volume"
-			style={{
-				textShadow: '0 0 8px #a855f7',
-			}}
-		/>
-	);
+
 	const videoRef = useRef<HTMLVideoElement>(null);
 	const bufferRef = useRef<HTMLDivElement>(null);
 	const videoElement = videoRef.current;
 	const progressRef = useRef<HTMLDivElement>(null);
 	const [videoDuration, setVideoDuration] = useState<number | null>(null);
+	const [isDescVisible, setIsDescVisible] = useState<boolean>(true);
 	const mainRef = useRef<HTMLDivElement>(null);
 	const overlayRef = useRef<HTMLDivElement>(null);
+	const descRef = useRef<HTMLDivElement>(null);
 	const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-	const [isMuted, setIsMuted] = useState<boolean>(false);
+	const [isMuted, setIsMuted] = useState<boolean>(true);
 	const prevVolume = useRef(0.5);
-
+	useEffect(() => {
+		if (!videoRef.current) return;
+		console.log(index === currentVideoIndex);
+		if (index !== currentVideoIndex) {
+			videoRef.current.pause();
+		} else {
+			videoRef.current.play();
+		}
+	}, [currentVideoIndex]);
 	useEffect(() => {
 		if (!videoRef.current) return;
 
@@ -76,14 +100,6 @@ const LondiesPlayer = ({ isLiked, setIsLiked, src }: LondiesPlayerProps) => {
 					.toString()
 					.padStart(2, '0'),
 			});
-			if (
-				videoRef.current &&
-				videoRef.current.currentTime === videoRef.current.duration
-			) {
-				console.log('ci siamo arrivatri');
-				videoRef.current.currentTime = 1000;
-				handlePlayPause();
-			}
 
 			if (!progressRef.current) return;
 			const { currentTime, duration } = element;
@@ -101,6 +117,12 @@ const LondiesPlayer = ({ isLiked, setIsLiked, src }: LondiesPlayerProps) => {
 				bufferRef.current.style.width = `${width}%`;
 			}
 		};
+		const onEnd = () => {
+			if (!videoRef.current) return null;
+			videoRef.current.currentTime = 0;
+			setIsWaiting(false);
+			videoRef.current.play();
+		};
 
 		element.addEventListener('play', onPlay);
 		element.addEventListener('playing', onPlay);
@@ -108,6 +130,7 @@ const LondiesPlayer = ({ isLiked, setIsLiked, src }: LondiesPlayerProps) => {
 		element.addEventListener('waiting', onWaiting);
 		element.addEventListener('timeupdate', onTimeUpdate);
 		element.addEventListener('progress', onProgress);
+		element.addEventListener('ended', onEnd);
 
 		return () => {
 			element.removeEventListener('play', onPlay);
@@ -116,6 +139,7 @@ const LondiesPlayer = ({ isLiked, setIsLiked, src }: LondiesPlayerProps) => {
 			element.removeEventListener('waiting', onWaiting);
 			element.removeEventListener('timeupdate', onTimeUpdate);
 			element.removeEventListener('progress', onProgress);
+			element.removeEventListener('ended', onEnd);
 		};
 	}, [videoRef.current]);
 
@@ -127,31 +151,6 @@ const LondiesPlayer = ({ isLiked, setIsLiked, src }: LondiesPlayerProps) => {
 		const durationMs = videoRef.current.duration * 1000;
 		const newTime = (durationMs * clickPos) / 1000;
 		videoRef.current.currentTime = newTime;
-	};
-
-	const handleMute = () => {
-		console.log('qui 1');
-		if (!videoRef.current) return;
-
-		const video = videoRef.current;
-		if (isMuted) {
-			video.muted = false;
-			setIsMuted(false);
-
-			video.volume = prevVolume.current;
-			setVolumeIcon(<FaVolumeHigh />);
-		} else {
-			console.log('qui');
-			video.volume != 0
-				? (prevVolume.current = video.volume)
-				: prevVolume.current;
-			console.log(prevVolume.current);
-			video.muted = true;
-			setIsMuted(true);
-
-			setVolumeIcon(<FaVolumeXmark />);
-			video.volume = 0;
-		}
 	};
 
 	useEffect(() => {
@@ -190,7 +189,7 @@ const LondiesPlayer = ({ isLiked, setIsLiked, src }: LondiesPlayerProps) => {
     `}
 			ref={mainRef}
 		>
-			<div className="absolute inset-0 bg-gradient-to-br from-slate-800/20 via-slate-900/20 to-indigo-900/20 backdrop-blur-sm rounded-2xl z-0" />
+			<div className="absolute inset-0  z-0" />
 			<AnimatePresence>
 				{isWaiting && (
 					<div className="absolute w-full h-full flex items-center justify-center z-25 bg-black/20 backdrop-blur-sm rounded-xl">
@@ -204,14 +203,19 @@ const LondiesPlayer = ({ isLiked, setIsLiked, src }: LondiesPlayerProps) => {
 				)}
 			</AnimatePresence>
 
-			<Video src={src} ref={videoRef} preload="metadata"></Video>
+			<Video
+				src={src}
+				ref={videoRef}
+				preload="metadata"
+				autoPlay={index === currentVideoIndex}
+				muted={true}
+			/>
 			<div
 				className="absolute inset-0 flex justify-center items-center rounded-2xl z-20 transition-all duration-300"
 				ref={overlayRef}
 			>
 				<div
 					className="absolute w-full h-full inset-0 flex justify-center items-center rounded-[10px] z-20 transition-all duration-300"
-					ref={overlayRef}
 					onClick={(e) => {
 						handleVideoClick(
 							e,
@@ -223,38 +227,56 @@ const LondiesPlayer = ({ isLiked, setIsLiked, src }: LondiesPlayerProps) => {
 						);
 					}}
 				>
-					<AnimatePresence>
-						{!isPlaying && videoDuration !== videoRef.current?.currentTime && (
-							<motion.div
-								initial={{ scale: 0, opacity: 0 }}
-								animate={{ scale: 1, opacity: 1 }}
-								exit={{ scale: 0, opacity: 0 }}
-								whileTap={{ scale: 0.9 }}
-								className="bg-black/60
-                 rounded-full p-6 shadow-2xl  backdrop-blur-sm "
-							>
-								<FaPlay className="text-4xl text-white ml-1" />
-							</motion.div>
-						)}
-					</AnimatePresence>
+					<LondiesPlayerPlayButton
+						isPlaying={isPlaying}
+						videoDuration={videoDuration}
+						videoRef={videoRef}
+					/>
 				</div>
 			</div>
 
-			<div className="absolute bottom-5 right-5 z-30" onClick={handleMute}>
-				<motion.div
-					whileTap={{ scale: 0.9 }}
-					className="w-9 h-9 cursor-pointer rounded-full 
-       "
-				>
-					<div className="w-full h-full bg-[#253141] backdrop-blur-xl border-2 border-slate-600 rounded-full flex justify-center items-center transition-all duration-300">
-						<span className=" text-lg group/volume text-white">
-							{volumeIcon}
-						</span>
+			<div className="absolute bottom-5 z-30 flex flex-row items-end p-4 pb-5 gap-5">
+				<div className="flex flex-col">
+					<div className="flex gap-2 flex-col">
+						<LondiesPlayerUserInfo pfp={pfp} name={name} />
+						<LondiesPlayerDescription
+							descRef={descRef}
+							isDescVisible={isDescVisible}
+							desc={desc}
+							setIsDescVisible={setIsDescVisible}
+						/>
+						<LondiesPlayerSoundInfo />
 					</div>
-				</motion.div>
+				</div>
+				<div className="flex flex-col gap-4">
+					<LondiesSocialIcon
+						icon={Heart}
+						isActive={isLiked}
+						onClick={() => setIsLiked(!isLiked)}
+						count={0}
+					/>
+					<LondiesSocialIcon
+						icon={MessageCircle}
+						isActive={isComments}
+						onClick={() => setIsComments(!isComments)}
+						count={0}
+					/>
+					<LondiesSocialIcon
+						icon={Bookmark}
+						isActive={isSaved}
+						onClick={() => setIsSaved(!isSaved)}
+						count={0}
+					/>
+					<LondiesSocialIcon
+						icon={Share}
+						isActive={isShared}
+						onClick={() => setIsShared(!isShared)}
+						count={0}
+					/>
+				</div>
 			</div>
 
-			<div className="absolute bottom-0 left-0 right-0 z-28 px-4 pb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+			<div className="absolute bottom-0 left-0 right-0 z-28 px-4 pb-1 opacity-100">
 				<div className="mt-2 px-3 py-1 ">
 					<span className="text-slate-300 text-[1rem] font-Lato">
 						{time.h !== '00' ? `${time.h}:` : ''}
