@@ -1,4 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
+import Ex from '../components/Ex';
+import LondiesProgressBar from '../components/Londies/utils/LondiesProgressBar';
 import Explore from './Explore';
 import Home from './Home';
 import Londies from './Londies';

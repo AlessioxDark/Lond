@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
+import { Input } from '@headlessui/react';
+import Slider from '@mui/material/Button';
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-
 import { Bookmark, Heart, MessageCircle, Share } from 'lucide-react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { CgSpinner } from 'react-icons/cg';
 import { FaPlay } from 'react-icons/fa';
 import { FaVolumeHigh, FaVolumeLow, FaVolumeXmark } from 'react-icons/fa6';
@@ -13,7 +14,10 @@ import LondiesPlayerDescription from './LondiesPlayerDescription';
 import LondiesPlayerPlayButton from './LondiesPlayerPlayButton';
 import LondiesPlayerSoundInfo from './LondiesPlayerSoundInfo';
 import LondiesPlayerUserInfo from './LondiesPlayerUserInfo';
+import LondiesProgressBar from './LondiesProgressBar';
 import LondiesSocialIcon from './LondiesSocialIcon';
+import LondiesSoundIcon from './LondiesSoundIcon';
+
 const Video = styled.video`
 	flex-shrink: 1;
 	height: 100%;
@@ -57,7 +61,11 @@ const LondiesPlayer = ({
 	const overlayRef = useRef<HTMLDivElement>(null);
 	const descRef = useRef<HTMLDivElement>(null);
 	const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+	const [value, setValue] = React.useState<number>(0);
 
+	useEffect(() => {
+		console.log(setValue);
+	}, [setValue]);
 	const [isMuted, setIsMuted] = useState<boolean>(true);
 	const prevVolume = useRef(0.5);
 	useEffect(() => {
@@ -152,7 +160,10 @@ const LondiesPlayer = ({
 		const newTime = (durationMs * clickPos) / 1000;
 		videoRef.current.currentTime = newTime;
 	};
-
+	const handleChangeProgressBar = (newValue: number) => {
+		if (!videoRef.current) return;
+		videoRef.current.currentTime = newValue;
+	};
 	useEffect(() => {
 		const video = videoRef.current;
 		if (!video) return;
@@ -179,7 +190,15 @@ const LondiesPlayer = ({
 			overlayRef.current.style.backgroundColor = 'transparent';
 		}
 	};
-
+	useEffect(() => {
+		if (!videoRef.current) return;
+		videoRef.current.currentTime = value;
+	}, [value]);
+	const getSliderBackground = () => {
+		if (videoRef.current === null) return '';
+		const percent = (value / videoRef.current.duration) * 100 || 0;
+		return `linear-gradient(to right, white 0%, white ${percent}%, #334155 ${percent}%, #334155 100%)`;
+	};
 	return (
 		<div
 			className={`flex flex-col cursor-pointer items-center justify-center relative overflow-hidden group aspect-[9/16] h-[100%]
@@ -273,6 +292,7 @@ const LondiesPlayer = ({
 						onClick={() => setIsShared(!isShared)}
 						count={0}
 					/>
+					<LondiesSoundIcon soundImg={''} />
 				</div>
 			</div>
 
@@ -283,22 +303,14 @@ const LondiesPlayer = ({
 						{time.min}:{time.sec}
 					</span>
 				</div>
+
 				<div className="flex flex-col items-center">
-					<div
-						className="w-full h-1 bg-slate-700/70 backdrop-blur-xl rounded-full overflow-hidden cursor-pointer transition-all duration-200"
-						onClick={seekToPosition}
-					>
-						<div className="flex relative w-full h-full">
-							<div
-								className="play-progress bg-white rounded-full  transition-all duration-200 flex h-full relative overflow-hidden"
-								ref={progressRef}
-							/>
-							<div
-								className="buffer-progress flex bg-slate-500/60 absolute h-full rounded-full"
-								ref={bufferRef}
-							/>
-						</div>
-					</div>
+					<LondiesProgressBar
+						value={videoRef.current?.currentTime || 0}
+						setValue={handleChangeProgressBar}
+						min={0}
+						max={videoRef.current?.duration || 0}
+					/>
 				</div>
 			</div>
 		</div>

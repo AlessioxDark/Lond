@@ -11,8 +11,9 @@
 	},
 	"dependencies": {
 		"@emotion/react": "^11.14.0",
-		"@emotion/styled": "^11.14.0",
+		"@emotion/styled": "^11.14.1",
 		"@headlessui/react": "^2.2.2",
+		"@mui/material": "^7.1.2",
 		"@tailwindcss/vite": "^4.0.17",
 		"chakra": "^0.0.3",
 		"class-variance-authority": "^0.7.1",
