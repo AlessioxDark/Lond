@@ -2,7 +2,13 @@ import styled from '@emotion/styled';
 import { Input } from '@headlessui/react';
 import Slider from '@mui/material/Button';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Bookmark, Heart, MessageCircle, Share } from 'lucide-react';
+import {
+	Bookmark,
+	Heart,
+	MessageCircle,
+	MoreHorizontal,
+	Share,
+} from 'lucide-react';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { CgSpinner } from 'react-icons/cg';
 import { FaPlay } from 'react-icons/fa';
@@ -10,6 +16,7 @@ import { FaVolumeHigh, FaVolumeLow, FaVolumeXmark } from 'react-icons/fa6';
 import { VscDebugRestart } from 'react-icons/vsc';
 import { handleVideoClick } from '../../post/utils/funcs/HomeFuncs';
 import SocialIcon from '../../post/utils/SocialIcon';
+import LondiesComments from './LondiesComments';
 import LondiesPlayerDescription from './LondiesPlayerDescription';
 import LondiesPlayerPlayButton from './LondiesPlayerPlayButton';
 import LondiesPlayerSoundInfo from './LondiesPlayerSoundInfo';
@@ -63,6 +70,14 @@ const LondiesPlayer = ({
 	const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 	const [value, setValue] = React.useState<number>(0);
 
+	const [volumeIcon, setVolumeIcon] = useState<React.ReactNode>(
+		<FaVolumeXmark
+			className=" text-lg group/volume"
+			style={{
+				textShadow: '0 0 8px #a855f7',
+			}}
+		/>
+	);
 	useEffect(() => {
 		console.log(setValue);
 	}, [setValue]);
@@ -179,7 +194,30 @@ const LondiesPlayer = ({
 			video.removeEventListener('loadedmetadata', handleMetadataLoaded);
 		};
 	}, []);
+	const handleMute = () => {
+		console.log('qui 1');
+		if (!videoRef.current) return;
 
+		const video = videoRef.current;
+		if (isMuted) {
+			video.muted = false;
+			setIsMuted(false);
+
+			video.volume = prevVolume.current;
+			setVolumeIcon(<FaVolumeHigh />);
+		} else {
+			console.log('qui');
+			video.volume != 0
+				? (prevVolume.current = video.volume)
+				: prevVolume.current;
+			console.log(prevVolume.current);
+			video.muted = true;
+			setIsMuted(true);
+
+			setVolumeIcon(<FaVolumeXmark />);
+			video.volume = 0;
+		}
+	};
 	const handlePlayPause = () => {
 		if (!videoRef.current || !overlayRef.current) return;
 		if (isPlaying) {
@@ -253,8 +291,32 @@ const LondiesPlayer = ({
 					/>
 				</div>
 			</div>
-
-			<div className="absolute bottom-5 z-30 flex flex-row items-end p-4 pb-5 gap-5">
+			<div className="absolute top-0 p-3 flex justify-end z-30 w-full gap-3">
+				<motion.div
+					whileTap={{ scale: 0.9 }}
+					onClick={handleMute}
+					className="w-9 h-9 cursor-pointer rounded-full 
+               "
+				>
+					<div className="w-full h-full bg-[#253141] backdrop-blur-xl rounded-full flex justify-center items-center transition-all duration-300">
+						<span className=" text-lg group/volume text-white">
+							{volumeIcon}
+						</span>
+					</div>
+				</motion.div>
+				<div>
+					<button
+						className={`p-2 rounded-full bg-[#253141] backdrop-blur-xl group/other transition-colors flex-shrink-0`}
+						aria-label="Altre opzioni"
+					>
+						<MoreHorizontal
+							size={18}
+							className="text-slate-400 group-hover/other:text-white transition-colors"
+						/>
+					</button>
+				</div>
+			</div>
+			<div className="absolute bottom-5 z-30 flex flex-row items-end p-4 pb-5 gap-7">
 				<div className="flex flex-col">
 					<div className="flex gap-2 flex-col">
 						<LondiesPlayerUserInfo pfp={pfp} name={name} />
@@ -267,7 +329,7 @@ const LondiesPlayer = ({
 						<LondiesPlayerSoundInfo />
 					</div>
 				</div>
-				<div className="flex flex-col gap-4">
+				<div className="flex flex-col gap-5">
 					<LondiesSocialIcon
 						icon={Heart}
 						isActive={isLiked}
@@ -292,7 +354,7 @@ const LondiesPlayer = ({
 						onClick={() => setIsShared(!isShared)}
 						count={0}
 					/>
-					<LondiesSoundIcon soundImg={''} />
+					<LondiesSoundIcon soundImg={'https://placehold.co/35x35'} />
 				</div>
 			</div>
 
@@ -313,6 +375,15 @@ const LondiesPlayer = ({
 					/>
 				</div>
 			</div>
+			<AnimatePresence>
+				{isComments && (
+					<LondiesComments
+						handleClose={() => {
+							setIsComments(false);
+						}}
+					/>
+				)}
+			</AnimatePresence>
 		</div>
 	);
 };
