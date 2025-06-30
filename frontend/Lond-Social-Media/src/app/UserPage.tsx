@@ -201,6 +201,7 @@ import {
 	Heart,
 	MessageCircle,
 	MoreHorizontal,
+	Pencil,
 	Repeat2,
 	Share,
 	User,
@@ -509,7 +510,7 @@ const UserPage = () => {
 						<div className="flex flex-col items-center gap-8">
 							<div className="flex flex-row justify-center  items-center gap-8 w-full">
 								{/* Profile Picture */}
-								<div className="relative">
+								<div className="relative ">
 									<div className="w-32 h-32 rounded-full bg-gradient-to-r from-purple-400 to-blue-500 p-1">
 										<div className="w-full h-full rounded-full bg-slate-800 flex items-center justify-center overflow-hidden">
 											<User className="w-16 h-16 text-white/70" />
@@ -519,13 +520,14 @@ const UserPage = () => {
 								</div>
 
 								{/* User Info */}
-								<div className="text-left ">
-									<h1 className="text-3xl font-bold text-white mb-1">
-										Alessio Quaranta
-									</h1>
-									<p className="text-slate-300 text-lg mb-4">@alessio40</p>
+								<div className="flex flex-row h-32 items-center gap-3">
+									<div className="text-left ">
+										<h1 className="text-3xl font-bold text-white ">
+											Alessio Quaranta
+										</h1>
+										<p className="text-slate-300 text-lg ">@alessio40</p>
 
-									{/* <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+										{/* <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
 										<button
 											onClick={() => setIsFollowing(!isFollowing)}
 											className={`px-8 py-3 rounded-full font-semibold transition-all transform text-white  ${
@@ -540,6 +542,8 @@ const UserPage = () => {
 											Messaggio
 										</button>
 									</div> */}
+									</div>
+									<Pencil className="w-6 h-6 text-white self-start mt-3" />
 								</div>
 							</div>
 							<div className="w-full text-white font-Lato font-normal">
@@ -555,11 +559,7 @@ const UserPage = () => {
 								</span>
 							</div>
 						</div>
-						<div className="w-full flex justify-center ">
-							<button className="bg-slate-800 bakcdrop-blur-md px-6 py-5 rounded-xl font-Montserrat font-semibold text-white text-xl">
-								Modifica Profilo
-							</button>
-						</div>
+
 						{/* Stats */}
 						<div className="grid grid-cols-3 gap-6 w-full max-w-[60%] h-25 ">
 							{[
