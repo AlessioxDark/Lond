@@ -506,44 +506,62 @@ const UserPage = () => {
 				<div className="relative z-10  px-4 py-8">
 					{/* Profile Header */}
 					<div className="flex flex-col items-center gap-8 mb-8">
-						<div className="flex flex-row justify-center  items-center gap-8 w-full">
-							{/* Profile Picture */}
-							<div className="relative">
-								<div className="w-32 h-32 rounded-full bg-gradient-to-r from-purple-400 to-blue-500 p-1">
-									<div className="w-full h-full rounded-full bg-slate-800 flex items-center justify-center overflow-hidden">
-										<User className="w-16 h-16 text-white/70" />
+						<div className="flex flex-col items-center gap-8">
+							<div className="flex flex-row justify-center  items-center gap-8 w-full">
+								{/* Profile Picture */}
+								<div className="relative">
+									<div className="w-32 h-32 rounded-full bg-gradient-to-r from-purple-400 to-blue-500 p-1">
+										<div className="w-full h-full rounded-full bg-slate-800 flex items-center justify-center overflow-hidden">
+											<User className="w-16 h-16 text-white/70" />
+										</div>
+									</div>
+									<div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-3 border-slate-900"></div>
+								</div>
+
+								{/* User Info */}
+								<div className="text-left ">
+									<h1 className="text-3xl font-bold text-white mb-1">
+										Alessio Quaranta
+									</h1>
+									<p className="text-slate-300 text-lg mb-4">@alessio40</p>
+
+									<div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+										<button
+											onClick={() => setIsFollowing(!isFollowing)}
+											className={`px-8 py-3 rounded-full font-semibold transition-all transform text-white  ${
+												isFollowing
+													? 'bg-white/10  border border-white/20 hover:bg-white/20'
+													: 'bg-slate-800 backdrop-blur-md'
+											}`}
+										>
+											{isFollowing ? 'Seguendo' : 'Segui'}
+										</button>
+										<button className="px-8 py-3 bg-white/10 text-white rounded-full font-semibold hover:bg-white/20 transition-all transform  border border-white/20">
+											Messaggio
+										</button>
 									</div>
 								</div>
-								<div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-3 border-slate-900"></div>
 							</div>
-
-							{/* User Info */}
-							<div className="text-left ">
-								<h1 className="text-3xl font-bold text-white mb-1">
-									Alessio Quaranta
-								</h1>
-								<p className="text-slate-300 text-lg mb-4">@alessio40</p>
-
-								<div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-									<button
-										onClick={() => setIsFollowing(!isFollowing)}
-										className={`px-8 py-3 rounded-full font-semibold transition-all transform text-white  ${
-											isFollowing
-												? 'bg-white/10  border border-white/20 hover:bg-white/20'
-												: 'bg-slate-800 backdrop-blur-md'
-										}`}
-									>
-										{isFollowing ? 'Seguendo' : 'Segui'}
-									</button>
-									<button className="px-8 py-3 bg-white/10 text-white rounded-full font-semibold hover:bg-white/20 transition-all transform  border border-white/20">
-										Messaggio
-									</button>
-								</div>
+							<div className="w-full text-white font-Lato font-normal">
+								<span style={{ whiteSpace: 'pre-line' }}>
+									{`🌟 Cacciatore di snack professionista 
+    📚 Studente di procrastinazione (laurea in "Come rimandare tutto")   
+    🐱 Amante dei gatti (ho 3 gatti e un cane che si crede un gatto)  
+    🎮 Giocatore di videogiochi (specializzato in "perdere" a Mario Kart)  
+    🍔 Cibo è vita (il mio motto: "Mangia, dormi, ripeti")  
+    🌍 Esploratore del divano (il mio viaggio preferito è dal frigo al divano)  
+    💬 DM aperti per meme e ricette di pancake 🥞
+  `}
+								</span>
 							</div>
 						</div>
-
+						<div className="w-full flex justify-center ">
+							<button className="bg-slate-800 bakcdrop-blur-md px-6 py-5 rounded-xl font-Montserrat font-semibold text-white text-xl">
+								Modifica Profilo
+							</button>
+						</div>
 						{/* Stats */}
-						<div className="grid grid-cols-3 gap-6 w-full max-w-[60%] h-25 flex flex-col justify-center items-center">
+						<div className="grid grid-cols-3 gap-6 w-full max-w-[60%] h-25 ">
 							{[
 								{ label: 'Follower', count: 1247 },
 								{ label: 'Seguiti', count: 892 },
@@ -551,7 +569,7 @@ const UserPage = () => {
 							].map((stat, index) => (
 								<div
 									key={index}
-									className="text-center p-4 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all"
+									className="text-center p-4 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all flex flex-col justify-center items-center"
 								>
 									<div className="text-2xl font-bold text-white mb-1">
 										{stat.count.toLocaleString()}
