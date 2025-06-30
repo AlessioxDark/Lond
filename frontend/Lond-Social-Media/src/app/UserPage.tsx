@@ -525,7 +525,7 @@ const UserPage = () => {
 									</h1>
 									<p className="text-slate-300 text-lg mb-4">@alessio40</p>
 
-									<div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+									{/* <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
 										<button
 											onClick={() => setIsFollowing(!isFollowing)}
 											className={`px-8 py-3 rounded-full font-semibold transition-all transform text-white  ${
@@ -539,7 +539,7 @@ const UserPage = () => {
 										<button className="px-8 py-3 bg-white/10 text-white rounded-full font-semibold hover:bg-white/20 transition-all transform  border border-white/20">
 											Messaggio
 										</button>
-									</div>
+									</div> */}
 								</div>
 							</div>
 							<div className="w-full text-white font-Lato font-normal">
