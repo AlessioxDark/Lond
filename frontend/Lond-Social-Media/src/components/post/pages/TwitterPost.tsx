@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Bookmark, Heart, Repeat2, Share } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { cardVariants, postContainerStyles } from '../utils/funcs/HomeFuncs';
 import PostHeader from '../utils/PostHeader';
 import ReactIcon from '../utils/Reactions/ReactIcon';
@@ -20,6 +20,8 @@ interface TwitterPostProps {
 	retweets: number;
 	likes: number;
 	saved: number;
+	isLikedProp?: boolean;
+	isSavedProp?: boolean;
 }
 
 interface Reaction {
@@ -41,12 +43,16 @@ export default function TwitterPost({
 	saved,
 	retweets,
 	likes,
+	isLikedProp,
+	isSavedProp,
 }: TwitterPostProps) {
 	// State management
 
-	const [isLiked, setIsLiked] = useState(false);
+	const [isLiked, setIsLiked] = useState(() => {
+		return isLikedProp !== undefined ? isLikedProp : false;
+	});
 	const [isRetweeted, setIsRetweeted] = useState(false);
-	const [isSaved, setIsSaved] = useState(false);
+	const [isSaved, setIsSaved] = useState(isSavedProp ? isSavedProp : false);
 	const [userReaction, setUserReaction] = useState('');
 
 	const [reactions, setReactions] = useState<Reaction[]>([
@@ -59,11 +65,13 @@ export default function TwitterPost({
 		{ emoji: '⚡', count: 2, label: 'Energico' },
 		{ emoji: '🎯', count: 1, label: 'Centrato' },
 	]);
-
+	useEffect(() => {
+		console.log(id, isLiked, isLikedProp);
+	}, [isLiked]);
 	return (
 		<motion.article
 			className={`
-${postContainerStyles}
+${postContainerStyles} 
 			`}
 			variants={cardVariants}
 			role="article"

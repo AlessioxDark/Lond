@@ -5,6 +5,7 @@ import Explore from './Explore';
 import Home from './Home';
 import Londies from './Londies';
 import Sidebar from './Sidebar';
+import UserPage from './UserPage';
 function App() {
 	return (
 		<div className=" w-full px-10 flex flex-row justify-center custom-scroll">
@@ -15,6 +16,7 @@ function App() {
 						<Route path="/" element={<Home />} />
 						<Route path="/explore" element={<Explore />} />
 						<Route path="/londies" element={<Londies />} />
+						<Route path="/profile" element={<UserPage />} />
 					</Routes>
 				</div>
 			</BrowserRouter>

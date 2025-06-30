@@ -70,7 +70,7 @@ const LondiesSocialIcon = ({ icon: Icon, isActive, onClick, count }) => {
 							{[...Array(6)].map((_, i) => (
 								<motion.div
 									key={i}
-									className="absolute top-1/2 left-1/2 w-1 h-1 bg-red-500 rounded-full"
+									className="absolute top-1/2 left-1/2 w-2 h-2 bg-red-500 rounded-full"
 									initial={{
 										scale: 0,
 										x: -2,
@@ -100,7 +100,7 @@ const LondiesSocialIcon = ({ icon: Icon, isActive, onClick, count }) => {
 							{[...Array(6)].map((_, i) => (
 								<motion.div
 									key={i}
-									className="absolute top-1/2 left-1/2 w-1 h-1 bg-white rounded-full"
+									className="absolute top-1/2 left-1/2 w-2 h-2 bg-white rounded-full"
 									initial={{
 										scale: 0,
 										x: -2,

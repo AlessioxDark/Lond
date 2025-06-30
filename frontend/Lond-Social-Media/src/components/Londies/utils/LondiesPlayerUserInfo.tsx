@@ -21,7 +21,7 @@ const LondiesPlayerUserInfo = ({
 			<div className="flex  flex-col">
 				<div className="flex items-center gap-1 flex-wrap">
 					<span
-						className={`text-white text-sm truncate font-Montserrat font-medium`}
+						className={`text-white text-base truncate font-Montserrat font-medium`}
 					>
 						{name}
 					</span>
@@ -34,8 +34,14 @@ const LondiesPlayerUserInfo = ({
 						/>
 					)}
 				</div>
-				<span className="truncate text-xs text-slate-400">{handle}</span>
+				<span className="truncate text-sm text-slate-400">{handle}</span>
 			</div>
+			<motion.button
+				whileTap={{ scale: 0.95 }}
+				className="bg-[#253141]  text-sm  font-Montserrat text-white font-medium rounded-2xl px-4 py-1.5"
+			>
+				Follow
+			</motion.button>
 		</div>
 	);
 };
