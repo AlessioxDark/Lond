@@ -299,7 +299,6 @@ const UserPage = () => {
 				<motion.div
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
-					transition={{ delay: 0.2 }}
 					className="grid grid-cols-3 gap-6 w-full  max-w-[50%] mx-auto my-6 "
 				>
 					{[
@@ -308,11 +307,11 @@ const UserPage = () => {
 							count: 156,
 						},
 						{
-							label: 'Followers',
+							label: 'Follower',
 							count: 1247,
 						},
 						{
-							label: 'Following',
+							label: 'Seguiti',
 							count: 892,
 						},
 					].map((stat, index) => (
