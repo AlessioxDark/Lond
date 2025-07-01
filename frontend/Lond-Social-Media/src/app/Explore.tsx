@@ -367,7 +367,7 @@ export default function Explore() {
 					</div>
 				</motion.div>
 
-				<div className="grid lg:grid-cols-4 gap-8">
+				<div className="grid grid-cols-4 gap-8">
 					{/* Main Content */}
 					<motion.div variants={itemVariants} className="lg:col-span-3">
 						<AnimatePresence mode="wait">
