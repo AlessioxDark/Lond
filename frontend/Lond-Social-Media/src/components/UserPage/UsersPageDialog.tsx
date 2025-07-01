@@ -34,7 +34,6 @@ const UsersPageDialog = ({ isOpen, onClose, data, type }) => {
 							animate={{ opacity: 1 }}
 							exit={{ opacity: 0 }}
 							className="fixed inset-0 z-50 flex items-center justify-center p-4  backdrop-blur-sm"
-							onClick={onClose}
 						>
 							<motion.div
 								initial={{ scale: 0.9, opacity: 0 }}
@@ -88,7 +87,7 @@ const UsersPageDialog = ({ isOpen, onClose, data, type }) => {
 													whileTap={{ scale: 0.95 }}
 													className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
 														user.isFollowing
-															? 'bg-slate-800 shadow-lg text-white'
+															? 'bg-slate-800 hover:bg-slate-700 text-white'
 															: 'bg-white/10 text-white border border-white/20 '
 													}`}
 												>

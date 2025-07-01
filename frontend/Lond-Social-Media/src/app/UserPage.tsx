@@ -285,7 +285,7 @@ const UserPage = () => {
 								<div className="flex flex-wrap gap-3 justify-center ">
 									<motion.button
 										whileTap={{ scale: 0.95 }}
-										className={`px-8 py-3 rounded-full font-semibold transition-all duration-300 ${'bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:from-purple-600 hover:to-blue-600 shadow-lg'}`}
+										className={`px-8 py-3 rounded-full font-semibold transition-all duration-300 ${'bg-slate-800  text-white shadow-lg'}`}
 									>
 										Modifica Profilo
 									</motion.button>
