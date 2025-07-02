@@ -82,35 +82,35 @@ const PostHeader = memo(
 					<img
 						src={pfp}
 						alt={`${name} profile`}
-						className={`${config.avatar} rounded-full ring-1 ring-slate-700/40 hover:ring-purple-500/60 transition-all duration-300 cursor-pointer`}
+						className={`${config.avatar} rounded-full ring-1 ring-lond-gray/40 hover:ring-lond-accent/60 transition-all duration-300 cursor-pointer`}
 						loading="lazy"
 					/>
 				</div>
 
 				<div className="flex-1 min-w-0">
 					<div className="flex items-center gap-1 sm:gap-2 mb-0.5 flex-wrap">
-						<span className={`text-white ${config.nameText} truncate`}>
+						<span className={`text-lond-text-primary font-montserrat ${config.nameText} truncate`}>
 							{name}
 						</span>
 
 						{isVerified && (
 							<Verified
 								size={config.verifiedIcon}
-								className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 flex-shrink-0"
+								className="text-lond-accent flex-shrink-0"
 								aria-label="Account verificato"
 							/>
 						)}
 
 						{isViral && (
 							<div
-								className={`flex items-center gap-1 ${config.viralPadding} rounded-full bg-gradient-to-r from-orange-500/15 to-red-500/15 border border-orange-400/40 flex-shrink-0`}
+								className={`flex items-center gap-1 ${config.viralPadding} rounded-full bg-lond-yellow/15 border border-lond-yellow/40 flex-shrink-0`}
 							>
 								<TrendingUp
 									size={config.trendingIcon}
-									className="text-orange-400"
+									className="text-lond-yellow"
 								/>
 								<span
-									className={`text-orange-400 font-bold ${config.viralText}  xs:inline`}
+									className={`text-lond-yellow font-bold ${config.viralText}  xs:inline`}
 								>
 									VIRAL
 								</span>
@@ -119,7 +119,7 @@ const PostHeader = memo(
 					</div>
 
 					<div
-						className={`flex items-center gap-1 sm:gap-2 text-slate-400 ${config.handleText}`}
+						className={`flex items-center gap-1 sm:gap-2 text-lond-light-gray font-barlow ${config.handleText}`}
 					>
 						<span className="truncate">{handle}</span>
 						<span className="hidden xs:inline">•</span>
@@ -150,12 +150,12 @@ const PostHeader = memo(
 				</div>
 
 				<button
-					className={`${config.buttonPadding} rounded-full hover:bg-slate-800/60 transition-colors flex-shrink-0`}
+					className={`${config.buttonPadding} rounded-full hover:bg-lond-gray/60 transition-colors flex-shrink-0`}
 					aria-label="Altre opzioni"
 				>
 					<MoreHorizontal
 						size={config.moreIcon}
-						className="text-slate-400 hover:text-white transition-colors"
+						className="text-lond-light-gray hover:text-lond-text-primary transition-colors"
 					/>
 				</button>
 			</div>

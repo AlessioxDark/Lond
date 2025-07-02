@@ -8,6 +8,13 @@
     box-shadow: inset 0px 0px 227px 17px rgba(0, 255, 0, 1);  */
 @import 'tailwindcss';
 
+/*
+  La direttiva @theme e le variabili CSS custom sottostanti potrebbero essere
+  state usate per una configurazione precedente o per plugin specifici di Tailwind.
+  Con Tailwind v3+ (e specialmente v4), la configurazione del tema avviene
+  principalmente in tailwind.config.js.
+  Commentiamo le variabili non più necessarie o gestite altrove.
+*/
 @theme {
 	--animate-fade-in-scale: fadeIn 0.3s ease-out;
 	--animate-border-spin: border-spin 7s linear infinite;
@@ -22,25 +29,31 @@
 		}
 	}
 	@keyframes border-spin {
-		/* --animate-fade-in-scale: fadeIn 0.3s ease-out; */
 		100% {
 			transform: rotate(-360deg);
 		}
 	}
 
-	--font-Montserrat: 'Montserrat', 'serif';
-	--font-Lato: 'Barlow', 'serif';
-	--inset-shadow-custom: inset 0px 0px 30px 10px rgba(0, 255, 0, 1);
-	--color-accent: #ff5722;
+	/* Questi font sono ora definiti in tailwind.config.js e usati tramite classi come font-montserrat */
+	/* --font-Montserrat: 'Montserrat', 'serif'; */
+	/* --font-Lato: 'Barlow', 'serif'; */
+
+	/* Ombra personalizzata non sembra usata attivamente, la commentiamo per ora */
+	/* --inset-shadow-custom: inset 0px 0px 30px 10px rgba(0, 255, 0, 1); */
+
+	/* --color-accent: #ff5722; */ /* Vecchio colore accento, ora gestito da lond-accent in tailwind.config.js */
 }
+
+/* Applichiamo il colore di sfondo principale dal nostro tema Tailwind */
 body {
-	background-color: #2d3b4e;
+	@apply bg-lond-dark text-lond-text-primary;
 }
 
 .custom-scroll {
 	scrollbar-width: thin;
 	scroll-behavior: smooth;
-	scrollbar-color: #4b5563 transparent;
+	/* Usiamo i nostri colori Tailwind per la scrollbar se possibile, o manteniamo questi se funzionano bene */
+	scrollbar-color: theme('colors.lond-gray') transparent; /* Esempio con colori del tema */
 }
 .range-slider {
 	display: flex;
