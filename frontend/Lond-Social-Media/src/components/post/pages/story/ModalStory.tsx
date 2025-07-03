@@ -91,7 +91,7 @@ const ModalStory = ({
 								onClick={goBackwards}
 								disabled={currentStoryIndex === 0}
 								whileTap={{ scale: 0.9 }}
-								className="w-12 h-12 rounded-full bg-[var(--color-lond-dark)]/70 backdrop-blur-md border border-[var(--color-lond-light-gray)]/20 hover:border-[var(--color-lond-light-gray)]/40 flex items-center justify-center text-[var(--color-lond-text-primary)] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:shadow-lg"
+								className="w-12 h-12 rounded-full bg-lond-dark/70 backdrop-blur-md border border-lond-light-gray/20 hover:border-lond-light-gray/40 flex items-center justify-center text-lond-text-primary disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:shadow-lg"
 							>
 								<ChevronLeft size={24} />
 							</motion.button>
@@ -134,7 +134,7 @@ const ModalStory = ({
 							<motion.button
 								onClick={goForward}
 								whileTap={{ scale: 0.9 }}
-								className="w-12 h-12 rounded-full bg-[var(--color-lond-dark)]/70 backdrop-blur-md border border-[var(--color-lond-light-gray)]/20 hover:border-[var(--color-lond-light-gray)]/40 flex items-center justify-center text-[var(--color-lond-text-primary)] transition-all duration-300 hover:shadow-lg"
+								className="w-12 h-12 rounded-full bg-lond-dark/70 backdrop-blur-md border border-lond-light-gray/20 hover:border-lond-light-gray/40 flex items-center justify-center text-lond-text-primary transition-all duration-300 hover:shadow-lg"
 							>
 								<ChevronRight size={24} />
 							</motion.button>
