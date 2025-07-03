@@ -1,36 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-/* -webkit-box-shadow: inset 0px 0px 227px 17px rgba(0, 255, 0, 1);
-		-moz-box-shadow: inset 0px 0px 227px 17px rgba(0, 255, 0, 1); 
-    box-shadow: inset 0px 0px 227px 17px rgba(0, 255, 0, 1);  */
 @import 'tailwindcss';
 
-/*
-  La direttiva @theme e le variabili CSS custom sottostanti potrebbero essere
-  state usate per una configurazione precedente o per plugin specifici di Tailwind.
-  Con Tailwind v3+ (e specialmente v4), la configurazione del tema avviene
-  principalmente in tailwind.config.js.
-  Commentiamo le variabili non più necessarie o gestite altrove.
-*/
 @theme {
-	--color-lond-dark: #121212;
-	--color-lond-gray: #1e1e1e;
-	--color-lond-text-primary: #f4f4f5;
-	--color-lond-light-gray: #aaaaaa;
-	--color-lond-accent: #1d9bf0;
-	--color-lond-accent-hover: #1a8cd8;
+	:root {
+		--color-lond-dark: #121212;           /* Sfondo Principale: Nero profondo */
+		--color-lond-gray: #1E1E1E;           /* Sfondo Secondario/Card: Grigio scuro */
+		--color-lond-text-primary: #F4F4F5;   /* Testo Primario: Bianco sporco */
+		--color-lond-light-gray: #AAAAAA;     /* Testo Secondario/Icone Tenui: Grigio medio */
+		--color-lond-accent: #1D9BF0;         /* Colore d'Accento: Blu Twitter/X */
+		--color-lond-accent-hover: #1A8CD8;   /* Hover per Accento: Blu Twitter/X più scuro */
+		--color-lond-green: #10B981;          /* Verde: Successo, Online */
+		--color-lond-red: #EF4444;            /* Rosso: Errori, Like Icon */
+		--color-lond-yellow: #F59E0B;         /* Giallo: Avvisi, Warning */
 
-	--color-lond-green: #10b981;
-	--color-lond-red: #ef4444;
-	--color-lond-yellow: #f59e0b;
-
-	/* Definiamo anche i font qui, se vogliamo seguire l'approccio v4 per i font */
-	--font-montserrat: 'Montserrat', sans-serif;
-	--font-lato: 'Lato', sans-serif;
-	--font-barlow: 'Barlow', sans-serif;
+		--font-montserrat: 'Montserrat', sans-serif;
+		--font-lato: 'Lato', sans-serif;
+		--font-barlow: 'Barlow', sans-serif;
+	}
 
 	--animate-fade-in-scale: fadeIn 0.3s ease-out;
 	--animate-border-spin: border-spin 7s linear infinite;
@@ -49,35 +37,25 @@
 			transform: rotate(-360deg);
 		}
 	}
-
-	/* Questi font sono ora definiti in tailwind.config.js e usati tramite classi come font-montserrat */
-	/* --font-Montserrat: 'Montserrat', 'serif'; */
-	/* --font-Lato: 'Barlow', 'serif'; */
-
-	/* Ombra personalizzata non sembra usata attivamente, la commentiamo per ora */
-	/* --inset-shadow-custom: inset 0px 0px 30px 10px rgba(0, 255, 0, 1); */
-
-	/* --color-accent: #ff5722; */ /* Vecchio colore accento, ora gestito da lond-accent in tailwind.config.js */
 }
 
-/* Applichiamo il colore di sfondo principale dal nostro tema Tailwind */
 body {
-	@apply bg-lond-dark text-lond-text-primary;
+	@apply bg-lond-dark text-lond-text-primary font-barlow; /* Usiamo font-barlow come default */
 }
 
 .custom-scroll {
 	scrollbar-width: thin;
 	scroll-behavior: smooth;
-	/* Usiamo i nostri colori Tailwind per la scrollbar se possibile, o manteniamo questi se funzionano bene */
-	scrollbar-color: #4b5563 transparent; /* Esempio con colori del tema */
+	scrollbar-color: var(--color-lond-gray) transparent;
 }
+
 .range-slider {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
 	gap: 1em;
-	color: white;
+	color: white; /* Potrebbe diventare var(--color-lond-text-primary) */
 	margin: 4em auto;
 }
 .slider-container {
@@ -96,7 +74,7 @@ body {
 	height: 0.25rem;
 	outline: none;
 	border-radius: 3px;
-	background: rgba(100, 116, 139, 0.6);
+	background: rgba(100, 116, 139, 0.6); /* Potrebbe usare i nostri grigi */
 	cursor: pointer;
 }
 .slider::-webkit-slider-thumb {
@@ -111,7 +89,7 @@ body {
 	width: 0;
 	height: 0.25rem;
 	border-radius: 3px;
-	background-color: white;
+	background-color: white; /* Potrebbe diventare var(--color-lond-text-primary) o var(--color-lond-accent) */
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
@@ -120,19 +98,6 @@ body {
 	transition-property: box-shadow;
 	transition-duration: 0.2;
 }
-
-/* .slider-thumb {
-	position: absolute;
-	width: 1em;
-	height: 1em;
-	background-color: #fff;
-	border-radius: 50%;
-	top: 50%;
-	left: -0.5em;
-	transform: translateY(-50%);
-	z-index: 2;
-	pointer-events: none;
-} */
 
 @layer utilities {
 }

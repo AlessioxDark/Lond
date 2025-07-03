@@ -7,7 +7,7 @@ interface Reaction {
 const ReactionsPopup = React.memo(
 	({ reactions, onEmojiClick, userReaction }: any) => (
 		<div
-			className="absolute bg-lond-gray bottom-full left-0 mb-2 p-4  border border-lond-dark rounded-2xl shadow-2xl shadow-lond-dark z-50 min-w-max overflow-visible"
+			className="absolute bg-[var(--color-lond-dark)] bottom-full left-0 mb-2 p-4 border border-[var(--color-lond-light-gray)]/30 rounded-2xl shadow-2xl z-50 min-w-max overflow-visible"
 			onClick={() => {
 				console.log('enter');
 			}}
@@ -18,10 +18,10 @@ const ReactionsPopup = React.memo(
 						key={`popup-${reaction.emoji}-${index}`}
 						onClick={() => onEmojiClick(reaction.emoji)}
 						className={`
-            p-2 rounded-xl transition-all duration-200 hover:scale-115 hover:bg-lond-accent-hover
+            p-2 rounded-xl transition-all duration-200 hover:scale-125 hover:bg-[var(--color-lond-gray)]/70
             ${
 							userReaction === reaction.emoji
-								? 'bg-lond-accent ring-2 ring-lond-dark '
+								? 'bg-[var(--color-lond-accent)]/20 ring-2 ring-[var(--color-lond-accent)]'
 								: ''
 						}
           `}

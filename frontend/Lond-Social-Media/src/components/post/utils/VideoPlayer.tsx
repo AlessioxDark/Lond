@@ -278,8 +278,8 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 	return (
 		<motion.div
 			className="group
-				 border border-slate-700/30 hover:border-slate-600/50
-				hover:shadow-slate-900/20
+				 border border-[var(--color-lond-gray)]/70 hover:border-[var(--color-lond-gray)]
+				hover:shadow-[var(--color-lond-dark)]/20
 				hover:shadow-2xl cursor-pointer overflow-visible relative rounded-2xl"
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ opacity: 1, y: 0 }}
@@ -292,20 +292,20 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 						initial={{ opacity: 0, scale: 0.8 }}
 						animate={{ opacity: 1, scale: 1 }}
 						exit={{ opacity: 0, scale: 0.8 }}
-						className="absolute w-full h-full flex items-center justify-center z-25 bg-[#253141] backdrop-blur-sm rounded-xl"
+						className="absolute w-full h-full flex items-center justify-center z-20 bg-[var(--color-lond-dark)]/70 backdrop-blur-sm rounded-xl"
 					>
 						<motion.div
 							animate={{ rotate: 360 }}
 							transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
 						>
-							<CgSpinner className="text-6xl text-white " />
+							<CgSpinner className="text-6xl text-[var(--color-lond-text-primary)]" />
 						</motion.div>
 					</motion.div>
 				)}
 			</AnimatePresence>
 			<Video src={src} ref={videoRef} preload="metadata"></Video>
 			<div
-				className="absolute w-full h-full inset-0 flex justify-center items-center rounded-[10px] z-20 transition-all duration-300"
+				className="absolute w-full h-full inset-0 flex justify-center items-center rounded-[10px] z-10 transition-all duration-300" // z-index ridotto
 				ref={overlayRef}
 				onClick={(e) => {
 					handleVideoClick(
@@ -325,10 +325,9 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 							animate={{ scale: 1, opacity: 1 }}
 							exit={{ scale: 0, opacity: 0 }}
 							whileTap={{ scale: 0.9 }}
-							className="bg-[#253141]
-		   rounded-full p-6 shadow-2xl  backdrop-blur-xl "
+							className="bg-[var(--color-lond-dark)]/70 backdrop-blur-xl rounded-full p-6 shadow-2xl"
 						>
-							<FaPlay className="text-4xl text-white ml-1" />
+							<FaPlay className="text-4xl text-[var(--color-lond-text-primary)] ml-1" />
 						</motion.div>
 					)}
 				</AnimatePresence>
@@ -343,34 +342,33 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 								exit={{ scale: 0, opacity: 0 }}
 								whileTap={{ scale: 0.9 }}
 								onClick={restartVideo}
-								className="bg-slate-600/80 backdrop-blur-sm rounded-full p-6 shadow-2xl"
+								className="bg-[var(--color-lond-gray)]/80 backdrop-blur-sm rounded-full p-6 shadow-2xl"
 							>
-								<VscDebugRestart className="text-4xl text-white" />
+								<VscDebugRestart className="text-4xl text-[var(--color-lond-text-primary)]" />
 							</motion.div>
 						)}
 				</AnimatePresence>
 			</div>
 
 			<div
-				className="bg-[#253141]
-		    backdrop-blur-xl
-				  rounded-b-lg rounded-t-2xl p-3 shadow-2xl border border-slate-600/30  background-blur-xl
-		      border-t absolute w-full bottom-0 z-30 transition-all duration-500  ease-in-out right-0
-					opacity-0 group-hover:opacity-100  "
+				className="bg-[var(--color-lond-dark)]/80 backdrop-blur-md
+				  rounded-b-lg p-3 shadow-2xl border-t border-[var(--color-lond-gray)]
+		      absolute w-full bottom-0 z-30 transition-all duration-500  ease-in-out right-0
+					opacity-0 group-hover:opacity-100"
 			>
 				{/* Timeline */}
 				<div
-					className="timeline w-full  h-2 mb-3  bg-slate-700/70
-							rounded-full overflow-hidden cursor-pointer shadow-inner  transition-all duration-200"
+					className="timeline w-full h-2 mb-3 bg-[var(--color-lond-gray)]/70
+							rounded-full overflow-hidden cursor-pointer shadow-inner transition-all duration-200"
 					onClick={seekToPosition}
 				>
 					<div className="flex relative w-full h-full">
 						<motion.div
-							className="play-progress bg-white rounded-full transition-all duration-200 flex h-full relative overflow-hidden"
+							className="play-progress bg-[var(--color-lond-text-primary)] rounded-full transition-all duration-200 flex h-full relative overflow-hidden"
 							ref={progressRef}
 						/>
 						<div
-							className="buffer-progress flex bg-slate-500/60 absolute h-full rounded-full"
+							className="buffer-progress flex bg-[var(--color-lond-light-gray)]/60 absolute h-full rounded-full"
 							ref={bufferRef}
 						/>
 					</div>
@@ -381,11 +379,10 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 					<div className="flex items-center gap-4">
 						<motion.button
 							className="flex items-center justify-center w-10 h-10 rounded-xl
-									border-2 bg-slate-800/60
-								 text-white hover:border-slate-300/90
-									border-slate-600
-									transition-all duration-300 backdrop-blur-sm
-
+									border-2 bg-[var(--color-lond-gray)]/80 backdrop-blur-sm
+								 text-[var(--color-lond-text-primary)] hover:border-[var(--color-lond-light-gray)]
+									border-[var(--color-lond-light-gray)]/50
+									transition-all duration-300
 		              "
 							onClick={handlePlayPause}
 							whileTap={{ scale: 0.95 }}
@@ -398,14 +395,14 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 						</motion.button>
 
 						<div
-							className="text-white font-bold font-Lato bg-slate-800/60
-								backdrop-blur-sm px-3 py-1 rounded-xl border-2 border-slate-600"
+							className="font-bold font-lato bg-[var(--color-lond-gray)]/80
+								backdrop-blur-sm px-3 py-1 rounded-xl border-2 border-[var(--color-lond-light-gray)]/50"
 						>
-							<span className="text-slate-100">
+							<span className="text-[var(--color-lond-text-primary)]">
 								{time.min}:{time.sec}
 							</span>
-							<span className="text-slate-400 mx-2">/</span>
-							<span className="text-slate-300">
+							<span className="text-[var(--color-lond-light-gray)] mx-2">/</span>
+							<span className="text-[var(--color-lond-light-gray)]"> {/* Leggermente meno enfasi sulla durata totale */}
 								{videoDuration && formatTime(videoDuration)}
 							</span>
 						</div>
@@ -421,8 +418,8 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 							<motion.div
 								onClick={handleMute}
 								whileTap={{ scale: 0.9 }}
-								className="w-10 h-10 rounded-xl bg-slate-800/60
-										border-2 border-slate-600  text-white backdrop-blur-sm  transition-all duration-300 flex items-center justify-center
+								className="w-10 h-10 rounded-xl bg-[var(--color-lond-gray)]/80
+										border-2 border-[var(--color-lond-light-gray)]/50 text-[var(--color-lond-text-primary)] backdrop-blur-sm transition-all duration-300 flex items-center justify-center
 		                "
 							>
 								{volumeIcon}
@@ -434,12 +431,12 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 										initial={{ width: 0, opacity: 0 }}
 										animate={{ width: 96, opacity: 1 }}
 										exit={{ width: 0, opacity: 0 }}
-										className="h-3 bg-slate-700/70
+										className="h-3 bg-[var(--color-lond-gray)]/70
 												rounded-full overflow-hidden cursor-pointer shadow-inner"
 										onClick={modifyVolume}
 									>
 										<div
-											className="h-full bg-white rounded-full"
+											className="h-full bg-[var(--color-lond-text-primary)] rounded-full"
 											ref={volumeRef}
 										/>
 									</motion.div>
@@ -451,8 +448,8 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 						<div className="relative">
 							<motion.button
 								className="flex items-center gap-2 h-10 px-2 py-2 rounded-xl
-										bg-slate-800/60 backdrop-blur-sm border-2 border-slate-600
-										hover:border-slate-300/90 text-white transition-all duration-300   "
+										bg-[var(--color-lond-gray)]/80 backdrop-blur-sm border-2 border-[var(--color-lond-light-gray)]/50
+										hover:border-[var(--color-lond-light-gray)] text-[var(--color-lond-text-primary)] transition-all duration-300"
 								onClick={() => setIsOpen(!isOpen)}
 								whileTap={{ scale: 0.95 }}
 							>
@@ -464,7 +461,7 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 									animate={{ rotate: isOpen ? 180 : 0 }}
 									transition={{ duration: 0.2 }}
 								>
-									<FiChevronDown className="w-5 h-5 text-slate-400" />
+									<FiChevronDown className="w-5 h-5 text-[var(--color-lond-light-gray)]" />
 								</motion.div>
 							</motion.button>
 
@@ -474,12 +471,11 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 										initial={{ opacity: 0, y: 10, scale: 0.95 }}
 										animate={{ opacity: 1, y: 0, scale: 1 }}
 										exit={{ opacity: 0, y: 10, scale: 0.95 }}
-										className="bg-black/80 absolute bottom-full mb-3 left-0 w-24
-												backdrop-blur-xl border border-slate-600 rounded-xl shadow-2xl z-40"
+										className="bg-[var(--color-lond-dark)]/90 absolute bottom-full mb-3 left-0 w-24
+												backdrop-blur-md border border-[var(--color-lond-gray)] rounded-xl shadow-2xl z-40"
 									>
 										<div
-											className="w-full bg-gradient-to-br from-slate-800/40 via-slate-900/40 to-slate-900/60
-		    backdrop-blur-xl
+											className="w-full bg-[var(--color-lond-gray)]/80
 				  rounded-xl p-2 shadow-2xl"
 										>
 											<div className="space-y-1">
@@ -500,8 +496,8 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 																rounded-lg cursor-pointer transition-all duration-200 font-bold
 																${
 																	isHovered || isActive
-																		? 'bg-gradient-to-r from-pink-400 to-purple-400 text-white shadow-lg'
-																		: 'bg-transparent text-slate-300 hover:text-white'
+																		? 'bg-[var(--color-lond-accent)] text-[var(--color-lond-text-primary)] shadow-lg'
+																		: 'bg-transparent text-[var(--color-lond-light-gray)] hover:text-[var(--color-lond-text-primary)]'
 																}
 															`}
 															whileTap={{ scale: 0.95 }}
@@ -521,9 +517,9 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 						<motion.button
 							onClick={handleFullscreen}
 							whileTap={{ scale: 0.9 }}
-							className="w-10 h-10 items-center justify-center flex rounded-xl bg-slate-800/60 backdrop-blur-sm
-									border-2 border-slate-600 hover:border-slate-300
-									text-white hover:text-slate-300 transition-all duration-300"
+							className="w-10 h-10 items-center justify-center flex rounded-xl bg-[var(--color-lond-gray)]/80 backdrop-blur-sm
+									border-2 border-[var(--color-lond-light-gray)]/50 hover:border-[var(--color-lond-light-gray)]
+									text-[var(--color-lond-text-primary)] transition-all duration-300"
 						>
 							{isFullScreen ? (
 								<MdFullscreenExit className="text-2xl" />

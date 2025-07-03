@@ -23,15 +23,19 @@ const ReactIcon = ({
 				onClick={() => setShowReactions(!showReactions)}
 				whileTap={{ scale: 0.9 }}
 				className={`
-									flex items-center gap-2 px-4 py-2.5 rounded-3xl
-								transition-all duration-300
-									${userReaction && 'text-lond-text-primary bg-lond-accent '}
-								`}
+          group relative flex items-center gap-2 px-3 py-2 rounded-full
+          transition-all duration-300 ease-out transform font-barlow
+					${
+						userReaction
+							? 'bg-lond-accent/20' // Sfondo per stato attivo (reazione utente presente)
+							: 'hover:bg-lond-accent/10' // Sfondo hover per stato inattivo
+					}
+				`}
 			>
 				{userReaction ? (
-					<span className="text-sm">{userReaction}</span>
+					<span className="text-xs text-lond-accent">{userReaction}</span>
 				) : (
-					<Smile size={23} />
+					<Smile size={16} className="text-lond-light-gray group-hover:text-lond-accent" />
 				)}
 			</motion.button>
 

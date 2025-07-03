@@ -1,6 +1,4 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
-import LoginPage from '../components/Auth/pages/LoginPage';
-import RegisterPage from '../components/Auth/pages/RegisterPage';
 import Ex from '../components/Ex';
 import LondiesProgressBar from '../components/Londies/utils/LondiesProgressBar';
 import Explore from './Explore';
@@ -10,50 +8,15 @@ import Sidebar from './Sidebar';
 import UserPage from './UserPage';
 function App() {
 	return (
-		<div className=" w-full flex flex-row justify-center custom-scroll">
+		<div className=" w-full px-10 flex flex-row justify-center custom-scroll">
 			<BrowserRouter>
-				<div className="w-full h-full">
-					{/* <Sidebar /> */}
+				<Sidebar />
+				<div className="p-20 flex flex-row justify-end pr-10 overflow-x-hidden w-full overflow-hidden">
 					<Routes>
-						<Route
-							path="/"
-							element={
-								<div className="p-20 flex flex-row justify-end pr-10 overflow-x-hidden w-full overflow-hidden">
-									<Sidebar />
-									<Home />
-									{/* <Ex /> */}
-								</div>
-							}
-						/>
-						<Route
-							path="/explore"
-							element={
-								<div className="p-20 flex flex-row justify-end pr-10 overflow-x-hidden w-full overflow-hidden">
-									<Sidebar />
-									<Explore />
-								</div>
-							}
-						/>
-						<Route
-							path="/londies"
-							element={
-								<div className="p-20 flex flex-row justify-end pr-10 overflow-x-hidden w-full overflow-hidden">
-									<Sidebar />
-									<Londies />
-								</div>
-							}
-						/>
-						<Route
-							path="/profile"
-							element={
-								<div className="p-20 flex flex-row justify-end pr-10 overflow-x-hidden w-full overflow-hidden">
-									<Sidebar />
-									<UserPage />
-								</div>
-							}
-						/>
-						<Route path="/register" element={<RegisterPage />} />
-						<Route path="/login" element={<LoginPage />} />
+						<Route path="/" element={<Home />} />
+						<Route path="/explore" element={<Explore />} />
+						<Route path="/londies" element={<Londies />} />
+						<Route path="/profile" element={<UserPage />} />
 					</Routes>
 				</div>
 			</BrowserRouter>

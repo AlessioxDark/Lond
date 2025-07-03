@@ -120,10 +120,10 @@ const LondiesPost = ({
 					</div>
 
 					<div className="">
-						<h2 className="text-2xl font-black font-Montserrat text-white mb-2">
+						<h2 className="text-2xl font-black font-montserrat text-[var(--color-lond-text-primary)] mb-2">
 							{title}
 						</h2>
-						<p className="text-slate-200 text-md leading-relaxed font-light font-Lato">
+						<p className="text-[var(--color-lond-text-primary)] text-md leading-relaxed font-light font-lato">
 							{desc}
 						</p>
 					</div>

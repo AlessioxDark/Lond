@@ -26,12 +26,8 @@ const LondiesPlayer = ({ isLiked, setIsLiked }: LondiesPlayerProps) => {
 	const [isWaiting, setIsWaiting] = useState(false);
 	const [time, setTime] = useState({ min: '00', sec: '00', h: '00' });
 	const [volumeIcon, setVolumeIcon] = useState<React.ReactNode>(
-		<FaVolumeHigh
-			className=" text-lg group/volume"
-			style={{
-				textShadow: '0 0 8px #a855f7',
-			}}
-		/>
+		// Il colore dell'icona volume verrà dal genitore span
+		<FaVolumeHigh className="text-lg group/volume" />
 	);
 	const videoRef = useRef<HTMLVideoElement>(null);
 	const bufferRef = useRef<HTMLDivElement>(null);
@@ -186,19 +182,18 @@ const LondiesPlayer = ({ isLiked, setIsLiked }: LondiesPlayerProps) => {
 			className={`flex flex-col cursor-pointer items-center justify-center relative overflow-hidden group aspect-[3/4]
          min-w-full max-w-full 
          rounded-2xl
-  
     `}
 			ref={mainRef}
 		>
-			<div className="absolute inset-0 bg-gradient-to-br from-slate-800/20 via-slate-900/20 to-indigo-900/20 backdrop-blur-sm rounded-2xl z-0" />
+			<div className="absolute inset-0 bg-gradient-to-br from-[var(--color-lond-dark)]/20 via-[var(--color-lond-gray)]/10 to-[var(--color-lond-accent)]/10 backdrop-blur-sm rounded-2xl z-0" />
 			<AnimatePresence>
 				{isWaiting && (
-					<div className="absolute w-full h-full flex items-center justify-center z-25 bg-black/20 backdrop-blur-sm rounded-xl">
+					<div className="absolute w-full h-full flex items-center justify-center z-20 bg-[var(--color-lond-dark)]/30 backdrop-blur-sm rounded-xl">
 						<motion.div
 							animate={{ rotate: 360 }}
 							transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
 						>
-							<CgSpinner className="text-6xl text-white " />
+							<CgSpinner className="text-6xl text-[var(--color-lond-text-primary)]" />
 						</motion.div>
 					</div>
 				)}
@@ -206,11 +201,11 @@ const LondiesPlayer = ({ isLiked, setIsLiked }: LondiesPlayerProps) => {
 
 			<Video src={videoEx} ref={videoRef} preload="metadata"></Video>
 			<div
-				className="absolute inset-0 flex justify-center items-center rounded-2xl z-20 transition-all duration-300"
+				className="absolute inset-0 flex justify-center items-center rounded-2xl z-10 transition-all duration-300" // z-index ridotto per non coprire i controlli hover
 				ref={overlayRef}
 			>
 				<div
-					className="absolute w-full h-full inset-0 flex justify-center items-center rounded-[10px] z-20 transition-all duration-300"
+					className="absolute w-full h-full inset-0 flex justify-center items-center rounded-[10px] z-10 transition-all duration-300"
 					ref={overlayRef}
 					onClick={(e) => {
 						handleVideoClick(
@@ -230,10 +225,9 @@ const LondiesPlayer = ({ isLiked, setIsLiked }: LondiesPlayerProps) => {
 								animate={{ scale: 1, opacity: 1 }}
 								exit={{ scale: 0, opacity: 0 }}
 								whileTap={{ scale: 0.9 }}
-								className="bg-black/60
-                 rounded-full p-6 shadow-2xl  backdrop-blur-sm "
+								className="bg-[var(--color-lond-dark)]/70 backdrop-blur-sm rounded-full p-6 shadow-2xl"
 							>
-								<FaPlay className="text-4xl text-white ml-1" />
+								<FaPlay className="text-4xl text-[var(--color-lond-text-primary)] ml-1" />
 							</motion.div>
 						)}
 					</AnimatePresence>
@@ -243,36 +237,35 @@ const LondiesPlayer = ({ isLiked, setIsLiked }: LondiesPlayerProps) => {
 			<div className="absolute bottom-5 right-5 z-30" onClick={handleMute}>
 				<motion.div
 					whileTap={{ scale: 0.9 }}
-					className="w-9 h-9 cursor-pointer rounded-full 
-       "
+					className="w-9 h-9 cursor-pointer rounded-full"
 				>
-					<div className="w-full h-full bg-[#253141] backdrop-blur-xl border-2 border-slate-600 rounded-full flex justify-center items-center transition-all duration-300">
-						<span className=" text-lg group/volume text-white">
+					<div className="w-full h-full bg-[var(--color-lond-dark)]/70 backdrop-blur-md border-2 border-[var(--color-lond-light-gray)]/50 rounded-full flex justify-center items-center transition-all duration-300">
+						<span className="text-lg group/volume text-[var(--color-lond-text-primary)]">
 							{volumeIcon}
 						</span>
 					</div>
 				</motion.div>
 			</div>
 
-			<div className="absolute bottom-0 left-0 right-0 z-28 px-4 pb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+			<div className="absolute bottom-0 left-0 right-0 z-20 px-4 pb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
 				<div className="mt-2 px-3 py-1 ">
-					<span className="text-slate-300 text-[1rem] font-Lato">
+					<span className="text-[var(--color-lond-light-gray)] text-[1rem] font-lato">
 						{time.h !== '00' ? `${time.h}:` : ''}
 						{time.min}:{time.sec}
 					</span>
 				</div>
 				<div className="flex flex-col items-center">
 					<div
-						className="w-full h-1 bg-slate-700/70 backdrop-blur-xl rounded-full overflow-hidden cursor-pointer transition-all duration-200"
+						className="w-full h-1 bg-[var(--color-lond-dark)]/70 backdrop-blur-md rounded-full overflow-hidden cursor-pointer transition-all duration-200"
 						onClick={seekToPosition}
 					>
 						<div className="flex relative w-full h-full">
 							<div
-								className="play-progress bg-white rounded-full  transition-all duration-200 flex h-full relative overflow-hidden"
+								className="play-progress bg-[var(--color-lond-text-primary)] rounded-full transition-all duration-200 flex h-full relative overflow-hidden"
 								ref={progressRef}
 							/>
 							<div
-								className="buffer-progress flex bg-slate-500/60 absolute h-full rounded-full"
+								className="buffer-progress flex bg-[var(--color-lond-light-gray)]/60 absolute h-full rounded-full"
 								ref={bufferRef}
 							/>
 						</div>

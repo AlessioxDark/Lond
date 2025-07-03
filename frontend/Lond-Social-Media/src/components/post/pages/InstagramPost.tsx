@@ -99,8 +99,8 @@ export default function InstagramPost({
 				>
 					{/* Image counter */}
 					<div className="absolute top-4 right-4 z-30">
-						<div className="bg-black/60 backdrop-blur-sm rounded-xl px-3 py-1 text-center">
-							<span className="text-white text-sm font-Lato">
+						<div className="bg-[var(--color-lond-dark)]/70 backdrop-blur-sm rounded-xl px-3 py-1 text-center">
+							<span className="text-[var(--color-lond-text-primary)] text-sm font-lato">
 								{currentImgIndex + 1}/{images.length}
 							</span>
 						</div>
@@ -114,7 +114,7 @@ export default function InstagramPost({
 								setCurrentImgIndex((prevIndex) => prevIndex - 1);
 							}
 						}}
-						className="absolute top-1/2 left-2 z-30 w-10 h-10 bg-black/60 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/80 transition-all duration-300"
+						className="absolute top-1/2 left-2 z-30 w-10 h-10 bg-[var(--color-lond-dark)]/70 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-lond-text-primary)] hover:bg-[var(--color-lond-dark)] transition-all duration-300"
 						disabled={currentImgIndex === 0}
 					>
 						<RiArrowLeftSLine className="w-6 h-6" />
@@ -145,7 +145,7 @@ export default function InstagramPost({
 								setCurrentImgIndex((prevIndex) => prevIndex + 1);
 							}
 						}}
-						className="absolute top-1/2 right-2 z-30 w-10 h-10 bg-black/60 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/80 transition-all duration-300"
+						className="absolute top-1/2 right-2 z-30 w-10 h-10 bg-[var(--color-lond-dark)]/70 backdrop-blur-sm rounded-full flex items-center justify-center text-[var(--color-lond-text-primary)] hover:bg-[var(--color-lond-dark)] transition-all duration-300"
 						disabled={currentImgIndex === images.length - 1}
 					>
 						<RiArrowRightSLine className="w-6 h-6" />
@@ -161,8 +161,8 @@ export default function InstagramPost({
 										onClick={() => setCurrentImgIndex(i)}
 										className={`w-2 h-2 rounded-full transition-all duration-300 ${
 											i === currentImgIndex
-												? 'bg-zinc-200 w-6'
-												: 'bg-white/50 hover:bg-white/80'
+												? 'bg-[var(--color-lond-accent)] w-6'
+												: 'bg-[var(--color-lond-light-gray)]/50 hover:bg-[var(--color-lond-light-gray)]/80'
 										}`}
 									/>
 								))}
@@ -217,10 +217,10 @@ export default function InstagramPost({
 					</div>
 					{/* Title and Description */}
 					<div className="">
-						<h2 className="text-2xl font-black font-Montserrat text-white mb-1">
+						<h2 className="text-2xl font-black font-montserrat text-[var(--color-lond-text-primary)] mb-1">
 							{title}
 						</h2>
-						<p className="text-slate-100 text-md leading-relaxed font-light font-Lato">
+						<p className="text-[var(--color-lond-text-primary)] text-md leading-relaxed font-light font-lato">
 							{desc}
 						</p>
 					</div>
