@@ -16,6 +16,22 @@
   Commentiamo le variabili non più necessarie o gestite altrove.
 */
 @theme {
+	--color-lond-dark: #121212;
+	--color-lond-gray: #1e1e1e;
+	--color-lond-text-primary: #f4f4f5;
+	--color-lond-light-gray: #aaaaaa;
+	--color-lond-accent: #1d9bf0;
+	--color-lond-accent-hover: #1a8cd8;
+
+	--color-lond-green: #10b981;
+	--color-lond-red: #ef4444;
+	--color-lond-yellow: #f59e0b;
+
+	/* Definiamo anche i font qui, se vogliamo seguire l'approccio v4 per i font */
+	--font-montserrat: 'Montserrat', sans-serif;
+	--font-lato: 'Lato', sans-serif;
+	--font-barlow: 'Barlow', sans-serif;
+
 	--animate-fade-in-scale: fadeIn 0.3s ease-out;
 	--animate-border-spin: border-spin 7s linear infinite;
 	@keyframes fade-in {
@@ -53,7 +69,7 @@ body {
 	scrollbar-width: thin;
 	scroll-behavior: smooth;
 	/* Usiamo i nostri colori Tailwind per la scrollbar se possibile, o manteniamo questi se funzionano bene */
-	scrollbar-color: theme('colors.lond-gray') transparent; /* Esempio con colori del tema */
+	scrollbar-color: #4b5563 transparent; /* Esempio con colori del tema */
 }
 .range-slider {
 	display: flex;

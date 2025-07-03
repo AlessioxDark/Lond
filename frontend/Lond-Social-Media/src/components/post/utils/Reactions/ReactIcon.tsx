@@ -25,17 +25,13 @@ const ReactIcon = ({
 				className={`
 									flex items-center gap-2 px-4 py-2.5 rounded-3xl
 								transition-all duration-300
-									${
-										userReaction
-											? 'text-slate-100 bg-slate-500/50 '
-											: 'text-slate-400 hover:text-white hover:bg-slate-800/60  '
-									}
+									${userReaction && 'text-lond-text-primary bg-lond-accent '}
 								`}
 			>
 				{userReaction ? (
-					<span className="text-xs">{userReaction}</span>
+					<span className="text-sm">{userReaction}</span>
 				) : (
-					<Smile size={16} />
+					<Smile size={23} />
 				)}
 			</motion.button>
 

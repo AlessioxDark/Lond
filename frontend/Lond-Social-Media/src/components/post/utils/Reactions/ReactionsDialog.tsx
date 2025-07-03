@@ -88,9 +88,9 @@ const ReactionsDialog = ({ isOpen, onClose }: ReactionsDialogProps) => {
 						leaveFrom="opacity-100 scale-100"
 						leaveTo="opacity-0 scale-95"
 					>
-						<div className="bg-[#2d3b4e] rounded-lg shadow-2xl w-full max-w-lg h-[36rem] flex flex-col">
+						<div className="bg-lond-dark rounded-lg shadow-2xl w-full max-w-lg h-[36rem] flex flex-col">
 							{/* Header */}
-							<div className="flex items-center justify-between px-5 py-3 border-b border-slate-600">
+							<div className="flex items-center justify-between px-5 py-3 border-b border-lond-gray">
 								<h1 className="text-xl font-bold text-white">
 									Reactions ({totalReactions})
 								</h1>
@@ -103,7 +103,7 @@ const ReactionsDialog = ({ isOpen, onClose }: ReactionsDialogProps) => {
 							</div>
 
 							{/* Emoji Tabs */}
-							<div className="p-4 border-b border-slate-600">
+							<div className="p-4 border-b border-lond-gray">
 								<div className="flex flex-wrap gap-2">
 									<button
 										onClick={() => setSelectedEmoji(null)}

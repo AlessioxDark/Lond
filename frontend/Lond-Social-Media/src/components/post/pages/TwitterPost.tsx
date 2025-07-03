@@ -71,7 +71,7 @@ export default function TwitterPost({
 	return (
 		<motion.article
 			className={`
-${postContainerStyles} 
+${postContainerStyles} pb-4 
 			`}
 			variants={cardVariants}
 			role="article"
@@ -93,7 +93,7 @@ ${postContainerStyles}
 
 			{/* Enhanced Content with media type indicator */}
 			<motion.div className={`mb-4 relative z-10 opacity-100`}>
-				<p className="text-slate-100 text-[15px] leading-relaxed font-normal whitespace-pre-wrap tracking-wide">
+				<p className="text-lond-text-primary text-[15px] leading-relaxed font-normal whitespace-pre-wrap tracking-wide ">
 					{text}
 				</p>
 			</motion.div>
@@ -101,7 +101,7 @@ ${postContainerStyles}
 			{/* Enhanced Views count with trend indicator */}
 
 			{/* Enhanced Reactions Bar */}
-			<motion.div className="mb-4 relative z-10">
+			<motion.div className="mb-4 relative z-10 ">
 				<ReactionsBar reactions={reactions} userReaction={userReaction} />
 			</motion.div>
 
@@ -153,21 +153,12 @@ ${postContainerStyles}
 				</div>
 
 				{/* Enhanced Share Button */}
-				<motion.button
-					onClick={(e) => {
-						e.stopPropagation();
-						navigator.share?.({
-							title: `Post di ${name}`,
-							text: text,
-							url: window.location.href,
-						});
-					}}
-					className="group p-3 rounded-full bg-slate-700/20 hover:bg-slate-700"
-					aria-label="Condividi post"
-					whileTap={{ scale: 0.95 }}
-				>
-					<Share size={16} className="text-slate-400 " />
-				</motion.button>
+				<SocialIcon
+					icon={Share}
+					isActive={false}
+					onClick={() => {}}
+					count={null}
+				/>
 			</motion.div>
 		</motion.article>
 	);
