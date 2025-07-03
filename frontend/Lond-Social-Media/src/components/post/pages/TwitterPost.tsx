@@ -153,7 +153,7 @@ ${postContainerStyles}
 				</div>
 
 				{/* Enhanced Share Button */}
-				<motion.button
+				{/* <motion.button
 					onClick={(e) => {
 						e.stopPropagation();
 						navigator.share?.({
@@ -167,7 +167,21 @@ ${postContainerStyles}
 					whileTap={{ scale: 0.95 }}
 				>
 					<Share size={16} className="text-lond-light-gray " />
-				</motion.button>
+				</motion.button> */}
+				<SocialIcon
+					count={undefined}
+					icon={Share}
+					isActive={false}
+					onClick={(e) => {
+						e.stopPropagation();
+						navigator.share?.({
+							title: `Post di ${name}`,
+							text: text,
+							url: window.location.href,
+						});
+					}}
+					label="Share"
+				/>
 			</motion.div>
 		</motion.article>
 	);

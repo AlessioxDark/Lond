@@ -18,7 +18,7 @@ const ReactionsPopup = React.memo(
 						key={`popup-${reaction.emoji}-${index}`}
 						onClick={() => onEmojiClick(reaction.emoji)}
 						className={`
-            p-2 rounded-xl transition-all duration-200 hover:scale-125 hover:bg-lond-gray/70
+            p-2 rounded-xl transition-all duration-200 hover:scale-115 hover:bg-lond-gray/70
             ${
 							userReaction === reaction.emoji
 								? 'bg-lond-accent/20 ring-2 ring-lond-accent'
