@@ -106,42 +106,37 @@ ${postContainerStyles}
 			</motion.div>
 
 			{/* Enhanced Actions Bar */}
-			<motion.div className="flex items-center justify-between border-t border-lond-gray pt-4 relative z-10">
+			<motion.div className="flex items-center justify-between border-t border-lond-light-gray/30 pt-4 relative z-10">
 				<div className="flex items-center gap-2">
 					{/* Enhanced Social Icons with hover effects */}
-					<motion.div whileTap={{ scale: 0.95 }}>
-						<SocialIcon
-							icon={Heart}
-							isActive={isLiked}
-							onClick={() => {
-								setIsLiked(!isLiked);
-							}}
-							count={likes}
-							label="Mi piace"
-						/>
-					</motion.div>
 
-					<motion.div whileTap={{ scale: 0.95 }}>
-						<SocialIcon
-							icon={Repeat2}
-							isActive={isRetweeted}
-							onClick={() => {
-								setIsRetweeted(!isRetweeted);
-							}}
-							count={retweets}
-							label="Retweet"
-						/>
-					</motion.div>
+					<SocialIcon
+						icon={Heart}
+						isActive={isLiked}
+						onClick={() => {
+							setIsLiked(!isLiked);
+						}}
+						count={likes}
+						label="Mi piace"
+					/>
 
-					<motion.div whileTap={{ scale: 0.95 }}>
-						<SocialIcon
-							icon={Bookmark}
-							isActive={isSaved}
-							onClick={() => setIsSaved((prev) => !prev)}
-							count={saved}
-							label="Salva"
-						/>
-					</motion.div>
+					<SocialIcon
+						icon={Repeat2}
+						isActive={isRetweeted}
+						onClick={() => {
+							setIsRetweeted(!isRetweeted);
+						}}
+						count={retweets}
+						label="Retweet"
+					/>
+
+					<SocialIcon
+						icon={Bookmark}
+						isActive={isSaved}
+						onClick={() => setIsSaved((prev) => !prev)}
+						count={saved}
+						label="Salva"
+					/>
 
 					{/* Enhanced React Icon */}
 					<ReactIcon

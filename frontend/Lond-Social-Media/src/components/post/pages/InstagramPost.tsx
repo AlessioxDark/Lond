@@ -65,7 +65,7 @@ export default function InstagramPost({
 
 	return (
 		<motion.div
-			className={` ${postContainerStyles} w-[65%]`}
+			className={` ${postContainerStyles} w-[65%] pb-0`}
 			role="article"
 			aria-labelledby={`post-author`}
 			variants={cardVariants}
