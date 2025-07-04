@@ -269,13 +269,15 @@ const ReactionsDialog = ({ isOpen, onClose }: ReactionsDialogProps) => {
 						leaveTo="opacity-0 scale-95"
 					>
 						<div className="bg-lond-dark rounded-lg shadow-2xl w-full max-w-lg h-[36rem] flex flex-col">
-							<div className="flex flex-row justify-between p-4">
-								<h1 className="text-lg font-montserrat font-semibold text-[var(--color-lond-text-primary)]">
-									Reactions{' '}
-									<span className="text-sm font-barlow text-[var(--color-lond-light-gray)]">
+							<div className="flex flex-row justify-between p-4 border-b border-lond-gray">
+								<div className="flex flex-row gap-3 items-center">
+									<h1 className="text-lg font-montserrat font-semibold text-[var(--color-lond-text-primary)]">
+										Reactions
+									</h1>
+									<span className="text-sm font-barlow text-[var(--color-lond-light-gray)] font-semibold">
 										({totalReactions})
 									</span>
-								</h1>
+								</div>
 								<button
 									type="button"
 									onClick={onClose}
@@ -336,11 +338,11 @@ const ReactionsDialog = ({ isOpen, onClose }: ReactionsDialogProps) => {
 											<div className="flex items-center gap-3">
 												<img
 													src={reaction.pfp} // Assicurati che pfp sia un URL valido o un import
-													className="w-10 h-10 rounded-full ring-1 ring-transparent group-hover:ring-[var(--color-lond-accent)] transition-all duration-200"
+													className="w-10 h-10 rounded-full ring-1 ring-transparent  transition-all duration-200"
 													alt={`${reaction.name} profile`}
 												/>
 												<div>
-													<p className="text-sm font-montserrat font-semibold text-[var(--color-lond-text-primary)] group-hover:text-[var(--color-lond-accent)] transition-colors duration-150">
+													<p className="text-sm font-montserrat font-semibold text-[var(--color-lond-text-primary)] transition-colors duration-150">
 														{reaction.name}
 													</p>
 													<p className="text-xs font-barlow text-[var(--color-lond-light-gray)]">
@@ -348,7 +350,12 @@ const ReactionsDialog = ({ isOpen, onClose }: ReactionsDialogProps) => {
 													</p>
 												</div>
 											</div>
-											<span className="text-lg">{reaction.emoji}</span>
+											<div>
+												<button className="px-4 py-2 bg-lond-accent hover:bg-lond-accent-hover font-montserrat font-medium text-white text-sm rounded-xl">
+													{' '}
+													Segui{' '}
+												</button>
+											</div>
 										</div>
 									))
 								) : (

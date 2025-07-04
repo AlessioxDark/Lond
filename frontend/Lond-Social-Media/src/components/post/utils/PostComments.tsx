@@ -13,15 +13,14 @@ function PostComments({ height }: PostCommentsProps) {
 			transition={{ duration: 0.4 }}
 			className={`group
          
-        backdrop-blur-xl border border-slate-600
-        rounded-3xl p-3
+        backdrop-blur-xl border border-lond-light-gray 
+        rounded-3xl p-3 bg-lond-dark
 				
          flex flex-col  overflow-y-hidden ${height && `max-h-[${height}]`}`}
 		>
-			<h3 className="text-zinc-100 text-xl font-Montserrat font-bold mb-4">
+			<h3 className="text-lond-text-primary text-xl font-Montserrat font-bold mb-4">
 				Commenti
 			</h3>
-			<div className="w-full h-px bg-slate-400 rounded-sm  mb-4" />
 
 			<div className="flex-1 overflow-y-scroll mb-4 custom-scroll">
 				{[
@@ -103,7 +102,7 @@ function PostComments({ height }: PostCommentsProps) {
 						initial={{ opacity: 0, x: -20 }}
 						animate={{ opacity: 1, x: 0 }}
 						transition={{ delay: i * 0.1 }}
-						className=" bg-[#253141] p-3  border-b border-t border-b-slate-600 border-t-slate-600 
+						className="  p-3  border-b border-t border-b-lond-light-gray border-t-lond-light-gray 
             group
        
        
