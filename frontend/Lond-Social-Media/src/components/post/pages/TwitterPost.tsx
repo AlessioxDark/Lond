@@ -93,7 +93,7 @@ ${postContainerStyles}
 
 			{/* Enhanced Content with media type indicator */}
 			<motion.div className={`mb-4 relative z-10 opacity-100`}>
-				<p className="text-lond-text-primary text-[15px] leading-relaxed font-normal whitespace-pre-wrap tracking-wide font-lato">
+				<p className="text-[var(--color-lond-text-primary)] text-[15px] leading-relaxed font-normal whitespace-pre-wrap tracking-wide font-lato">
 					{text}
 				</p>
 			</motion.div>
@@ -106,37 +106,42 @@ ${postContainerStyles}
 			</motion.div>
 
 			{/* Enhanced Actions Bar */}
-			<motion.div className="flex items-center justify-between border-t border-lond-light-gray/30 pt-4 relative z-10">
+			<motion.div className="flex items-center justify-between border-t border-[var(--color-lond-gray)] pt-4 relative z-10">
 				<div className="flex items-center gap-2">
 					{/* Enhanced Social Icons with hover effects */}
+					<motion.div whileTap={{ scale: 0.95 }}>
+						<SocialIcon
+							icon={Heart}
+							isActive={isLiked}
+							onClick={() => {
+								setIsLiked(!isLiked);
+							}}
+							count={likes}
+							label="Mi piace"
+						/>
+					</motion.div>
 
-					<SocialIcon
-						icon={Heart}
-						isActive={isLiked}
-						onClick={() => {
-							setIsLiked(!isLiked);
-						}}
-						count={likes}
-						label="Mi piace"
-					/>
+					<motion.div whileTap={{ scale: 0.95 }}>
+						<SocialIcon
+							icon={Repeat2}
+							isActive={isRetweeted}
+							onClick={() => {
+								setIsRetweeted(!isRetweeted);
+							}}
+							count={retweets}
+							label="Retweet"
+						/>
+					</motion.div>
 
-					<SocialIcon
-						icon={Repeat2}
-						isActive={isRetweeted}
-						onClick={() => {
-							setIsRetweeted(!isRetweeted);
-						}}
-						count={retweets}
-						label="Retweet"
-					/>
-
-					<SocialIcon
-						icon={Bookmark}
-						isActive={isSaved}
-						onClick={() => setIsSaved((prev) => !prev)}
-						count={saved}
-						label="Salva"
-					/>
+					<motion.div whileTap={{ scale: 0.95 }}>
+						<SocialIcon
+							icon={Bookmark}
+							isActive={isSaved}
+							onClick={() => setIsSaved((prev) => !prev)}
+							count={saved}
+							label="Salva"
+						/>
+					</motion.div>
 
 					{/* Enhanced React Icon */}
 					<ReactIcon
@@ -148,7 +153,7 @@ ${postContainerStyles}
 				</div>
 
 				{/* Enhanced Share Button */}
-				{/* <motion.button
+				<motion.button
 					onClick={(e) => {
 						e.stopPropagation();
 						navigator.share?.({
@@ -157,26 +162,12 @@ ${postContainerStyles}
 							url: window.location.href,
 						});
 					}}
-					className="group p-3 rounded-full bg-lond-gray hover:bg-opacity-75"
+					className="group p-3 rounded-full bg-[var(--color-lond-gray)] hover:bg-opacity-75"
 					aria-label="Condividi post"
 					whileTap={{ scale: 0.95 }}
 				>
-					<Share size={16} className="text-lond-light-gray " />
-				</motion.button> */}
-				<SocialIcon
-					count={undefined}
-					icon={Share}
-					isActive={false}
-					onClick={(e) => {
-						e.stopPropagation();
-						navigator.share?.({
-							title: `Post di ${name}`,
-							text: text,
-							url: window.location.href,
-						});
-					}}
-					label="Share"
-				/>
+					<Share size={16} className="text-[var(--color-lond-light-gray)] " />
+				</motion.button>
 			</motion.div>
 		</motion.article>
 	);

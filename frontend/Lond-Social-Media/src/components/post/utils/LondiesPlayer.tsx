@@ -185,15 +185,15 @@ const LondiesPlayer = ({ isLiked, setIsLiked }: LondiesPlayerProps) => {
     `}
 			ref={mainRef}
 		>
-			<div className="absolute inset-0 bg-gradient-to-br from-lond-dark/20 via-lond-gray/10 to-lond-accent/10 backdrop-blur-sm rounded-2xl z-0" />
+			<div className="absolute inset-0 bg-gradient-to-br from-[var(--color-lond-dark)]/20 via-[var(--color-lond-gray)]/10 to-[var(--color-lond-accent)]/10 backdrop-blur-sm rounded-2xl z-0" />
 			<AnimatePresence>
 				{isWaiting && (
-					<div className="absolute w-full h-full flex items-center justify-center z-20 bg-lond-dark/30 backdrop-blur-sm rounded-xl">
+					<div className="absolute w-full h-full flex items-center justify-center z-20 bg-[var(--color-lond-dark)]/30 backdrop-blur-sm rounded-xl">
 						<motion.div
 							animate={{ rotate: 360 }}
 							transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
 						>
-							<CgSpinner className="text-6xl text-lond-text-primary" />
+							<CgSpinner className="text-6xl text-[var(--color-lond-text-primary)]" />
 						</motion.div>
 					</div>
 				)}
@@ -225,9 +225,9 @@ const LondiesPlayer = ({ isLiked, setIsLiked }: LondiesPlayerProps) => {
 								animate={{ scale: 1, opacity: 1 }}
 								exit={{ scale: 0, opacity: 0 }}
 								whileTap={{ scale: 0.9 }}
-								className="bg-lond-dark/70 backdrop-blur-sm rounded-full p-6 shadow-2xl"
+								className="bg-[var(--color-lond-dark)]/70 backdrop-blur-sm rounded-full p-6 shadow-2xl"
 							>
-								<FaPlay className="text-4xl text-lond-text-primary ml-1" />
+								<FaPlay className="text-4xl text-[var(--color-lond-text-primary)] ml-1" />
 							</motion.div>
 						)}
 					</AnimatePresence>
@@ -239,8 +239,8 @@ const LondiesPlayer = ({ isLiked, setIsLiked }: LondiesPlayerProps) => {
 					whileTap={{ scale: 0.9 }}
 					className="w-9 h-9 cursor-pointer rounded-full"
 				>
-					<div className="w-full h-full bg-lond-dark/70 backdrop-blur-md border-2 border-lond-light-gray/50 rounded-full flex justify-center items-center transition-all duration-300">
-						<span className="text-lg group/volume text-lond-text-primary">
+					<div className="w-full h-full bg-[var(--color-lond-dark)]/70 backdrop-blur-md border-2 border-[var(--color-lond-light-gray)]/50 rounded-full flex justify-center items-center transition-all duration-300">
+						<span className="text-lg group/volume text-[var(--color-lond-text-primary)]">
 							{volumeIcon}
 						</span>
 					</div>
@@ -249,23 +249,23 @@ const LondiesPlayer = ({ isLiked, setIsLiked }: LondiesPlayerProps) => {
 
 			<div className="absolute bottom-0 left-0 right-0 z-20 px-4 pb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
 				<div className="mt-2 px-3 py-1 ">
-					<span className="text-lond-light-gray text-[1rem] font-lato">
+					<span className="text-[var(--color-lond-light-gray)] text-[1rem] font-lato">
 						{time.h !== '00' ? `${time.h}:` : ''}
 						{time.min}:{time.sec}
 					</span>
 				</div>
 				<div className="flex flex-col items-center">
 					<div
-						className="w-full h-1 bg-lond-dark/70 backdrop-blur-md rounded-full overflow-hidden cursor-pointer transition-all duration-200"
+						className="w-full h-1 bg-[var(--color-lond-dark)]/70 backdrop-blur-md rounded-full overflow-hidden cursor-pointer transition-all duration-200"
 						onClick={seekToPosition}
 					>
 						<div className="flex relative w-full h-full">
 							<div
-								className="play-progress bg-lond-text-primary rounded-full transition-all duration-200 flex h-full relative overflow-hidden"
+								className="play-progress bg-[var(--color-lond-text-primary)] rounded-full transition-all duration-200 flex h-full relative overflow-hidden"
 								ref={progressRef}
 							/>
 							<div
-								className="buffer-progress flex bg-lond-light-gray/60 absolute h-full rounded-full"
+								className="buffer-progress flex bg-[var(--color-lond-light-gray)]/60 absolute h-full rounded-full"
 								ref={bufferRef}
 							/>
 						</div>
