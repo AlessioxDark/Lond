@@ -227,11 +227,10 @@ export default function InstagramPost({
 
 					{/* Comments Section */}
 				</div>
-				<div className="w-full">
-					<AnimatePresence>
-						{isComments && <PostComments height="48rem" />}
-					</AnimatePresence>
-				</div>
+
+				<AnimatePresence>
+					{isComments && <PostComments height="48rem" />}
+				</AnimatePresence>
 			</div>
 		</motion.div>
 	);
