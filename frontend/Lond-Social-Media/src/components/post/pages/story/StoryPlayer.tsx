@@ -34,7 +34,7 @@ const StoryPlayer = ({ onClose, content, forward }: StoryPlayerProps) => {
 	const [isWaiting, setIsWaiting] = useState(false);
 	const [isMuted, setIsMuted] = useState<boolean>(true);
 	const [volumeIcon, setVolumeIcon] = useState<React.ReactNode>(
-		<FaVolumeXmark className="text-[var(--color-lond-accent)] text-lg group/volume" />
+		<FaVolumeXmark className="text-lond-accent text-lg group/volume" />
 	);
 
 	const videoRef = useRef<HTMLVideoElement>(null);
@@ -144,16 +144,16 @@ const StoryPlayer = ({ onClose, content, forward }: StoryPlayerProps) => {
 		<div
 			className={`flex flex-col cursor-pointer items-center justify-center relative overflow-hidden group h-[100%] 
         
- w-full rounded-2xl shadow-2xl bg-[var(--color-lond-gray)] border border-[var(--color-lond-light-gray)]/10
+ w-full rounded-2xl shadow-2xl bg-lond-gray border border-lond-light-gray/10
     `}
 		>
 			{/* Loading spinner */}
 			{isWaiting && (
-				<div className="absolute inset-0 flex items-center justify-center z-30 bg-[var(--color-lond-dark)]/50">
+				<div className="absolute inset-0 flex items-center justify-center z-30 bg-lond-dark/50">
 					<motion.div
 						animate={{ rotate: 360 }}
 						transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-						className="w-16 h-16 border-4 border-[var(--color-lond-accent)]/30 border-t-[var(--color-lond-accent)] rounded-full"
+						className="w-16 h-16 border-4 border-lond-accent/30 border-t-lond-accent rounded-full"
 					/>
 				</div>
 			)}
@@ -169,12 +169,11 @@ const StoryPlayer = ({ onClose, content, forward }: StoryPlayerProps) => {
 
 			<div className="absolute top-0 left-0 right-0 z-30 p-4">
 				{/* Progress bar */}
-				<div className="w-full h-1 bg-[var(--color-lond-light-gray)]/30 rounded-full overflow-hidden mb-4">
+				<div className="w-full h-1 bg-lond-light-gray/30 rounded-full overflow-hidden mb-4">
 					<div
-						className="h-full bg-[var(--color-lond-text-primary)] rounded-full transition-all duration-100 ease-linear"
+						className="h-full bg-lond-text-primary rounded-full transition-all duration-100 ease-linear"
 						ref={progressRef}
-					>
-					</div>
+					></div>
 				</div>
 
 				{/* User info and controls */}
@@ -183,9 +182,9 @@ const StoryPlayer = ({ onClose, content, forward }: StoryPlayerProps) => {
 						<img
 							src={content.pfp}
 							alt={`${content.name} profile`}
-							className="w-10 h-10 rounded-full ring-2 ring-[var(--color-lond-light-gray)]/30"
+							className="w-10 h-10 rounded-full ring-2 ring-lond-light-gray/30"
 						/>
-						<span className="font-semibold text-[var(--color-lond-text-primary)] font-montserrat text-sm">
+						<span className="font-semibold text-lond-text-primary font-montserrat text-sm">
 							{content.name}
 						</span>
 					</div>
@@ -194,7 +193,7 @@ const StoryPlayer = ({ onClose, content, forward }: StoryPlayerProps) => {
 						<motion.button
 							onClick={handlePlayPause}
 							whileTap={{ scale: 0.9 }}
-							className="w-8 h-8 rounded-full bg-[var(--color-lond-dark)]/70 backdrop-blur-sm flex items-center justify-center text-[var(--color-lond-text-primary)] font-lato border-2 border-[var(--color-lond-light-gray)]/50 transition-all duration-300"
+							className="w-8 h-8 rounded-full bg-lond-dark/70 backdrop-blur-sm flex items-center justify-center text-lond-text-primary font-lato border-2 border-lond-light-gray/50 transition-all duration-300"
 						>
 							{isPlaying ? <Pause size={16} /> : <Play size={16} />}
 						</motion.button>
@@ -202,7 +201,7 @@ const StoryPlayer = ({ onClose, content, forward }: StoryPlayerProps) => {
 						<motion.button
 							onClick={handleMute}
 							whileTap={{ scale: 0.9 }}
-							className="w-8 h-8 rounded-full bg-[var(--color-lond-dark)]/70 backdrop-blur-sm flex items-center justify-center text-[var(--color-lond-text-primary)] font-lato border-2 border-[var(--color-lond-light-gray)]/50 transition-all duration-300"
+							className="w-8 h-8 rounded-full bg-lond-dark/70 backdrop-blur-sm flex items-center justify-center text-lond-text-primary font-lato border-2 border-lond-light-gray/50 transition-all duration-300"
 						>
 							{isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
 						</motion.button>
@@ -210,7 +209,7 @@ const StoryPlayer = ({ onClose, content, forward }: StoryPlayerProps) => {
 						<motion.button
 							onClick={onClose}
 							whileTap={{ scale: 0.9 }}
-							className="w-8 h-8 rounded-full bg-[var(--color-lond-dark)]/70 backdrop-blur-sm flex items-center justify-center text-[var(--color-lond-text-primary)] font-lato border-2 border-[var(--color-lond-light-gray)]/50 transition-all duration-300"
+							className="w-8 h-8 rounded-full bg-lond-dark/70 backdrop-blur-sm flex items-center justify-center text-lond-text-primary font-lato border-2 border-lond-light-gray/50 transition-all duration-300"
 						>
 							<X size={16} />
 						</motion.button>
