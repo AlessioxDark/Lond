@@ -45,7 +45,7 @@ const ImgStory = ({ content, onClose, isOpen, forward }: imgStoryProps) => {
 	}, [isOpen, isPlaying, content]);
 
 	return (
-		<div className="h-full w-full relative rounded-2xl overflow-hidden bg-lond-gray border border-lond-light-gray/10 shadow-2xl">
+		<div className="h-full w-full relative rounded-2xl overflow-hidden bg-[var(--color-lond-gray)] border border-[var(--color-lond-light-gray)]/10 shadow-2xl">
 			{/* Background image with overlay */}
 			<div className="absolute inset-0">
 				<img
@@ -59,9 +59,9 @@ const ImgStory = ({ content, onClose, isOpen, forward }: imgStoryProps) => {
 			{/* Header */}
 			<div className="absolute top-0 left-0 right-0 z-30 p-4">
 				{/* Progress bar */}
-				<div className="w-full h-1 bg-lond-light-gray/30 rounded-full overflow-hidden mb-4">
+				<div className="w-full h-1 bg-[var(--color-lond-light-gray)]/30 rounded-full overflow-hidden mb-4">
 					<div
-						className="h-full bg-lond-text-primary rounded-full transition-all duration-100 ease-linear"
+						className="h-full bg-[var(--color-lond-text-primary)] rounded-full transition-all duration-100 ease-linear"
 						ref={progressRef}
 					>
 						{/* Questo div interno non sembra necessario se il parent ha già il colore di progresso */}
@@ -75,9 +75,9 @@ const ImgStory = ({ content, onClose, isOpen, forward }: imgStoryProps) => {
 						<img
 							src={content.pfp}
 							alt={`${content.name} profile`}
-							className="w-10 h-10 rounded-full ring-2 ring-lond-light-gray/30"
+							className="w-10 h-10 rounded-full ring-2 ring-[var(--color-lond-light-gray)]/30"
 						/>
-						<span className="font-semibold text-lond-text-primary font-montserrat text-sm">
+						<span className="font-semibold text-[var(--color-lond-text-primary)] font-montserrat text-sm">
 							{content.name}
 						</span>
 					</div>
@@ -86,7 +86,7 @@ const ImgStory = ({ content, onClose, isOpen, forward }: imgStoryProps) => {
 						<motion.button
 							onClick={handlePlayPause}
 							whileTap={{ scale: 0.9 }}
-							className="w-8 h-8 rounded-full bg-lond-dark/70 backdrop-blur-sm flex items-center justify-center text-lond-text-primary font-lato border-2 border-lond-light-gray/50 transition-all duration-300"
+							className="w-8 h-8 rounded-full bg-[var(--color-lond-dark)]/70 backdrop-blur-sm flex items-center justify-center text-[var(--color-lond-text-primary)] font-lato border-2 border-[var(--color-lond-light-gray)]/50 transition-all duration-300"
 						>
 							{isPlaying ? <Pause size={16} /> : <Play size={16} />}
 						</motion.button>
@@ -94,7 +94,7 @@ const ImgStory = ({ content, onClose, isOpen, forward }: imgStoryProps) => {
 						<motion.button
 							onClick={onClose}
 							whileTap={{ scale: 0.9 }}
-							className="w-8 h-8 rounded-full bg-lond-dark/70 backdrop-blur-sm flex items-center justify-center text-lond-text-primary font-lato border-2 border-lond-light-gray/50 transition-all duration-300"
+							className="w-8 h-8 rounded-full bg-[var(--color-lond-dark)]/70 backdrop-blur-sm flex items-center justify-center text-[var(--color-lond-text-primary)] font-lato border-2 border-[var(--color-lond-light-gray)]/50 transition-all duration-300"
 						>
 							<X size={16} />
 						</motion.button>

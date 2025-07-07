@@ -70,10 +70,10 @@ export default function Sidebar() {
 					return (
 						<div
 							key={id}
-							className={`flex flex-row gap-2 items-center text-slate-400 w-full rounded-4xl p-4  hover:bg-lond-accent-hover
+							className={`flex flex-row gap-2 items-center text-slate-400 w-full rounded-4xl p-4 hover:bg-gradient-to-br hover:bg-[#253141]
     
     hover:border-slate-600/60 hover:text-white
-     ${active == name ? 'bg-lond-accent   text-white' : ''}`}
+     ${active == name ? 'bg-[#253141]  border-slate-600/60 text-white' : ''}`}
 							onClick={() => {
 								setActive(name);
 							}}

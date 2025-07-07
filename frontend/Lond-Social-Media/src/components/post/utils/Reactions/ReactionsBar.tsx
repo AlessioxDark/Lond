@@ -84,7 +84,7 @@ const ReactionsBar = React.memo(({ reactions, userReaction }: any) => {
 				{topReactions.map((reaction: Reaction, index: number) => (
 					<div
 						key={`${reaction.emoji}-${index}`}
-						className="w-6 h-6 bg-lond-dark rounded-full flex items-center justify-center text-xs border border-lond-light-gray/50 transition-transform cursor-pointer"
+						className="w-6 h-6 bg-[var(--color-lond-dark)] rounded-full flex items-center justify-center text-xs border border-[var(--color-lond-light-gray)]/50 transition-transform cursor-pointer"
 						title={`${reaction.count} ${reaction.label}`}
 					>
 						{reaction.emoji}
@@ -92,10 +92,8 @@ const ReactionsBar = React.memo(({ reactions, userReaction }: any) => {
 				))}
 			</div>
 
-			<span className="text-lond-light-gray text-sm hover:text-lond-text-primary transition-all duration-300">
-				{userReaction && (
-					<span className="text-lond-text-primary font-semibold">Tu</span>
-				)}
+			<span className="text-[var(--color-lond-light-gray)] text-sm hover:text-[var(--color-lond-text-primary)] transition-all duration-300">
+				{userReaction && <span className="text-[var(--color-lond-text-primary)] font-semibold">Tu</span>}
 				{userReaction && totalReactions > 1 && <span> e </span>}
 				{totalReactions > (userReaction ? 1 : 0) && (
 					<span>
