@@ -76,9 +76,9 @@ const LondiesPost = ({
 				isVerified={isVerified}
 			/>
 
-			<div className="flex gap-3 items-start flex-col  mb-2">
+			<div className="flex gap-3 items-start flex-col">
 				<LondiesPlayer isLiked={isLiked} setIsLiked={setIsLiked} />
-				<div className="w-full flex flex-col mb-3 gap-3">
+				<div className="w-full flex flex-col gap-3">
 					<div className="w-full flex justify-between items-center">
 						<div className="flex items-center gap-3  flex-wrap ">
 							<SocialIcon

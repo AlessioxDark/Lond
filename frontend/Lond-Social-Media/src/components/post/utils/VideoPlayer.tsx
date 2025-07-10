@@ -9,6 +9,8 @@ import { FaPause, FaPlay } from 'react-icons/fa';
 import { FaVolumeHigh, FaVolumeLow, FaVolumeXmark } from 'react-icons/fa6';
 import { ImVolumeMedium } from 'react-icons/im';
 import { MdFullscreen, MdFullscreenExit } from 'react-icons/md';
+import LondiesBufferBar from '../../Londies/utils/LondiesBufferBar';
+import LondiesProgressBar from '../../Londies/utils/LondiesProgressBar';
 import { handleVideoClick } from './funcs/HomeFuncs';
 const Video = styled.video`
 	flex-shrink: 1;
@@ -274,12 +276,15 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 
 		return h === '00' ? `${m}:${s}` : `${h}:${m}:${s}`;
 	};
-
+	const handleChangeProgressBar = (newValue: number) => {
+		if (!videoRef.current) return;
+		videoRef.current.currentTime = newValue;
+	};
 	return (
 		<motion.div
 			className="group
-				 border border-lond-gray)]/70 hover:border-lond-gray)]
-				hover:shadow-lond-dark)]/20
+				 border border-lond-gray/70 hover:border-lond-gray
+				hover:shadow-lond-dark/20
 				hover:shadow-2xl cursor-pointer overflow-visible relative rounded-2xl"
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ opacity: 1, y: 0 }}
@@ -292,13 +297,13 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 						initial={{ opacity: 0, scale: 0.8 }}
 						animate={{ opacity: 1, scale: 1 }}
 						exit={{ opacity: 0, scale: 0.8 }}
-						className="absolute w-full h-full flex items-center justify-center z-20 bg-lond-dark)]/70 backdrop-blur-sm rounded-xl"
+						className="absolute w-full h-full flex items-center justify-center z-20 bg-lond-dark/70 backdrop-blur-sm rounded-xl"
 					>
 						<motion.div
 							animate={{ rotate: 360 }}
 							transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
 						>
-							<CgSpinner className="text-6xl text-lond-text-primary)]" />
+							<CgSpinner className="text-6xl text-lond-text-primary" />
 						</motion.div>
 					</motion.div>
 				)}
@@ -325,9 +330,9 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 							animate={{ scale: 1, opacity: 1 }}
 							exit={{ scale: 0, opacity: 0 }}
 							whileTap={{ scale: 0.9 }}
-							className="bg-lond-dark)]/70 backdrop-blur-xl rounded-full p-6 shadow-2xl"
+							className="bg-lond-dark/70 backdrop-blur-xl rounded-full p-6 shadow-2xl"
 						>
-							<FaPlay className="text-4xl text-lond-text-primary)] ml-1" />
+							<FaPlay className="text-4xl text-lond-text-primary ml-1" />
 						</motion.div>
 					)}
 				</AnimatePresence>
@@ -342,46 +347,58 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 								exit={{ scale: 0, opacity: 0 }}
 								whileTap={{ scale: 0.9 }}
 								onClick={restartVideo}
-								className="bg-lond-gray)]/80 backdrop-blur-sm rounded-full p-6 shadow-2xl"
+								className="bg-lond-gray/80 backdrop-blur-sm rounded-full p-6 shadow-2xl"
 							>
-								<VscDebugRestart className="text-4xl text-lond-text-primary)]" />
+								<VscDebugRestart className="text-4xl text-lond-text-primary" />
 							</motion.div>
 						)}
 				</AnimatePresence>
 			</div>
 
 			<div
-				className="bg-lond-dark)]/80 backdrop-blur-md
-				  rounded-b-lg p-3 shadow-2xl border-t border-lond-gray)]
+				className="bg-lond-dark/80 flex gap-2 flex-col backdrop-blur-md
+				  rounded-b-lg p-3 shadow-2xl border-t border-lond-gray
 		      absolute w-full bottom-0 z-30 transition-all duration-500  ease-in-out right-0
 					opacity-0 group-hover:opacity-100"
 			>
 				{/* Timeline */}
-				<div
-					className="timeline w-full h-2 mb-3 bg-lond-gray)]/70
+				{/* <div
+					className="timeline w-full h-2 mb-3 bg-lond-gray/70
 							rounded-full overflow-hidden cursor-pointer shadow-inner transition-all duration-200"
 					onClick={seekToPosition}
 				>
 					<div className="flex relative w-full h-full">
 						<motion.div
-							className="play-progress bg-lond-text-primary)] rounded-full transition-all duration-200 flex h-full relative overflow-hidden"
+							className="play-progress bg-lond-text-primary rounded-full transition-all duration-200 flex h-full relative overflow-hidden z-30 "
 							ref={progressRef}
 						/>
 						<div
-							className="buffer-progress flex bg-lond-light-gray)]/60 absolute h-full rounded-full"
+							className="buffer-progress flex bg-lond-light-gray/50 z-0 absolute h-full rounded-full"
 							ref={bufferRef}
 						/>
 					</div>
-				</div>
+				</div> */}
+				<LondiesBufferBar
+					min={0}
+					type="youtube"
+					max={videoRef.current?.duration || 0}
+				/>
+				<LondiesProgressBar
+					max={videoRef.current?.duration || 0}
+					min={0}
+					value={videoRef.current?.currentTime || 0}
+					setValue={handleChangeProgressBar}
+					type="youtube"
+				/>
 
 				{/* Controls */}
 				<div className="flex w-full justify-between items-center">
 					<div className="flex items-center gap-4">
 						<motion.button
 							className="flex items-center justify-center w-10 h-10 rounded-xl
-									border-2 bg-lond-gray)]/80 backdrop-blur-sm
-								 text-lond-text-primary)] hover:border-lond-light-gray)]
-									border-lond-light-gray)]/50
+									border-2 bg-lond-gray/80 backdrop-blur-sm
+								 text-lond-text-primary hover:border-lond-light-gray
+									border-lond-light-gray/50
 									transition-all duration-300
 		              "
 							onClick={handlePlayPause}
@@ -395,14 +412,14 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 						</motion.button>
 
 						<div
-							className="font-bold font-lato bg-lond-gray)]/80
-								backdrop-blur-sm px-3 py-1 rounded-xl border-2 border-lond-light-gray)]/50"
+							className="font-bold font-lato bg-lond-gray/80
+								backdrop-blur-sm px-3 py-1 rounded-xl border-2 border-lond-light-gray/50"
 						>
-							<span className="text-lond-text-primary)]">
+							<span className="text-lond-text-primary">
 								{time.min}:{time.sec}
 							</span>
-							<span className="text-lond-light-gray)] mx-2">/</span>
-							<span className="text-lond-light-gray)]">
+							<span className="text-lond-light-gray mx-2">/</span>
+							<span className="text-lond-light-gray">
 								{' '}
 								{/* Leggermente meno enfasi sulla durata totale */}
 								{videoDuration && formatTime(videoDuration)}
@@ -420,8 +437,8 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 							<motion.div
 								onClick={handleMute}
 								whileTap={{ scale: 0.9 }}
-								className="w-10 h-10 rounded-xl bg-lond-gray)]/80
-										border-2 border-lond-light-gray)]/50 text-lond-text-primary)] backdrop-blur-sm transition-all duration-300 flex items-center justify-center
+								className="w-10 h-10 rounded-xl bg-lond-gray/80
+										border-2 border-lond-light-gray/50 text-lond-text-primary backdrop-blur-sm transition-all duration-300 flex items-center justify-center
 		                "
 							>
 								{volumeIcon}
@@ -433,12 +450,12 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 										initial={{ width: 0, opacity: 0 }}
 										animate={{ width: 96, opacity: 1 }}
 										exit={{ width: 0, opacity: 0 }}
-										className="h-3 bg-lond-gray)]/70
+										className="h-3 bg-lond-gray/70
 												rounded-full overflow-hidden cursor-pointer shadow-inner"
 										onClick={modifyVolume}
 									>
 										<div
-											className="h-full bg-lond-text-primary)] rounded-full"
+											className="h-full bg-lond-text-primary rounded-full"
 											ref={volumeRef}
 										/>
 									</motion.div>
@@ -450,8 +467,8 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 						<div className="relative">
 							<motion.button
 								className="flex items-center gap-2 h-10 px-2 py-2 rounded-xl
-										bg-lond-gray)]/80 backdrop-blur-sm border-2 border-lond-light-gray)]/50
-										hover:border-lond-light-gray)] text-lond-text-primary)] transition-all duration-300"
+										bg-lond-gray/80 backdrop-blur-sm border-2 border-lond-light-gray/50
+										hover:border-lond-light-gray text-lond-text-primary transition-all duration-300"
 								onClick={() => setIsOpen(!isOpen)}
 								whileTap={{ scale: 0.95 }}
 							>
@@ -463,7 +480,7 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 									animate={{ rotate: isOpen ? 180 : 0 }}
 									transition={{ duration: 0.2 }}
 								>
-									<FiChevronDown className="w-5 h-5 text-lond-light-gray)]" />
+									<FiChevronDown className="w-5 h-5 text-lond-light-gray" />
 								</motion.div>
 							</motion.button>
 
@@ -473,11 +490,11 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 										initial={{ opacity: 0, y: 10, scale: 0.95 }}
 										animate={{ opacity: 1, y: 0, scale: 1 }}
 										exit={{ opacity: 0, y: 10, scale: 0.95 }}
-										className="bg-lond-dark)]/90 absolute bottom-full mb-3 left-0 w-24
-												backdrop-blur-md border border-lond-gray)] rounded-xl shadow-2xl z-40"
+										className="bg-lond-dark/90 absolute bottom-full mb-3 left-0 w-24
+												backdrop-blur-md border border-lond-gray rounded-xl shadow-2xl z-40"
 									>
 										<div
-											className="w-full bg-lond-gray)]/80
+											className="w-full bg-lond-gray/80
 				  rounded-xl p-2 shadow-2xl"
 										>
 											<div className="space-y-1">
@@ -498,8 +515,8 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 																rounded-lg cursor-pointer transition-all duration-200 font-bold
 																${
 																	isHovered || isActive
-																		? 'bg-lond-accent)] text-lond-text-primary)] shadow-lg'
-																		: 'bg-transparent text-lond-light-gray)] hover:text-lond-text-primary)]'
+																		? 'bg-lond-accent text-lond-text-primary shadow-lg'
+																		: 'bg-transparent text-lond-light-gray hover:text-lond-text-primary'
 																}
 															`}
 															whileTap={{ scale: 0.95 }}
@@ -519,9 +536,9 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 						<motion.button
 							onClick={handleFullscreen}
 							whileTap={{ scale: 0.9 }}
-							className="w-10 h-10 items-center justify-center flex rounded-xl bg-lond-gray)]/80 backdrop-blur-sm
-									border-2 border-lond-light-gray)]/50 hover:border-lond-light-gray)]
-									text-lond-text-primary)] transition-all duration-300"
+							className="w-10 h-10 items-center justify-center flex rounded-xl bg-lond-gray/80 backdrop-blur-sm
+									border-2 border-lond-light-gray/50 hover:border-lond-light-gray
+									text-lond-text-primary transition-all duration-300"
 						>
 							{isFullScreen ? (
 								<MdFullscreenExit className="text-2xl" />

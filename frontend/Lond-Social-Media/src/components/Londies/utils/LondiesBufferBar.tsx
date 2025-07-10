@@ -1,19 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useRendersCount } from 'react-use';
-interface LondiesProgressBarProps {
+interface LondiesBufferBarProps {
 	min: number;
 	max: number;
 	value: number;
 	setValue: (value: number) => void;
 	type: 'youtube' | 'lond';
 }
-const LondiesProgressBar = ({
+const LondiesBufferBar = ({
 	min,
 	max,
 	value,
 	setValue,
 	type,
-}: LondiesProgressBarProps) => {
+}: LondiesBufferBarProps) => {
 	const [sliderRange, setSliderRange] = useState<number>(0);
 	const sliderRef = useRef<HTMLInputElement>(null);
 	const handleSliderInput = () => {
@@ -55,7 +55,7 @@ const LondiesProgressBar = ({
 				style={{ left: `calc(${sliderRange}- 0.5em)` }}
 			></div>
 			<div
-				className="progress"
+				className="progress buffer"
 				style={{
 					width: `${sliderRange}%`,
 					height: `${type === 'youtube' ? '0.5rem' : '0.25rem'}`,
@@ -65,4 +65,4 @@ const LondiesProgressBar = ({
 	);
 };
 
-export default LondiesProgressBar;
+export default LondiesBufferBar;

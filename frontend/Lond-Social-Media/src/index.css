@@ -4,21 +4,19 @@
 @import 'tailwindcss';
 
 @theme {
-	:root {
-		--color-lond-dark: #121212;           /* Sfondo Principale: Nero profondo */
-		--color-lond-gray: #1E1E1E;           /* Sfondo Secondario/Card: Grigio scuro */
-		--color-lond-text-primary: #F4F4F5;   /* Testo Primario: Bianco sporco */
-		--color-lond-light-gray: #AAAAAA;     /* Testo Secondario/Icone Tenui: Grigio medio */
-		--color-lond-accent: #1D9BF0;         /* Colore d'Accento: Blu Twitter/X */
-		--color-lond-accent-hover: #1A8CD8;   /* Hover per Accento: Blu Twitter/X più scuro */
-		--color-lond-green: #10B981;          /* Verde: Successo, Online */
-		--color-lond-red: #EF4444;            /* Rosso: Errori, Like Icon */
-		--color-lond-yellow: #F59E0B;         /* Giallo: Avvisi, Warning */
+	--color-lond-dark: #121212; /* Sfondo Principale: Nero profondo */
+	--color-lond-gray: #1e1e1e; /* Sfondo Secondario/Card: Grigio scuro */
+	--color-lond-text-primary: #f4f4f5; /* Testo Primario: Bianco sporco */
+	--color-lond-light-gray: #aaaaaa; /* Testo Secondario/Icone Tenui: Grigio medio */
+	--color-lond-accent: #1d9bf0; /* Colore d'Accento: Blu Twitter/X */
+	--color-lond-accent-hover: #1a8cd8; /* Hover per Accento: Blu Twitter/X più scuro */
+	--color-lond-green: #10b981; /* Verde: Successo, Online */
+	--color-lond-red: #ef4444; /* Rosso: Errori, Like Icon */
+	--color-lond-yellow: #f59e0b; /* Giallo: Avvisi, Warning */
 
-		--font-montserrat: 'Montserrat', sans-serif;
-		--font-lato: 'Lato', sans-serif;
-		--font-barlow: 'Barlow', sans-serif;
-	}
+	--font-montserrat: 'Montserrat', sans-serif;
+	--font-lato: 'Lato', sans-serif;
+	--font-barlow: 'Barlow', sans-serif;
 
 	--animate-fade-in-scale: fadeIn 0.3s ease-out;
 	--animate-border-spin: border-spin 7s linear infinite;
@@ -48,16 +46,16 @@ body {
 	scroll-behavior: smooth;
 	scrollbar-color: var(--color-lond-gray) transparent;
 }
-
+/* 
 .range-slider {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
 	gap: 1em;
-	color: white; /* Potrebbe diventare var(--color-lond-text-primary) */
+	color: white; 
 	margin: 4em auto;
-}
+} */
 .slider-container {
 	position: relative;
 	display: flex;
@@ -71,10 +69,10 @@ body {
 	-webkit-appearance: none;
 	appearance: none;
 	width: 100%;
-	height: 0.25rem;
+	/* height: 0.25rem; */
 	outline: none;
 	border-radius: 3px;
-	background: rgba(100, 116, 139, 0.6); /* Potrebbe usare i nostri grigi */
+	background: rgba(170, 170, 170, 0.7); /* var(--color-lond-light-gray), */
 	cursor: pointer;
 }
 .slider::-webkit-slider-thumb {
@@ -87,9 +85,11 @@ body {
 
 .progress {
 	width: 0;
-	height: 0.25rem;
+	/* height: 0.25rem; */
 	border-radius: 3px;
-	background-color: white; /* Potrebbe diventare var(--color-lond-text-primary) o var(--color-lond-accent) */
+	background-color: var(
+		--color-lond-text-primary
+	); /* Potrebbe diventare var(--color-lond-text-primary) o var(--color-lond-accent) */
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
@@ -98,6 +98,8 @@ body {
 	transition-property: box-shadow;
 	transition-duration: 0.2;
 }
-
+.buffer {
+	background-color: rgba(170, 170, 170, 0.5);
+}
 @layer utilities {
 }
