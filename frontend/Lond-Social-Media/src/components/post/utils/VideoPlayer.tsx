@@ -147,7 +147,11 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 				}
 			}
 		};
+		const onKeyDown = (e) => {
+			console.log(e.key);
+		};
 		element.addEventListener('play', onPlay);
+		overlayRef.current?.addEventListener('keydown', onKeyDown);
 		element.addEventListener('playing', onPlay);
 		element.addEventListener('pause', onPause);
 		element.addEventListener('waiting', onWaiting);
@@ -165,18 +169,19 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 			element.removeEventListener('progress', onProgress);
 			element.removeEventListener('volumechange', onVolumeChange);
 			document.removeEventListener('fullscreenchange', onFullScreen);
+			overlayRef.current?.removeEventListener('keydown', onKeyDown);
 		};
 	}, [videoRef.current]);
 
-	const seekToPosition = (e: React.MouseEvent<HTMLDivElement>) => {
-		if (!videoRef.current) return;
-		const { left, width } = e.currentTarget.getBoundingClientRect();
-		const clickPos = (e.clientX - left) / width;
-		if (clickPos < 0 || clickPos > 1) return;
-		const durationMs = videoRef.current.duration * 1000;
-		const newTime = (durationMs * clickPos) / 1000;
-		videoRef.current.currentTime = newTime;
-	};
+	// const seekToPosition = (e: React.MouseEvent<HTMLDivElement>) => {
+	// 	if (!videoRef.current) return;
+	// 	const { left, width } = e.currentTarget.getBoundingClientRect();
+	// 	const clickPos = (e.clientX - left) / width;
+	// 	if (clickPos < 0 || clickPos > 1) return;
+	// 	const durationMs = videoRef.current.duration * 1000;
+	// 	const newTime = (durationMs * clickPos) / 1000;
+	// 	videoRef.current.currentTime = newTime;
+	// };
 
 	const handleMute = () => {
 		if (!videoRef.current) return;
@@ -278,6 +283,7 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 	};
 	const handleChangeProgressBar = (newValue: number) => {
 		if (!videoRef.current) return;
+		setIsWaiting(false);
 		videoRef.current.currentTime = newValue;
 	};
 	return (
@@ -321,6 +327,9 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 						clickTimeoutRef,
 						handlePlayPause
 					);
+					overlayRef.current?.focus();
+					console.log('focus videoref');
+					console.log(document.activeElement);
 				}}
 			>
 				<AnimatePresence>
@@ -362,34 +371,29 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 					opacity-0 group-hover:opacity-100"
 			>
 				{/* Timeline */}
-				{/* <div
+				<div
 					className="timeline w-full h-2 mb-3 bg-lond-gray/70
 							rounded-full overflow-hidden cursor-pointer shadow-inner transition-all duration-200"
-					onClick={seekToPosition}
+					// onClick={seekToPosition}
 				>
 					<div className="flex relative w-full h-full">
-						<motion.div
+						{/* <motion.div
 							className="play-progress bg-lond-text-primary rounded-full transition-all duration-200 flex h-full relative overflow-hidden z-30 "
 							ref={progressRef}
+						/> */}
+						<LondiesProgressBar
+							max={videoRef.current?.duration || 0}
+							min={0}
+							value={videoRef.current?.currentTime || 0}
+							setValue={handleChangeProgressBar}
+							type="youtube"
 						/>
 						<div
 							className="buffer-progress flex bg-lond-light-gray/50 z-0 absolute h-full rounded-full"
 							ref={bufferRef}
 						/>
 					</div>
-				</div> */}
-				<LondiesBufferBar
-					min={0}
-					type="youtube"
-					max={videoRef.current?.duration || 0}
-				/>
-				<LondiesProgressBar
-					max={videoRef.current?.duration || 0}
-					min={0}
-					value={videoRef.current?.currentTime || 0}
-					setValue={handleChangeProgressBar}
-					type="youtube"
-				/>
+				</div>
 
 				{/* Controls */}
 				<div className="flex w-full justify-between items-center">

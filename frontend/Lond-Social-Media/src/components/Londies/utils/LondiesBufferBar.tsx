@@ -40,7 +40,6 @@ const LondiesBufferBar = ({
 		<div className="slider-container">
 			<input
 				type="range"
-				onInput={handleSliderInput}
 				onChange={handleSliderInput}
 				value={value}
 				className="slider"

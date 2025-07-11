@@ -37,7 +37,7 @@ const LondiesProgressBar = ({
 	}, [sliderRef]);
 
 	return (
-		<div className="slider-container">
+		<div className="slider-container z-30">
 			<input
 				type="range"
 				onInput={handleSliderInput}
