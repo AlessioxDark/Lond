@@ -151,7 +151,7 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 			console.log(e.key);
 		};
 		element.addEventListener('play', onPlay);
-		overlayRef.current?.addEventListener('keydown', onKeyDown);
+		element.addEventListener('keydown', onKeyDown);
 		element.addEventListener('playing', onPlay);
 		element.addEventListener('pause', onPause);
 		element.addEventListener('waiting', onWaiting);
@@ -169,7 +169,7 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 			element.removeEventListener('progress', onProgress);
 			element.removeEventListener('volumechange', onVolumeChange);
 			document.removeEventListener('fullscreenchange', onFullScreen);
-			overlayRef.current?.removeEventListener('keydown', onKeyDown);
+			element.removeEventListener('keydown', onKeyDown);
 		};
 	}, [videoRef.current]);
 
@@ -327,9 +327,6 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 						clickTimeoutRef,
 						handlePlayPause
 					);
-					overlayRef.current?.focus();
-					console.log('focus videoref');
-					console.log(document.activeElement);
 				}}
 			>
 				<AnimatePresence>
