@@ -4,7 +4,13 @@ import { VscDebugRestart } from 'react-icons/vsc';
 
 import styled from '@emotion/styled';
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+	EventHandler,
+	ReactEventHandler,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
 import { FaPause, FaPlay } from 'react-icons/fa';
 import { FaVolumeHigh, FaVolumeLow, FaVolumeXmark } from 'react-icons/fa6';
 import { ImVolumeMedium } from 'react-icons/im';
@@ -147,11 +153,8 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 				}
 			}
 		};
-		const onKeyDown = (e) => {
-			console.log(e.key);
-		};
+
 		element.addEventListener('play', onPlay);
-		element.addEventListener('keydown', onKeyDown);
 		element.addEventListener('playing', onPlay);
 		element.addEventListener('pause', onPause);
 		element.addEventListener('waiting', onWaiting);
@@ -169,7 +172,6 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 			element.removeEventListener('progress', onProgress);
 			element.removeEventListener('volumechange', onVolumeChange);
 			document.removeEventListener('fullscreenchange', onFullScreen);
-			element.removeEventListener('keydown', onKeyDown);
 		};
 	}, [videoRef.current]);
 
@@ -184,15 +186,19 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 	// };
 
 	const handleMute = () => {
+		console.log('muting...', volumeRef.current);
 		if (!videoRef.current) return;
 		if (!volumeRef.current) return;
+
 		const video = videoRef.current;
 		if (isMuted) {
+			console.log('è mutato');
 			video.muted = false;
 			setIsMuted(false);
 
 			video.volume = prevVolume.current;
 		} else {
+			console.log('non è mutato');
 			video.volume != 0
 				? (prevVolume.current = video.volume)
 				: prevVolume.current;
@@ -206,7 +212,37 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 			video.volume = 0;
 		}
 	};
-
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+		switch (e.code) {
+			case 'Space':
+				e.preventDefault();
+				console.log('spazio');
+				handlePlayPause();
+				break;
+			case 'ArrowRight':
+				e.preventDefault();
+				if (!videoRef.current) return;
+				// setIsWaiting(false);
+				videoRef.current.currentTime += 10;
+				break;
+			case 'ArrowLeft':
+				e.preventDefault();
+				if (!videoRef.current) return;
+				// setIsWaiting(false);
+				videoRef.current.currentTime -= 10;
+				break;
+			case 'KeyM':
+				handleMute();
+				break;
+			case 'F11':
+				e.preventDefault();
+				handleFullscreen();
+				break;
+			default:
+				console.log(e.code);
+				break;
+		}
+	};
 	const modifyVolume = (e: React.MouseEvent<HTMLDivElement>) => {
 		if (!videoRef.current) return;
 
@@ -254,6 +290,7 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 	}, []);
 
 	const handlePlayPause = () => {
+		console.log('sto leggendo');
 		if (!videoRef.current || !overlayRef.current) return;
 		if (isPlaying) {
 			videoRef.current.pause();
@@ -303,7 +340,7 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 						initial={{ opacity: 0, scale: 0.8 }}
 						animate={{ opacity: 1, scale: 1 }}
 						exit={{ opacity: 0, scale: 0.8 }}
-						className="absolute w-full h-full flex items-center justify-center z-20 bg-lond-dark/70 backdrop-blur-sm rounded-xl"
+						className="absolute w-full h-full flex items-center justify-center z-20 rounded-xl"
 					>
 						<motion.div
 							animate={{ rotate: 360 }}
@@ -316,7 +353,7 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 			</AnimatePresence>
 			<Video src={src} ref={videoRef} preload="metadata"></Video>
 			<div
-				className="absolute w-full h-full inset-0 flex justify-center items-center rounded-[10px] z-10 transition-all duration-300" // z-index ridotto
+				className="absolute w-full h-full inset-0 flex justify-center items-center rounded-[10px] z-10 transition-all duration-300 outline-none" // z-index ridotto
 				ref={overlayRef}
 				onClick={(e) => {
 					handleVideoClick(
@@ -327,11 +364,20 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 						clickTimeoutRef,
 						handlePlayPause
 					);
+					console.log('ciao sto al click');
+					if (document.activeElement !== overlayRef.current) {
+						overlayRef.current?.focus();
+					}
+					console.log(document.activeElement == overlayRef.current);
 				}}
+				onKeyDown={(e) => {
+					handleKeyDown(e);
+				}}
+				tabIndex={0}
 			>
 				<AnimatePresence>
 					{!isPlaying && videoDuration !== videoRef.current?.currentTime && (
-						<motion.div
+						<motion.button
 							initial={{ scale: 0, opacity: 0 }}
 							animate={{ scale: 1, opacity: 1 }}
 							exit={{ scale: 0, opacity: 0 }}
@@ -339,7 +385,7 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 							className="bg-lond-dark/70 backdrop-blur-xl rounded-full p-6 shadow-2xl"
 						>
 							<FaPlay className="text-4xl text-lond-text-primary ml-1" />
-						</motion.div>
+						</motion.button>
 					)}
 				</AnimatePresence>
 
@@ -446,21 +492,30 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 							</motion.div>
 
 							<AnimatePresence>
-								{showVolumeSlider && (
-									<motion.div
-										initial={{ width: 0, opacity: 0 }}
-										animate={{ width: 96, opacity: 1 }}
-										exit={{ width: 0, opacity: 0 }}
-										className="h-3 bg-lond-gray/70
+								{/*se vuoi che funziona il fatto del vlume devi togliere la condizione perchè deve essere sempre visibile*/}
+								{/* {showVolumeSlider && ( */}
+								<motion.div
+									initial={{
+										width: showVolumeSlider ? 0 : 96,
+										opacity: showVolumeSlider ? 0 : 1,
+									}}
+									animate={{
+										width: showVolumeSlider ? 96 : 0,
+										opacity: showVolumeSlider ? 1 : 0,
+									}}
+									exit={{
+										width: showVolumeSlider ? 0 : 96,
+										opacity: showVolumeSlider ? 0 : 1,
+									}}
+									className="h-3 bg-lond-gray/70
 												rounded-full overflow-hidden cursor-pointer shadow-inner"
-										onClick={modifyVolume}
-									>
-										<div
-											className="h-full bg-lond-text-primary rounded-full"
-											ref={volumeRef}
-										/>
-									</motion.div>
-								)}
+									onClick={modifyVolume}
+								>
+									<div
+										className="h-full bg-lond-text-primary rounded-full"
+										ref={volumeRef}
+									/>
+								</motion.div>
 							</AnimatePresence>
 						</div>
 

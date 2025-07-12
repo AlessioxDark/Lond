@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { Bookmark, Heart, MessageCircle, Share } from 'lucide-react';
 import { useState } from 'react';
-import videoEx from '../../../assets/videoEx2.mp4';
+import videoEx from '../../../assets/videoEx.mp4';
 import PostComments from '../utils/PostComments';
 import PostHeader from '../utils/PostHeader';
 import ReactIcon from '../utils/Reactions/ReactIcon';
