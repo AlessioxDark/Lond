@@ -91,7 +91,7 @@ export default function InstagramPost({
 			/>
 
 			{/* Main Content Area */}
-			<div className="relative z-10 flex flex-col items-center gap-3 mb-6 ">
+			<div className="relative z-10 flex flex-col items-center gap-3 ">
 				{/* Image Carousel */}
 				<div
 					className=" relative aspect-square w-full "

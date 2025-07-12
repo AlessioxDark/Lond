@@ -89,7 +89,9 @@ const PostHeader = memo(
 
 				<div className="flex-1 min-w-0">
 					<div className="flex items-center gap-1 sm:gap-2 mb-0.5 flex-wrap">
-						<span className={`text-lond-text-primary font-montserrat ${config.nameText} truncate`}>
+						<span
+							className={`text-lond-text-primary font-montserrat ${config.nameText} truncate`}
+						>
 							{name}
 						</span>
 
@@ -123,25 +125,10 @@ const PostHeader = memo(
 					>
 						<span className="truncate">{handle}</span>
 						<span className="hidden xs:inline">•</span>
-						<time
-							dateTime={createdAt.toISOString()}
-							className="truncate hidden xs:block"
-						>
+						<time dateTime={createdAt.toISOString()} className="truncate">
 							{new Date(createdAt).toLocaleString('it-IT', {
 								day: 'numeric',
 								month: 'short',
-								hour: '2-digit',
-								minute: '2-digit',
-							})}
-						</time>
-						{/* Versione mobile più compatta */}
-						<time
-							dateTime={createdAt.toISOString()}
-							className="truncate xs:hidden text-xs"
-						>
-							{new Date(createdAt).toLocaleString('it-IT', {
-								day: 'numeric',
-								month: 'numeric',
 								hour: '2-digit',
 								minute: '2-digit',
 							})}
