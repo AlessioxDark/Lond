@@ -477,7 +477,9 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 					<div className="flex items-center gap-4">
 						{/* Volume Control */}
 						<div
-							className="flex items-center gap-3 group/volume h-10"
+							className={`flex items-center ${
+								showVolumeSlider && 'gap-3'
+							} group/volume h-10`}
 							onMouseEnter={() => setShowVolumeSlider(true)}
 							onMouseLeave={() => setShowVolumeSlider(false)}
 						>
