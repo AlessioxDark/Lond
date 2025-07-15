@@ -9,6 +9,7 @@ import {
 } from '../assets/post.jpg';
 
 import storyVideo from '../assets/TikTokVideo.mp4';
+import PostDialog from '../components/Explore/pages/PostDialog';
 import InstagramPost from '../components/post/pages/InstagramPost';
 import LondiesPost from '../components/post/pages/LondiesPost';
 import TwitterPost from '../components/post/pages/TwitterPost';
@@ -16,6 +17,76 @@ import YoutubePost from '../components/post/pages/YoutubePost';
 import Story from '../components/post/pages/story/Story';
 export default function Home() {
 	const [images, setImages] = useState([post1, post2, post3]);
+	const [postDialogData, setPostDialogData] = useState([]);
+	const SAMPLEPOST = [
+		{
+			type: 'twitter',
+			id: 'abc',
+			name: 'Alessio Quaranta',
+			handle: '@alessio40',
+			pfp: pfp,
+			text: 'Run a marathon in under two hours. Impossible? Not for Nike (@Nike). Last May, the company brought three of the best runners on the planet together in Italy to set a new record in a closed-door marathon that was broadcast live on Twitter.',
+			createdAt: new Date(),
+			isViral: true,
+			isVerified: false,
+			likes: 100,
+			retweets: 5,
+			saved: 2,
+		},
+		{
+			type: 'instagram',
+			id: 'abc',
+
+			name: 'Alessio Quaranta',
+			handle: '@alessio40',
+			pfp: pfp,
+			desc: 'Run a marathon in under two hours. Impossible? Not for Nike (@Nike). Last May, the company brought three of the best runners on the planet together in Italy to set a new record in a closed-door marathon that was broadcast live on Twitter.',
+			createdAt: new Date(),
+			isViral: false,
+			isVerified: false,
+			likes: 100,
+			comments: 10,
+			repost: 5,
+			saved: 2,
+			images: [...images],
+			title: 'Dybala va per i 200!',
+		},
+		{
+			type: 'youtube',
+			id: 'abc',
+			name: 'Alessio Quaranta',
+			handle: '@alessio40',
+			pfp: pfp,
+			desc: 'Run a marathon in under two hours. Impossible? Not for Nike (@Nike). Last May, the company brought three of the best runners on the planet together in Italy to set a new record in a closed-door marathon that was broadcast live on Twitter.',
+			createdAt: new Date(),
+			isViral: true,
+			isVerified: false,
+			likes: 100,
+			comments: 10,
+			repost: 5,
+			saved: 2,
+
+			title: 'Dybala va per i 200!',
+		},
+		{
+			type: 'londies',
+			id: 'abc',
+			name: 'Alessio Quaranta',
+			handle: '@alessio40',
+			pfp: pfp,
+			desc: 'Run a marathon in under two hours. Impossible? Not for Nike (@Nike). Last May, the company brought three of the best runners on the planet together in Italy to set a new record in a closed-door marathon that was broadcast live on Twitter.',
+			createdAt: new Date(),
+			isViral: false,
+			isVerified: false,
+			likes: 100,
+			comments: 10,
+			repost: 5,
+			saved: 2,
+			images: images,
+			title: 'Dybala va per i 200!',
+		},
+	];
+	const [post, setPost] = useState(SAMPLEPOST);
 	const [storyIndex, setStoryIndex] = useState<number>(0);
 	const [stories, setStories] = useState([
 		{ pfp: pfp, name: 'Alessio Quaranta', content: post1, isViewed: true },
@@ -73,6 +144,8 @@ export default function Home() {
 		{ pfp: pfp, name: 'Alessio Quaranta', content: post1, isViewed: false },
 		{ pfp: pfp, name: 'Alessio Quaranta', content: storyVideo, isViewed: true },
 	]);
+	const [isPostOpen, setIsPostOpen] = useState(false);
+
 	useEffect(() => {
 		console.log(storyIndex);
 	}, [storyIndex]);
@@ -149,7 +222,7 @@ border-2 border-slate-600 flex items-center justify-center transition-all durati
 					className="flex h-full w-full flex-col mt-8 items-center gap-4"
 					variants={itemVariants}
 				>
-					<TwitterPost
+					{/* <TwitterPost
 						id={'abc'}
 						pfp={pfp}
 						isViral={true}
@@ -164,7 +237,10 @@ border-2 border-slate-600 flex items-center justify-center transition-all durati
 						handle={'@alessio40'}
 						createdAt={new Date()}
 					/>
+
 					<InstagramPost
+						id={'abc'}
+						openDialog={() => setIsPostOpen(true)}
 						pfp={pfp}
 						comments={0}
 						isViral={false}
@@ -179,6 +255,7 @@ border-2 border-slate-600 flex items-center justify-center transition-all durati
 						handle={'@alessio40'}
 						createdAt={new Date()}
 					/>
+
 					<YoutubePost
 						pfp={pfp}
 						handle={'@alessio40'}
@@ -206,9 +283,35 @@ border-2 border-slate-600 flex items-center justify-center transition-all durati
 						desc="La Joya, in un grande momento di forma, ha chiesto a Ranieri di poter partire titolare contro il Monza: gli manca solo una rete per fare cifra tonda⚽️. L'articolo completo è sul nostro sito e la nostra app📲#Dybala #Roma #CorrieredelloSport"
 						handle={'@alessio40'}
 						createdAt={new Date()}
-					/>
+					/> */}
+					{post.map((postData, index) => {
+						switch (postData.type) {
+							case 'twitter':
+								return <TwitterPost key={index} {...postData} />;
+							case 'instagram':
+								return (
+									<InstagramPost
+										key={index}
+										{...postData}
+										openDialog={() => {
+											setPostDialogData(postData);
+											setIsPostOpen(true);
+										}}
+									/>
+								);
+							case 'youtube':
+								return <YoutubePost key={index} {...postData} />;
+							case 'londies':
+								return <LondiesPost key={index} {...postData} />;
+						}
+					})}
 				</motion.div>
 			</motion.div>
+			<PostDialog
+				isOpen={isPostOpen}
+				PostDialogData={postDialogData}
+				onClose={() => setIsPostOpen(false)}
+			/>
 		</div>
 	);
 }

@@ -52,6 +52,7 @@ export default function InstagramPost({
 	createdAt,
 	isVerified,
 	isViral,
+	openDialog,
 }: InstagramPost) {
 	// const [isComments, setIsComments] = useState(false); // Rimosso
 	const [isComments, setIsComments] = useState(false); // Nuovo stato
@@ -76,6 +77,7 @@ export default function InstagramPost({
 			variants={cardVariants}
 			animate="animate"
 			initial="initial"
+			// Aggiungi questa riga per aprire il dialogo al click
 		>
 			{/* Animated background patterns */}
 
@@ -190,7 +192,7 @@ export default function InstagramPost({
 							<SocialIcon
 								icon={MessageCircle}
 								isActive={isComments} // Usa il nuovo stato se vuoi cambiare stile icona
-								onClick={() => setIsComments(!isComments)} // Apre il modale/sheet
+								onClick={() => openDialog()} // Apre il modale/sheet
 								count={comments}
 							/>
 
@@ -231,11 +233,6 @@ export default function InstagramPost({
 					</div>
 
 					{/* Comments Section - Rimossa da qui */}
-				</div>
-				<div className="w-full">
-					<AnimatePresence>
-						{isComments && <PostComments height="48rem" />}
-					</AnimatePresence>
 				</div>
 			</div>
 		</motion.div>

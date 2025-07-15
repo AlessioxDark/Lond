@@ -65,7 +65,7 @@ const CommentItem = ({ comment, isReply, onToggleReplies, handleLike }) => {
 								{comment.likesCount}
 							</button>
 
-							<button className="flex items-center gap-1 text-sm text-slate-400 hover:text-blue-400 transition-colors duration-200">
+							<button className="flex items-center gap-1 text-sm text-slate-400 hover:text-slate-300 transition-colors duration-200">
 								<MessageCircle className="w-4 h-4" />
 								Rispondi
 							</button>
