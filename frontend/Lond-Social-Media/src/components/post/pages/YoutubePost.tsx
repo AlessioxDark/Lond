@@ -37,6 +37,7 @@ export default function YoutubePost({
 	createdAt,
 	isVerified,
 	isViral,
+	openDialog,
 }: YoutubePost) {
 	const [isLiked, setIsLiked] = useState(false);
 	const [isComments, setIsComments] = useState(false);
@@ -104,7 +105,7 @@ export default function YoutubePost({
 					<SocialIcon
 						icon={MessageCircle}
 						isActive={isComments}
-						onClick={() => setIsComments(!isComments)}
+						onClick={() => openDialog()}
 						count={comments}
 					/>
 					<SocialIcon

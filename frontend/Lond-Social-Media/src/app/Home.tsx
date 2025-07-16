@@ -300,7 +300,16 @@ border-2 border-slate-600 flex items-center justify-center transition-all durati
 									/>
 								);
 							case 'youtube':
-								return <YoutubePost key={index} {...postData} />;
+								return (
+									<YoutubePost
+										key={index}
+										{...postData}
+										openDialog={() => {
+											setPostDialogData(postData);
+											setIsPostOpen(true);
+										}}
+									/>
+								);
 							case 'londies':
 								return <LondiesPost key={index} {...postData} />;
 						}
