@@ -477,15 +477,15 @@ const VideoPlayerExplore = ({
 							<AnimatePresence>
 								<motion.div
 									initial={{
-										width: showVolumeSlider ? 0 : 96,
+										width: showVolumeSlider ? 0 : 66,
 										opacity: showVolumeSlider ? 0 : 1,
 									}}
 									animate={{
-										width: showVolumeSlider ? 96 : 0,
+										width: showVolumeSlider ? 66 : 0,
 										opacity: showVolumeSlider ? 1 : 0,
 									}}
 									exit={{
-										width: showVolumeSlider ? 0 : 96,
+										width: showVolumeSlider ? 0 : 66,
 										opacity: showVolumeSlider ? 0 : 1,
 									}}
 									className="h-2 bg-lond-gray/70
