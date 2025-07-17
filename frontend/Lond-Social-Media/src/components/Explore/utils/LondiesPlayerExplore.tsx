@@ -194,15 +194,15 @@ const LondiesPlayerExplore = ({ isLiked, setIsLiked }: LondiesPlayerProps) => {
     `}
 			ref={mainRef}
 		>
-			<div className="absolute inset-0 bg-gradient-to-br from-slate-800/20 via-slate-900/20 to-indigo-900/20 backdrop-blur-sm rounded-2xl z-0" />
+			<div className="absolute inset-0bg-gradient-to-br from-lond-dark/20 via-lond-gray/10 to-lond-accent/10 backdrop-blur-sm rounded-2xl z-0" />
 			<AnimatePresence>
 				{isWaiting && (
-					<div className="absolute w-full h-full flex items-center justify-center z-25 bg-black/20 backdrop-blur-sm rounded-xl">
+					<div className="absolute w-full h-full flex items-center justify-center z-25 bg-lond-dark/30 backdrop-blur-sm rounded-xl">
 						<motion.div
 							animate={{ rotate: 360 }}
 							transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
 						>
-							<CgSpinner className="text-6xl text-white " />
+							<CgSpinner className="text-6xl text-lond-text-primary " />
 						</motion.div>
 					</div>
 				)}
@@ -234,10 +234,10 @@ const LondiesPlayerExplore = ({ isLiked, setIsLiked }: LondiesPlayerProps) => {
 								animate={{ scale: 1, opacity: 1 }}
 								exit={{ scale: 0, opacity: 0 }}
 								whileTap={{ scale: 0.9 }}
-								className="bg-black/60
+								className="bg-lond-dark/70
                  rounded-full p-6 shadow-2xl  backdrop-blur-sm "
 							>
-								<FaPlay className="text-4xl text-white ml-1" />
+								<FaPlay className="text-4xl text-lond-text-primary ml-1" />
 							</motion.div>
 						)}
 					</AnimatePresence>
@@ -259,7 +259,7 @@ const LondiesPlayerExplore = ({ isLiked, setIsLiked }: LondiesPlayerProps) => {
 
 			<div className="absolute bottom-0 left-0 right-0 z-28 px-4 pb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
 				<div className="mt-2 px-3 py-1 ">
-					<span className="text-slate-300 text-[1rem] font-Lato">
+					<span className="text-lond-light-gray text-[1rem] font-Lato">
 						{time.h !== '00' ? `${time.h}:` : ''}
 						{time.min}:{time.sec}
 					</span>

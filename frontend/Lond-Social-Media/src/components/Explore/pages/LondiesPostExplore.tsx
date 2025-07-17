@@ -64,8 +64,10 @@ const LondiesPostExplore = ({
 				<ReactionsBar reactions={reactions} />
 			</div>
 			<div className="mb-3">
-				<h4 className="text-slate-100 font-medium text-sm mb-1">{title}</h4>
-				<p className="text-xs text-slate-200">{desc}</p>
+				<h4 className="text-lond-text-primary font-medium text-sm mb-1">
+					{title}
+				</h4>
+				<p className="text-xs text-lond-text-primary">{desc}</p>
 			</div>
 			<SocialIconsExploreFullRow
 				isComments={isComments}

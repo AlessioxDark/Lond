@@ -58,7 +58,7 @@ const SocialIcon = ({ icon: Icon, isActive, onClick, count, label }) => {
 			className={`
         group relative flex items-center gap-2 px-3 py-2 rounded-full
         transition-all duration-300 ease-out transform font-barlow
-        hover:bg-lond-gray/50  // Leggero sfondo all'hover del pulsante
+        hover:bg-lond-gray/50 
       `}
 			onMouseEnter={() => setIsHover(true)}
 			onMouseLeave={() => setIsHover(false)}

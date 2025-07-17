@@ -17,16 +17,29 @@ const ReactIconExplore = ({
 }: reactIconExploreProps) => {
 	const [showReactions, setShowReactions] = useState(false);
 	return (
-		<motion.div
-			className="relative z-40"
-			onClick={() => setShowReactions(!showReactions)}
-			whileTap={{ scale: 0.9 }}
-		>
-			{userReaction ? (
-				<span className="text-xs ">{userReaction}</span>
-			) : (
-				<Smile size={16} />
-			)}
+		<div className="relative z-40">
+			<motion.button
+				whileTap={{ scale: 0.9 }}
+				onClick={() => setShowReactions(!showReactions)}
+				className={`
+           group/ReactIcon relative flex items-center px-2 py-1 rounded-full           
+          transition-all duration-300 ease-out transform font-barlow
+					${
+						userReaction
+							? 'bg-lond-accent/80' // Sfondo per stato attivo (reazione utente presente)
+							: 'hover:bg-lond-accent/10' // Sfondo hover per stato inattivo
+					}
+				`}
+			>
+				{userReaction ? (
+					<span className="text-xs text-lond-accent ">{userReaction}</span>
+				) : (
+					<Smile
+						size={16}
+						className="text-lond-light-gray group-hover/ReactIcon:text-lond-accent"
+					/>
+				)}
+			</motion.button>
 
 			<AnimatePresence>
 				{showReactions && (
@@ -45,7 +58,7 @@ const ReactIconExplore = ({
 					/>
 				)}
 			</AnimatePresence>
-		</motion.div>
+		</div>
 	);
 };
 
