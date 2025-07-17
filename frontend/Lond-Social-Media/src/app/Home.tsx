@@ -311,7 +311,16 @@ border-2 border-slate-600 flex items-center justify-center transition-all durati
 									/>
 								);
 							case 'londies':
-								return <LondiesPost key={index} {...postData} />;
+								return (
+									<LondiesPost
+										openDialog={() => {
+											setPostDialogData(postData);
+											setIsPostOpen(true);
+										}}
+										key={index}
+										{...postData}
+									/>
+								);
 						}
 					})}
 				</motion.div>

@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Bookmark, Heart, Share } from 'lucide-react';
 import { useCallback, useState } from 'react';
 import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri';
-import videoEx from '../../../../assets/videoEx.mp4';
+import videoEx from '../../../../assets/videoEx2.mp4';
 import { cardVariants, handleDoubleTapImgs } from '../funcs/HomeFuncs';
 import PostHeader from '../PostHeader';
 import ReactIcon from '../Reactions/ReactIcon';

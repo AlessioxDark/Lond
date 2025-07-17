@@ -6,9 +6,22 @@ import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri';
 
 import PostComments from '../../post/utils/PostComments';
 import InstagramPostDialog from '../../post/utils/PostDialog/InstagramPostDialog';
+import LondiesPostDialog from '../../post/utils/PostDialog/LondiesPostDialog';
 import YoutubePostDialog from '../../post/utils/PostDialog/YoutubePostDialog';
 
 const PostDialog = ({ isOpen, onClose, PostDialogData }) => {
+	const findComponent = useCallback(() => {
+		switch (PostDialogData?.type) {
+			case 'instagram':
+				return <InstagramPostDialog PostDialogData={PostDialogData} />;
+			case 'youtube':
+				return <YoutubePostDialog PostDialogData={PostDialogData} />;
+			case 'londies':
+				return <LondiesPostDialog PostDialogData={PostDialogData} />;
+			default:
+				return null;
+		}
+	}, [PostDialogData]);
 	return (
 		<Transition show={isOpen} as={Fragment}>
 			<Dialog onClose={onClose} className="fixed inset-0 z-50 overflow-hidden">
@@ -43,8 +56,7 @@ const PostDialog = ({ isOpen, onClose, PostDialogData }) => {
 							</button>
 
 							<div className="flex flex-row h-[94vh] p-3">
-								{/* <InstagramPostDialog PostDialogData={PostDialogData} /> */}
-								<YoutubePostDialog PostDialogData={PostDialogData} />
+								{findComponent()}
 
 								<PostComments />
 							</div>

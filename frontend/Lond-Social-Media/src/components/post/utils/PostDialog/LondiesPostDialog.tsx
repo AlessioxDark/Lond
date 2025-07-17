@@ -1,43 +1,13 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { Bookmark, Heart, MessageCircle, Share } from 'lucide-react';
 import React, { useState } from 'react';
-import LondiesPlayer from '../utils/LondiesPlayer';
-import PostComments from '../utils/PostComments';
-import PostHeader from '../utils/PostHeader';
-import ReactIcon from '../utils/Reactions/ReactIcon';
-import ReactionsBar from '../utils/Reactions/ReactionsBar';
-import SocialIcon from '../utils/SocialIcon';
-import { cardVariants, postContainerStyles } from '../utils/funcs/HomeFuncs';
-
-interface LondiesPostProps {
-	name: string;
-	title: string;
-	likes: number;
-	desc: string;
-	comments: number;
-	saved: number;
-	pfp: string;
-	handle: string;
-	createdAt: Date;
-	repost: number;
-	isVerified: boolean;
-	isViral: boolean;
-}
-const LondiesPost = ({
-	name,
-	desc,
-	pfp,
-	title,
-	likes,
-	repost,
-	comments,
-	isVerified,
-	saved,
-	handle,
-	isViral,
-	createdAt,
-	openDialog,
-}: LondiesPostProps) => {
+import LondiesPlayer from '../LondiesPlayer';
+import PostHeader from '../PostHeader';
+import ReactIcon from '../Reactions/ReactIcon';
+import ReactionsBar from '../Reactions/ReactionsBar';
+import SocialIcon from '../SocialIcon';
+import { cardVariants } from '../funcs/HomeFuncs';
+const LondiesPostDialog = ({ PostDialogData }) => {
 	const [userReaction, setUserReaction] = useState('');
 	const [isReposted, setIsReposted] = useState(false);
 	const [isComments, setIsComments] = useState(false);
@@ -57,11 +27,10 @@ const LondiesPost = ({
 		{ emoji: '🎍', count: 3 },
 		{ emoji: '🎭', count: 5 },
 	]);
-
 	return (
 		<motion.div
-			className={`${postContainerStyles}
-        w-[65%]`}
+			className={`
+        w-[50%] pt-2`}
 			role="article"
 			aria-labelledby={`post-author`}
 			variants={cardVariants}
@@ -69,37 +38,33 @@ const LondiesPost = ({
 			initial="initial"
 		>
 			<PostHeader
-				handle={handle}
-				isViral={isViral}
-				name={name}
-				pfp={pfp}
-				createdAt={createdAt}
-				isVerified={isVerified}
+				handle={PostDialogData?.handle}
+				isViral={PostDialogData?.isViral}
+				pfp={PostDialogData?.pfp}
+				name={PostDialogData?.name}
+				createdAt={PostDialogData?.createdAt}
+				isVerified={PostDialogData?.isVerified}
 			/>
 
-			<div className="flex gap-3 items-start flex-col">
-				<LondiesPlayer isLiked={isLiked} setIsLiked={setIsLiked} />
-				<div className="w-full flex flex-col gap-3">
+			<div className="flex gap-3 items-center flex-col">
+				<div className="w-[90%] ">
+					<LondiesPlayer isLiked={isLiked} setIsLiked={setIsLiked} />
+				</div>
+				<div className="w-[90%] flex flex-col gap-3">
 					<div className="w-full flex justify-between items-center">
 						<div className="flex items-center gap-3  flex-wrap ">
 							<SocialIcon
 								icon={Heart}
 								isActive={isLiked}
 								onClick={() => setIsLiked(!isLiked)}
-								count={likes}
+								count={PostDialogData?.likes}
 							/>
 
-							<SocialIcon
-								icon={MessageCircle}
-								isActive={isComments}
-								onClick={() => openDialog()}
-								count={comments}
-							/>
 							<SocialIcon
 								icon={Bookmark}
 								isActive={isSaved}
 								onClick={() => setIsSaved(!isSaved)}
-								count={saved}
+								count={PostDialogData?.saved}
 							/>
 
 							<ReactIcon
@@ -112,21 +77,12 @@ const LondiesPost = ({
 								icon={Share}
 								isActive={isReposted}
 								onClick={() => setIsReposted(!isReposted)}
-								count={repost}
+								count={PostDialogData?.repost}
 							/>
 						</div>
 						<div className="">
 							<ReactionsBar reactions={reactions} />
 						</div>
-					</div>
-
-					<div className="">
-						<h2 className="text-2xl font-black font-montserrat text-lond-text-primary mb-2">
-							{title}
-						</h2>
-						<p className="text-lond-text-primary text-md leading-relaxed font-light font-lato">
-							{desc}
-						</p>
 					</div>
 				</div>
 			</div>
@@ -134,4 +90,4 @@ const LondiesPost = ({
 	);
 };
 
-export default LondiesPost;
+export default LondiesPostDialog;
