@@ -43,7 +43,7 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 	const [playbackRate, setPlaybackRate] = useState(1);
 	const [time, setTime] = useState({ min: '00', sec: '00', h: '00' });
 	const [volumeIcon, setVolumeIcon] = useState<React.ReactNode>(
-		<FaVolumeHigh className="text-white text-md group/volume" />
+		<FaVolumeHigh className="text-lond-text-primary text-md group/volume" />
 	);
 	const videoRef = useRef<HTMLVideoElement>(null);
 	const bufferRef = useRef<HTMLDivElement>(null);
@@ -125,28 +125,28 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 				volumeRef.current.style.width = `${width}%`;
 				if (volume === 0 || isMuted) {
 					setVolumeIcon(
-						<FaVolumeXmark className="text-white text-md group/volume" />
+						<FaVolumeXmark className="text-lond-text-primary text-md group/volume" />
 					);
 				} else {
 					if (volume <= 0.25) {
 						setVolumeIcon(
 							<FaVolumeLow
 								onClick={handleMute}
-								className="text-white text-md group/volume"
+								className="text-lond-text-primary text-md group/volume"
 							/>
 						);
 					} else if (volume <= 0.5) {
 						setVolumeIcon(
 							<ImVolumeMedium
 								onClick={handleMute}
-								className="text-white text-md group/volume"
+								className="text-lond-text-primary text-md group/volume"
 							/>
 						);
 					} else {
 						setVolumeIcon(
 							<FaVolumeHigh
 								onClick={handleMute}
-								className="text-white text-md group/volume"
+								className="text-lond-text-primary text-md group/volume"
 							/>
 						);
 					}
@@ -207,7 +207,7 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 			setIsMuted(true);
 			volumeRef.current.style.width = `0`;
 			setVolumeIcon(
-				<FaVolumeXmark className="text-white text-md group/volume" />
+				<FaVolumeXmark className="text-lond-text-primary text-md group/volume" />
 			);
 			video.volume = 0;
 		}
@@ -468,7 +468,6 @@ const VideoPlayer = ({ src, isLiked, setIsLiked }: VideoPlayerProps) => {
 							<span className="text-lond-light-gray mx-2">/</span>
 							<span className="text-lond-light-gray">
 								{' '}
-								{/* Leggermente meno enfasi sulla durata totale */}
 								{videoDuration && formatTime(videoDuration)}
 							</span>
 						</div>

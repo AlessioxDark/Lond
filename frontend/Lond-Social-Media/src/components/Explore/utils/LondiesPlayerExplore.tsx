@@ -7,6 +7,7 @@ import { FaPlay } from 'react-icons/fa';
 import { FaVolumeHigh, FaVolumeLow, FaVolumeXmark } from 'react-icons/fa6';
 import { VscDebugRestart } from 'react-icons/vsc';
 import videoEx from '../../../assets/TikTokVideo.mp4';
+import LondiesProgressBar from '../../Londies/utils/LondiesProgressBar';
 import { handleVideoClick } from '../../post/utils/funcs/HomeFuncs';
 const Video = styled.video`
 	flex-shrink: 1;
@@ -180,7 +181,10 @@ const LondiesPlayerExplore = ({ isLiked, setIsLiked }: LondiesPlayerProps) => {
 			overlayRef.current.style.backgroundColor = 'transparent';
 		}
 	};
-
+	const handleChangeProgressBar = (newValue: number) => {
+		if (!videoRef.current) return;
+		videoRef.current.currentTime = newValue;
+	};
 	return (
 		<div
 			className={`flex flex-col cursor-pointer items-center justify-center relative overflow-hidden group aspect-[3/4]
@@ -243,11 +247,10 @@ const LondiesPlayerExplore = ({ isLiked, setIsLiked }: LondiesPlayerProps) => {
 			<div className="absolute bottom-5 right-5 z-30" onClick={handleMute}>
 				<motion.div
 					whileTap={{ scale: 0.9 }}
-					className="w-9 h-9 cursor-pointer rounded-full 
-       "
+					className="w-9 h-9 cursor-pointer rounded-full"
 				>
-					<div className="w-full h-full bg-[#253141] backdrop-blur-xl border-2 border-slate-600 rounded-full flex justify-center items-center transition-all duration-300">
-						<span className=" text-lg group/volume text-white">
+					<div className="w-full h-full bg-lond-dark/70 backdrop-blur-md border-2 border-lond-light-gray/50 rounded-full flex justify-center items-center transition-all duration-300">
+						<span className="text-lg group/volume text-lond-text-primary">
 							{volumeIcon}
 						</span>
 					</div>
@@ -261,23 +264,13 @@ const LondiesPlayerExplore = ({ isLiked, setIsLiked }: LondiesPlayerProps) => {
 						{time.min}:{time.sec}
 					</span>
 				</div>
-				<div className="flex flex-col items-center">
-					<div
-						className="w-full h-1 bg-slate-700/70 backdrop-blur-xl rounded-full overflow-hidden cursor-pointer transition-all duration-200"
-						onClick={seekToPosition}
-					>
-						<div className="flex relative w-full h-full">
-							<div
-								className="play-progress bg-white rounded-full  transition-all duration-200 flex h-full relative overflow-hidden"
-								ref={progressRef}
-							/>
-							<div
-								className="buffer-progress flex bg-slate-500/60 absolute h-full rounded-full"
-								ref={bufferRef}
-							/>
-						</div>
-					</div>
-				</div>
+				<LondiesProgressBar
+					min={0}
+					max={videoRef.current?.duration || 0}
+					type="lond"
+					value={videoRef.current?.currentTime || 0}
+					setValue={handleChangeProgressBar}
+				/>
 			</div>
 		</div>
 	);

@@ -60,7 +60,7 @@ export default function YoutubePostExplore({
 	]);
 	return (
 		<motion.div
-			className="relative overflow-hidden rounded-3xl transition-all duration-300 cursor-pointer backdrop-blur-sm hover:shadow-xl shadow-lg  hover:shadow-slate-900/25   bg-slate-800/90"
+			className="relative overflow-hidden rounded-3xl transition-all duration-300 cursor-pointer backdrop-blur-sm bg-lond-gray"
 			whileHover={{ y: -2 }}
 			layout
 		>
@@ -82,7 +82,7 @@ export default function YoutubePostExplore({
 				/>
 
 				{/* Titolo */}
-				<h4 className="text-white font-semibold text-sm mb-2 line-clamp-2 leading-tight">
+				<h4 className="text-lond-text-primary font-semibold text-sm mb-2 line-clamp-2 leading-tight">
 					{title}
 				</h4>
 
@@ -93,42 +93,7 @@ export default function YoutubePostExplore({
 				<div className="mb-3">
 					<ReactionsBar reactions={reactions} />
 				</div>
-				{/* Stats compatte */}
-				{/* <div className="flex items-center justify-between text-xs">
-					<div className="flex items-center gap-3 text-slate-400">
-						<SocialIconExplore
-							isActive={isLiked}
-							onClick={() => {
-								setIsLiked(!isLiked);
-							}}
-							Icon={Heart}
-							count={0}
-						/>
-						<SocialIconExplore
-							isActive={isComments}
-							onClick={() => {
-								setIsComments(!isComments);
-							}}
-							Icon={MessageCircle}
-							count={0}
-						/>
-						<SocialIconExplore
-							isActive={isSaved}
-							onClick={() => {
-								setIsSaved(!isSaved);
-							}}
-							Icon={Bookmark}
-							count={0}
-						/>
-						<ReactIconExplore
-							reactions={reactions}
-							setReactions={setReactions}
-							userReaction={userReaction}
-							setUserReaction={setUserReaction}
-						/>
-						<SocialIconExplore Icon={Share} count={0} />
-					</div>
-				</div> */}
+
 				<SocialIconsExploreFullRow
 					isComments={isComments}
 					setIsComments={setIsComments}

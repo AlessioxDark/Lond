@@ -47,7 +47,7 @@ export default function InstagramPostExplore({
 	]);
 	return (
 		<motion.div
-			className="relative overflow-hidden rounded-3xl transition-all duration-300 cursor-pointer backdrop-blur-sm hover:shadow-xl shadow-lg  hover:shadow-slate-900/25   bg-slate-800/90 p-4"
+			className="relative overflow-hidden rounded-3xl transition-all duration-300 cursor-pointer backdrop-blur-sm   bg-lond-gray p-4"
 			whileHover={{ y: -2 }}
 		>
 			<PostHeader
@@ -71,8 +71,8 @@ export default function InstagramPostExplore({
 			>
 				{/* Image counter */}
 				<div className="absolute top-4 right-4 z-30">
-					<div className="bg-black/60 backdrop-blur-sm rounded-xl px-3 py-1 text-center">
-						<span className="text-white text-sm font-Lato">
+					<div className="bg-lond-dark/70 backdrop-blur-sm rounded-xl px-3 py-1 text-center">
+						<span className="text-lond-text-primary text-sm font-Lato">
 							{currentImgIndex + 1}/{images.length}
 						</span>
 					</div>
@@ -86,7 +86,7 @@ export default function InstagramPostExplore({
 							setCurrentImgIndex((prevIndex) => prevIndex - 1);
 						}
 					}}
-					className="absolute top-1/2 left-2 z-30 w-10 h-10 bg-black/60 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/80 transition-all duration-300"
+					className="absolute top-1/2 left-2 z-30 w-10 h-10 bg-lond-dark/70 backdrop-blur-sm rounded-full flex items-center justify-center text-lond-text-primary hover:bg-lond-dark transition-all duration-300"
 					disabled={currentImgIndex === 0}
 				>
 					<RiArrowLeftSLine className="w-6 h-6" />
@@ -117,7 +117,7 @@ export default function InstagramPostExplore({
 							setCurrentImgIndex((prevIndex) => prevIndex + 1);
 						}
 					}}
-					className="absolute top-1/2 right-2 z-30 w-10 h-10 bg-black/60 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/80 transition-all duration-300"
+					className="absolute top-1/2 right-2 z-30 w-10 h-10 bg-lond-dark/70 backdrop-blur-sm rounded-full flex items-center justify-center text-lond-text-primary hover:bg-lond-dark transition-all duration-300"
 					disabled={currentImgIndex === images.length - 1}
 				>
 					<RiArrowRightSLine className="w-6 h-6" />
@@ -133,8 +133,8 @@ export default function InstagramPostExplore({
 									onClick={() => setCurrentImgIndex(i)}
 									className={`w-2 h-2 rounded-full transition-all duration-300 ${
 										i === currentImgIndex
-											? 'bg-zinc-200 w-6'
-											: 'bg-white/50 hover:bg-white/80'
+											? 'bg-lond-accent w-6'
+											: 'bg-lond-light-gray/50 hover:bg-lond-light-gray/80'
 									}`}
 								/>
 							))}

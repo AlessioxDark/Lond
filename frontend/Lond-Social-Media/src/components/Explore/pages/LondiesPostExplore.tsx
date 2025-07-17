@@ -45,7 +45,7 @@ const LondiesPostExplore = ({
 	]);
 	return (
 		<motion.div
-			className="relative overflow-hidden rounded-3xl transition-all duration-300 cursor-pointer backdrop-blur-sm hover:shadow-xl shadow-lg  hover:shadow-slate-900/25   bg-slate-800/90 p-4"
+			className="relative overflow-hidden rounded-3xl transition-all duration-300 cursor-pointer backdrop-blur-sm bg-lond-gray p-4"
 			whileHover={{ y: -2 }}
 		>
 			<PostHeader

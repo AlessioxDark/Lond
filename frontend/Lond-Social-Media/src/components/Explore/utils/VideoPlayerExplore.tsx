@@ -9,6 +9,7 @@ import { FaPause, FaPlay } from 'react-icons/fa';
 import { FaVolumeHigh, FaVolumeLow, FaVolumeXmark } from 'react-icons/fa6';
 import { ImVolumeMedium } from 'react-icons/im';
 import { MdFullscreen, MdFullscreenExit } from 'react-icons/md';
+import LondiesProgressBar from '../../Londies/utils/LondiesProgressBar';
 import { handleVideoClick } from '../../post/utils/funcs/HomeFuncs';
 const Video = styled.video`
 	flex-shrink: 1;
@@ -39,7 +40,7 @@ const VideoPlayerExplore = ({
 	const [playbackRate, setPlaybackRate] = useState(1);
 	const [time, setTime] = useState({ min: '00', sec: '00', h: '00' });
 	const [volumeIcon, setVolumeIcon] = useState<React.ReactNode>(
-		<FaVolumeHigh className="text-white text-sm group/volume" />
+		<FaVolumeHigh className="text-lond-text-primary text-sm group/volume" />
 	);
 	const videoRef = useRef<HTMLVideoElement>(null);
 	const bufferRef = useRef<HTMLDivElement>(null);
@@ -121,28 +122,28 @@ const VideoPlayerExplore = ({
 				volumeRef.current.style.width = `${width}%`;
 				if (volume === 0 || isMuted) {
 					setVolumeIcon(
-						<FaVolumeXmark className="text-white text-sm group/volume" />
+						<FaVolumeXmark className="text-lond-text-primary text-sm group/volume" />
 					);
 				} else {
 					if (volume <= 0.25) {
 						setVolumeIcon(
 							<FaVolumeLow
 								onClick={handleMute}
-								className="text-white text-sm group/volume"
+								className="text-lond-text-primary text-sm group/volume"
 							/>
 						);
 					} else if (volume <= 0.5) {
 						setVolumeIcon(
 							<ImVolumeMedium
 								onClick={handleMute}
-								className="text-white text-sm group/volume"
+								className="text-lond-text-primary text-sm group/volume"
 							/>
 						);
 					} else {
 						setVolumeIcon(
 							<FaVolumeHigh
 								onClick={handleMute}
-								className="text-white text-sm group/volume"
+								className="text-lond-text-primary text-sm group/volume"
 							/>
 						);
 					}
@@ -170,26 +171,26 @@ const VideoPlayerExplore = ({
 		};
 	}, [videoRef.current]);
 
-	const seekToPosition = (e: React.MouseEvent<HTMLDivElement>) => {
+	const handleChangeProgressBar = (newValue: number) => {
 		if (!videoRef.current) return;
-		const { left, width } = e.currentTarget.getBoundingClientRect();
-		const clickPos = (e.clientX - left) / width;
-		if (clickPos < 0 || clickPos > 1) return;
-		const durationMs = videoRef.current.duration * 1000;
-		const newTime = (durationMs * clickPos) / 1000;
-		videoRef.current.currentTime = newTime;
+		setIsWaiting(false);
+		videoRef.current.currentTime = newValue;
 	};
 
 	const handleMute = () => {
+		console.log('muting...', volumeRef.current);
 		if (!videoRef.current) return;
 		if (!volumeRef.current) return;
+
 		const video = videoRef.current;
 		if (isMuted) {
+			console.log('è mutato');
 			video.muted = false;
 			setIsMuted(false);
 
 			video.volume = prevVolume.current;
 		} else {
+			console.log('non è mutato');
 			video.volume != 0
 				? (prevVolume.current = video.volume)
 				: prevVolume.current;
@@ -198,12 +199,11 @@ const VideoPlayerExplore = ({
 			setIsMuted(true);
 			volumeRef.current.style.width = `0`;
 			setVolumeIcon(
-				<FaVolumeXmark className="text-white text-md group/volume" />
+				<FaVolumeXmark className="text-lond-text-primary text-md group/volume" />
 			);
 			video.volume = 0;
 		}
 	};
-
 	const modifyVolume = (e: React.MouseEvent<HTMLDivElement>) => {
 		if (!videoRef.current) return;
 
@@ -278,12 +278,42 @@ const VideoPlayerExplore = ({
 
 		return h === '00' ? `${m}:${s}` : `${h}:${m}:${s}`;
 	};
-
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+		switch (e.code) {
+			case 'Space':
+				e.preventDefault();
+				console.log('spazio');
+				handlePlayPause();
+				break;
+			case 'ArrowRight':
+				e.preventDefault();
+				if (!videoRef.current) return;
+				// setIsWaiting(false);
+				videoRef.current.currentTime += 10;
+				break;
+			case 'ArrowLeft':
+				e.preventDefault();
+				if (!videoRef.current) return;
+				// setIsWaiting(false);
+				videoRef.current.currentTime -= 10;
+				break;
+			case 'KeyM':
+				handleMute();
+				break;
+			case 'F11':
+				e.preventDefault();
+				handleFullscreen();
+				break;
+			default:
+				console.log(e.code);
+				break;
+		}
+	};
 	return (
 		<motion.div
 			className="group
-				 border border-slate-700/30 hover:border-slate-600/50
-				hover:shadow-slate-900/20
+				 border border-lond-gray/70 hover:border-lond-gray
+				hover:shadow-lond-dark/20
 				hover:shadow-2xl cursor-pointer overflow-visible relative rounded-2xl"
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ opacity: 1, y: 0 }}
@@ -296,20 +326,20 @@ const VideoPlayerExplore = ({
 						initial={{ opacity: 0, scale: 0.8 }}
 						animate={{ opacity: 1, scale: 1 }}
 						exit={{ opacity: 0, scale: 0.8 }}
-						className="absolute w-full h-full flex items-center justify-center z-25 bg-[#253141] backdrop-blur-sm rounded-xl"
+						className="absolute w-full h-full flex items-center justify-center z-25 rounded-xl"
 					>
 						<motion.div
 							animate={{ rotate: 360 }}
 							transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
 						>
-							<CgSpinner className="text-6xl text-white " />
+							<CgSpinner className="text-6xl text-lond-text-primary " />
 						</motion.div>
 					</motion.div>
 				)}
 			</AnimatePresence>
 			<Video src={src} ref={videoRef} preload="metadata"></Video>
 			<div
-				className="absolute w-full h-full inset-0 flex justify-center items-center rounded-[10px] z-20 transition-all duration-300"
+				className="absolute w-full h-full inset-0 flex justify-center items-center rounded-[10px] z-20 transition-all duration-300 outline-none"
 				ref={overlayRef}
 				onClick={(e) => {
 					handleVideoClick(
@@ -320,7 +350,15 @@ const VideoPlayerExplore = ({
 						clickTimeoutRef,
 						handlePlayPause
 					);
+					if (document.activeElement !== overlayRef.current) {
+						overlayRef.current?.focus();
+					}
+					console.log(document.activeElement == overlayRef.current);
 				}}
+				onKeyDown={(e) => {
+					handleKeyDown(e);
+				}}
+				tabIndex={0}
 			>
 				<AnimatePresence>
 					{!isPlaying && videoDuration !== videoRef.current?.currentTime && (
@@ -329,10 +367,10 @@ const VideoPlayerExplore = ({
 							animate={{ scale: 1, opacity: 1 }}
 							exit={{ scale: 0, opacity: 0 }}
 							whileTap={{ scale: 0.9 }}
-							className="bg-[#253141]
-		   rounded-full p-4 shadow-2xl  backdrop-blur-xl "
+							className="bg-lond-dark/70 backdrop-blur-xl
+		   rounded-full p-4 shadow-2xl"
 						>
-							<FaPlay className="text-xl text-white ml-1" />
+							<FaPlay className="text-xl text-lond-text-primary ml-1" />
 						</motion.div>
 					)}
 				</AnimatePresence>
@@ -347,31 +385,33 @@ const VideoPlayerExplore = ({
 								exit={{ scale: 0, opacity: 0 }}
 								whileTap={{ scale: 0.9 }}
 								onClick={restartVideo}
-								className="bg-slate-600/80 backdrop-blur-sm rounded-full p-6 shadow-2xl"
+								className="bg-lond-gray/80 backdrop-blur-sm rounded-full p-6 shadow-2xl"
 							>
-								<VscDebugRestart className="text-4xl text-white" />
+								<VscDebugRestart className="text-4xl text-lond-text-primary" />
 							</motion.div>
 						)}
 				</AnimatePresence>
 			</div>
 
 			<div
-				className="bg-[#253141]
-		    backdrop-blur-xl
-				  rounded-b-lg rounded-t-2xl p-2 shadow-2xl border border-slate-600/30  background-blur-xl
+				className="bg-lond-dark/80
+		    backdrop-blur-md
+				  rounded-b-lg rounded-t-2xl p-2 shadow-2xl border border-lond-gray  background-blur-xl
 		      border-t absolute w-full bottom-0 z-30 transition-all duration-500  ease-in-out right-0
 					opacity-0 group-hover:opacity-100 pb-1 "
 			>
 				{/* Timeline */}
 				<div
-					className="timeline w-full  h-2 mb-2  bg-slate-700/70
+					className="timeline w-full  h-2 mb-2 bg-lond-gray/70
 							rounded-full overflow-hidden cursor-pointer shadow-inner  transition-all duration-200"
-					onClick={seekToPosition}
 				>
 					<div className="flex relative w-full h-full">
-						<motion.div
-							className="play-progress bg-white rounded-full transition-all duration-200 flex h-full relative overflow-hidden"
-							ref={progressRef}
+						<LondiesProgressBar
+							max={videoRef.current?.duration || 0}
+							min={0}
+							value={videoRef.current?.currentTime || 0}
+							setValue={handleChangeProgressBar}
+							type="youtube"
 						/>
 						<div
 							className="buffer-progress flex bg-slate-500/60 absolute h-full rounded-full"
@@ -385,9 +425,9 @@ const VideoPlayerExplore = ({
 					<div className="flex items-center gap-4">
 						<motion.button
 							className="flex items-center justify-center w-8 h-8 rounded-xl
-									border-2 bg-slate-800/60
-								 text-white hover:border-slate-300/90
-									border-slate-600
+									border-2 bg-lond-gray/80
+								 text-lond-text-primary hover:border-lond-light-gray
+									border-lond-light-gray/50
 									transition-all duration-300 backdrop-blur-sm
 
 		              "
@@ -402,14 +442,14 @@ const VideoPlayerExplore = ({
 						</motion.button>
 
 						<div
-							className="text-white font-bold font-Lato bg-slate-800/60
-								backdrop-blur-sm px-2 py-1 rounded-xl border-2 border-slate-600"
+							className="text-lond-text-primary font-bold font-Lato bg-lond-gray/80
+								backdrop-blur-sm px-2 py-1 rounded-xl border-2 border-lond-light-gray/50"
 						>
-							<span className="text-slate-100">
+							<span className="text-lond-text-primary">
 								{time.min}:{time.sec}
 							</span>
-							<span className="text-slate-400 text-sm mx-2">/</span>
-							<span className="text-slate-300 text-sm">
+							<span className="text-lond-light-gray text-sm mx-2">/</span>
+							<span className="text-lond-light-gray text-sm">
 								{videoDuration && formatTime(videoDuration)}
 							</span>
 						</div>
@@ -418,36 +458,45 @@ const VideoPlayerExplore = ({
 					<div className="flex items-center gap-4">
 						{/* Volume Control */}
 						<div
-							className="flex items-center gap-3 group/volume h-10"
+							className={`flex items-center ${
+								showVolumeSlider && 'gap-3'
+							} group/volume h-10`}
 							onMouseEnter={() => setShowVolumeSlider(true)}
 							onMouseLeave={() => setShowVolumeSlider(false)}
 						>
 							<motion.div
 								onClick={handleMute}
 								whileTap={{ scale: 0.9 }}
-								className="w-8 h-8 rounded-xl bg-slate-800/60
-										border-2 border-slate-600  text-white backdrop-blur-sm  transition-all duration-300 flex items-center justify-center
+								className="w-8 h-8 rounded-xl bg-lond-gray/80
+										border-2 border-lond-light-gray/50  text-lond-text-primary backdrop-blur-sm  transition-all duration-300 flex items-center justify-center
 		                "
 							>
 								{volumeIcon}
 							</motion.div>
 
 							<AnimatePresence>
-								{showVolumeSlider && (
-									<motion.div
-										initial={{ width: 0, opacity: 0 }}
-										animate={{ width: 60, opacity: 1 }}
-										exit={{ width: 0, opacity: 0 }}
-										className="h-2 bg-slate-700/70
+								<motion.div
+									initial={{
+										width: showVolumeSlider ? 0 : 96,
+										opacity: showVolumeSlider ? 0 : 1,
+									}}
+									animate={{
+										width: showVolumeSlider ? 96 : 0,
+										opacity: showVolumeSlider ? 1 : 0,
+									}}
+									exit={{
+										width: showVolumeSlider ? 0 : 96,
+										opacity: showVolumeSlider ? 0 : 1,
+									}}
+									className="h-2 bg-lond-gray/70
 												rounded-full overflow-hidden cursor-pointer shadow-inner"
-										onClick={modifyVolume}
-									>
-										<div
-											className="h-full bg-white rounded-full"
-											ref={volumeRef}
-										/>
-									</motion.div>
-								)}
+									onClick={modifyVolume}
+								>
+									<div
+										className="h-full bg-lond-text-primary rounded-full"
+										ref={volumeRef}
+									/>
+								</motion.div>
 							</AnimatePresence>
 						</div>
 
@@ -455,8 +504,8 @@ const VideoPlayerExplore = ({
 						<div className="relative">
 							<motion.button
 								className="flex items-center gap-2 h-8 px-1.5 py-1.5 rounded-xl
-										bg-slate-800/60 backdrop-blur-sm border-2 border-slate-600
-										hover:border-slate-300/90 text-white transition-all duration-300  "
+										bg-lond-gray/80 backdrop-blur-sm border-2 border-lond-light-gray/50
+										hover:border-lond-light-gray text-lond-text-primary transition-all duration-300  "
 								onClick={() => setIsOpen(!isOpen)}
 								whileTap={{ scale: 0.95 }}
 							>
@@ -468,7 +517,7 @@ const VideoPlayerExplore = ({
 									animate={{ rotate: isOpen ? 180 : 0 }}
 									transition={{ duration: 0.2 }}
 								>
-									<FiChevronDown className="w-5 h-5 text-slate-400" />
+									<FiChevronDown className="w-5 h-5 text-lond-light-gray" />
 								</motion.div>
 							</motion.button>
 
@@ -478,11 +527,11 @@ const VideoPlayerExplore = ({
 										initial={{ opacity: 0, y: 10, scale: 0.95 }}
 										animate={{ opacity: 1, y: 0, scale: 1 }}
 										exit={{ opacity: 0, y: 10, scale: 0.95 }}
-										className="bg-black/80 absolute bottom-full mb-3 left-0 w-24
-												backdrop-blur-xl border border-slate-600 rounded-xl shadow-2xl z-40"
+										className="bg-lond-dark/90 absolute bottom-full mb-3 left-0 w-24
+												backdrop-blur-xl border border-lond-gray rounded-xl shadow-2xl z-40"
 									>
 										<div
-											className="w-full bg-gradient-to-br from-slate-800/40 via-slate-900/40 to-slate-900/60
+											className="w-full bg-lond-gray/80
 		    backdrop-blur-xl
 				  rounded-xl p-2 shadow-2xl"
 										>
@@ -504,8 +553,8 @@ const VideoPlayerExplore = ({
 																rounded-lg cursor-pointer transition-all duration-200 font-bold
 																${
 																	isHovered || isActive
-																		? 'bg-gradient-to-r from-pink-400 to-purple-400 text-white shadow-lg'
-																		: 'bg-transparent text-slate-300 hover:text-white'
+																		? 'bg-lond-accent text-lond-text-primary shadow-lg'
+																		: 'bg-transparent text-lond-light-gray hover:text-lond-text-primary'
 																}
 															`}
 															whileTap={{ scale: 0.95 }}
@@ -525,9 +574,9 @@ const VideoPlayerExplore = ({
 						<motion.button
 							onClick={handleFullscreen}
 							whileTap={{ scale: 0.9 }}
-							className="w-8 h-8 items-center justify-center flex rounded-xl bg-slate-800/60 backdrop-blur-sm
-									border-2 border-slate-600 hover:border-slate-300
-									text-white hover:text-slate-300 transition-all duration-300"
+							className="w-8 h-8 items-center justify-center flex rounded-xl bg-lond-gray/80 backdrop-blur-sm
+									border-2 border-lond-light-gray/50 hover:border-lond-light-gray
+									text-lond-text-primary hover:text-lond-text-primary transition-all duration-300"
 						>
 							{isFullScreen ? (
 								<MdFullscreenExit className="text-xl" />

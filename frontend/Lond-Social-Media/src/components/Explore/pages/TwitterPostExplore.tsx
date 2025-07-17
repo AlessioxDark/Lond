@@ -70,7 +70,7 @@ export default function TwitterPostExplore({
 	return (
 		<motion.article
 			className={`
- relative group overflow-hidden rounded-3xl transition-all duration-500 cursor-pointer backdrop-blur-sm p-4 hover:shadow-xl shadow-lg  hover:shadow-slate-900/25  bg-slate-800/90
+ relative group overflow-hidden rounded-3xl transition-all duration-500 cursor-pointer backdrop-blur-sm p-4 bg-lond-gray
 			`}
 			variants={cardVariants}
 			role="article"
@@ -94,7 +94,7 @@ export default function TwitterPostExplore({
 
 			{/* Enhanced Content with media type indicator */}
 			<motion.div className={`mb-2 relative z-10 opacity-100`}>
-				<p className="text-slate-100 text-[0.80rem] leading-relaxed font-normal whitespace-pre-wrap tracking-wide">
+				<p className="text-lond-text-primary text-[0.80rem] leading-relaxed font-normal whitespace-pre-wrap tracking-wide">
 					{text}
 				</p>
 			</motion.div>
